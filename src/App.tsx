@@ -18,6 +18,9 @@ const App = () => {
 export default App
 
 EStyleSheet.build({
+  // colors
+  $primaryTheme: '#121B22',
+  $secondaryTheme: '#1F2C34',
   // fonts
   $fontRegular: 'DMSans-Regular',
   $fontMedium: 'DMSans-Medium',

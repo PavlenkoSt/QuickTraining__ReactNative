@@ -19,8 +19,8 @@ export default CustomText
 
 const styles = EStyleSheet.create({
   text: {
-    color: '#333',
-    fontSize: 20,
+    color: '#fff',
+    fontSize: 16,
     fontFamily: '$fontRegular',
   },
 })

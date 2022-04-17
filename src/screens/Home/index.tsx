@@ -3,11 +3,11 @@ import React from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import MainLayout from 'src/layouts/MainLayout'
-import MainHeader from 'src/components/headers/MainHeader'
+import HomeHeader from 'src/screens/Home/HomeHeader'
 
 const Home = () => {
   return (
-    <MainLayout Header={MainHeader}>
+    <MainLayout Header={HomeHeader}>
       <Text>Home</Text>
     </MainLayout>
   )
