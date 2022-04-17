@@ -7,6 +7,8 @@
  */
 
 import React from 'react'
+import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
+
 import Navigation from 'src/navigation/main'
 
 const App = () => {
@@ -14,3 +16,5 @@ const App = () => {
 }
 
 export default App
+
+EStyleSheet.build({})
