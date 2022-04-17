@@ -17,4 +17,9 @@ const App = () => {
 
 export default App
 
-EStyleSheet.build({})
+EStyleSheet.build({
+  // fonts
+  $fontRegular: 'DMSans-Regular',
+  $fontMedium: 'DMSans-Medium',
+  $fontBold: 'DMSans-Bold',
+})

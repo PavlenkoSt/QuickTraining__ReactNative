@@ -5,14 +5,14 @@ import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 type MainLayoutPropsType = {
   children: React.ReactNode
   withoutScroll?: boolean
-  Header: FC
+  Header?: FC
 }
 
 const MainLayout: FC<MainLayoutPropsType> = ({ children, withoutScroll, Header }) => {
   return (
     <View style={styles.mainContainer}>
       <StatusBar backgroundColor="transparent" translucent barStyle="dark-content" />
-      <Header />
+      {!!Header && <Header />}
       {withoutScroll ? (
         <View style={styles.noScrollInnerContainer}>{children}</View>
       ) : (
