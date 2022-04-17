@@ -7,21 +7,10 @@
  */
 
 import React from 'react'
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native'
+import Navigation from 'src/navigation/main'
 
 const App = () => {
-  return (
-    <SafeAreaView>
-      <StatusBar />
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <View>
-          <Text>Init</Text>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  )
+  return <Navigation />
 }
-
-const styles = StyleSheet.create({})
 
 export default App
