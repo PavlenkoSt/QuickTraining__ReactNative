@@ -2,12 +2,19 @@ import { View } from 'react-native'
 import React from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
+import { IUser } from 'src/RealmDB/schemas/User'
+import RealmDB from 'src/RealmDB'
+
 import CustomText from 'src/components/CustomText'
 
 const HomeHeader = () => {
+  const { useObject } = RealmDB
+
+  const user: IUser = useObject('User', 0)?.toJSON()
+
   return (
     <View style={styles.container}>
-      <CustomText style={styles.header}>Hello, User</CustomText>
+      <CustomText style={styles.header}>Hello, {user.name || ''}</CustomText>
       <CustomText style={styles.subheader}>Are you ready to workout?</CustomText>
     </View>
   )

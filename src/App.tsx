@@ -8,11 +8,19 @@
 
 import React from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
+import RealmDB from 'src/RealmDB/index'
 
 import Navigation from 'src/navigation/main'
 
 const App = () => {
-  return <Navigation />
+  const { RealmProvider } = RealmDB
+
+  return (
+    //@ts-ignore
+    <RealmProvider>
+      <Navigation />
+    </RealmProvider>
+  )
 }
 
 export default App
