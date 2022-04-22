@@ -29,6 +29,7 @@ EStyleSheet.build({
   // colors
   $primaryTheme: '#121B22',
   $secondaryTheme: '#1F2C34',
+  $blue: '#0d4f9e',
   // fonts
   $fontRegular: 'DMSans-Regular',
   $fontMedium: 'DMSans-Medium',

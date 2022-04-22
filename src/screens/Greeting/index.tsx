@@ -1,17 +1,15 @@
-import { View } from 'react-native'
 import React from 'react'
-import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
-import CustomText from 'src/components/CustomText'
+import MainLayout from 'src/layouts/MainLayout'
+import GreetingHeader from './GreetingHeader'
+import GreetingAccordeon from './GreettingAccordeon'
 
 const Greeting = () => {
   return (
-    <View>
-      <CustomText>Greeting</CustomText>
-    </View>
+    <MainLayout Header={GreetingHeader}>
+      <GreetingAccordeon />
+    </MainLayout>
   )
 }
 
 export default Greeting
-
-const styles = EStyleSheet.create({})
