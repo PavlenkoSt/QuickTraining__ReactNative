@@ -4,19 +4,34 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import TabBar from 'src/components/TabBar'
+import RealmDB from 'src/RealmDB'
+import { IUser } from 'src/RealmDB/schemas/User'
 
 import Home from 'src/screens/Home'
 import Statistics from 'src/screens/Statistics'
 import Settings from 'src/screens/Settings'
+import Greeting from 'src/screens/Greeting'
+import GreetingForm from 'src/screens/GreetingForm'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
 
 const NavigationWrapper = () => {
+  const { useObject } = RealmDB
+
+  const user: IUser | null = useObject('User', 0)?.toJSON()
+
   return (
-    <NavigationContainer>
-      <TabsNavigation />
-    </NavigationContainer>
+    <NavigationContainer>{!!user ? <TabsNavigation /> : <GreetingStack />}</NavigationContainer>
+  )
+}
+
+const GreetingStack = () => {
+  return (
+    <Stack.Navigator initialRouteName="Greeting" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Greeting" component={Greeting} />
+      <Stack.Screen name="GreetingForm" component={GreetingForm} />
+    </Stack.Navigator>
   )
 }
 

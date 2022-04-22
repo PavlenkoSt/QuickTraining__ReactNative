@@ -14,7 +14,7 @@ const HomeHeader = () => {
 
   return (
     <View style={styles.container}>
-      <CustomText style={styles.header}>Hello, {user.name || ''}</CustomText>
+      <CustomText style={styles.header}>Hello, {user?.name || ''}</CustomText>
       <CustomText style={styles.subheader}>Are you ready to workout?</CustomText>
     </View>
   )
