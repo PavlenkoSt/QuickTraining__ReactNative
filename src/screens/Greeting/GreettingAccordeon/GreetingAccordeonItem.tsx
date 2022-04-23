@@ -4,9 +4,11 @@ import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import CustomText from 'src/components/CustomText'
 
+import Arrow from 'src/assets/imgs/up-arrow.svg'
+
 interface IGreetingAccordeonItemOption {
   text?: string | null
-  image?: ImageSourcePropType | null
+  image?: ImageSourcePropType[] | null
 }
 
 type GreetingAccordeonItemPropsType = {
@@ -15,16 +17,23 @@ type GreetingAccordeonItemPropsType = {
 }
 
 const GreetingAccordeonItem: FC<GreetingAccordeonItemPropsType> = ({ title, options }) => {
-  const [showDetail, setShowDetail] = useState(true)
+  const [showDetail, setShowDetail] = useState(false)
 
   return (
-    <>
+    <View style={styles.container}>
       <TouchableOpacity onPress={() => setShowDetail((prev) => !prev)} style={styles.titleBtn}>
         <View style={styles.titleContainer}>
           <CustomText style={styles.title}>{title}</CustomText>
         </View>
-        <View>
-          <CustomText>need arrow</CustomText>
+        <View style={styles.arrowContainer}>
+          <Arrow
+            fill="#fff"
+            style={{
+              width: 20,
+              height: 20,
+              transform: [{ rotate: showDetail ? '0deg' : '180deg' }],
+            }}
+          />
         </View>
       </TouchableOpacity>
       {showDetail && (
@@ -33,7 +42,7 @@ const GreetingAccordeonItem: FC<GreetingAccordeonItemPropsType> = ({ title, opti
             if (option.image) {
               return (
                 <View>
-                  <Image source={option.image} />
+                  {/* <Image source={option.image} /> */}
                 </View>
               )
             } else {
@@ -46,7 +55,7 @@ const GreetingAccordeonItem: FC<GreetingAccordeonItemPropsType> = ({ title, opti
           })}
         </View>
       )}
-    </>
+    </View>
   )
 }
 
@@ -55,6 +64,9 @@ export default GreetingAccordeonItem
 const { width } = Dimensions.get('window')
 
 const styles = EStyleSheet.create({
+  container: {
+    marginBottom: 15,
+  },
   titleBtn: {
     backgroundColor: '$blue',
     padding: 10,
@@ -69,6 +81,12 @@ const styles = EStyleSheet.create({
   title: {
     fontSize: 16,
     fontFamily: '$fontMedium',
+  },
+  arrowContainer: {
+    justifyContent: 'center',
+    paddingHorizontal: 15,
+    width: 70,
+    alignItems: 'center',
   },
   detailContainer: {
     backgroundColor: '$secondaryTheme',

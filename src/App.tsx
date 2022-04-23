@@ -30,6 +30,8 @@ EStyleSheet.build({
   $primaryTheme: '#121B22',
   $secondaryTheme: '#1F2C34',
   $blue: '#0d4f9e',
+  $red: '#eb4034',
+  $green: '#078c4e',
   // fonts
   $fontRegular: 'DMSans-Regular',
   $fontMedium: 'DMSans-Medium',

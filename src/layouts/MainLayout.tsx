@@ -16,7 +16,9 @@ const MainLayout: FC<MainLayoutPropsType> = ({ children, withoutScroll, Header }
       {withoutScroll ? (
         <View style={styles.noScrollInnerContainer}>{children}</View>
       ) : (
-        <ScrollView style={styles.scrollInnerContainer}>{children}</ScrollView>
+        <ScrollView>
+          <View style={styles.scrollInnerContainer}>{children}</View>
+        </ScrollView>
       )}
     </View>
   )
@@ -36,6 +38,6 @@ const styles = EStyleSheet.create({
   },
   scrollInnerContainer: {
     paddingHorizontal: 15,
-    paddingVertical: 20,
+    paddingVertical: 30,
   },
 })

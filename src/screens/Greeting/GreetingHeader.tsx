@@ -7,8 +7,8 @@ import CustomText from 'src/components/CustomText'
 const GreetingHeader = () => {
   return (
     <View style={styles.container}>
-      <CustomText style={styles.title}>Hello</CustomText>
-      <CustomText style={styles.subtitle}>in best training application</CustomText>
+      <CustomText style={styles.title}>Welcome</CustomText>
+      <CustomText style={styles.subtitle}>to the best training application</CustomText>
     </View>
   )
 }
