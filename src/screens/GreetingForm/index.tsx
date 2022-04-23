@@ -1,14 +1,15 @@
-import { View } from 'react-native'
 import React from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
-import CustomText from 'src/components/CustomText'
+import MainLayout from 'src/layouts/MainLayout'
+import EmptyHeader from 'src/components/EmptyHeader'
+import ProfileForm from 'src/components/ProfileForm'
 
 const GreetingForm = () => {
   return (
-    <View>
-      <CustomText>GreetingForm</CustomText>
-    </View>
+    <MainLayout Header={() => <EmptyHeader title="Questionnaire" />}>
+      <ProfileForm />
+    </MainLayout>
   )
 }
 
