@@ -1,26 +1,48 @@
-import { Image, ImageSourcePropType, useWindowDimensions, View } from 'react-native'
-import React, { FC } from 'react'
+import {
+  Image,
+  ImageSourcePropType,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+} from 'react-native'
+import React, { FC, useCallback } from 'react'
+import { useNavigation } from '@react-navigation/native'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 type GreetingAccordeonItemImagesPropsType = {
   images: ImageSourcePropType[]
+  indexes: number[]
 }
 
-const GreetingAccordeonItemImages: FC<GreetingAccordeonItemImagesPropsType> = ({ images }) => {
+const GreetingAccordeonItemImages: FC<GreetingAccordeonItemImagesPropsType> = ({
+  images,
+  indexes,
+}) => {
   const { width } = useWindowDimensions()
+
+  const { navigate } = useNavigation()
 
   const itemWidth = width - 50
 
-  const length = images.length
+  const filteredImages = images.filter((img, i) => indexes.findIndex((idx) => idx === i) !== -1)
+
+  const length = filteredImages.length
 
   const size = length === 1 ? itemWidth : itemWidth / length - length * 1.5
 
+  const goToGallery = useCallback(
+    (index: number) => {
+      navigate('Gallery' as never, { activeIndex: index, images } as never)
+    },
+    [images]
+  )
+
   return (
     <View style={styles.line}>
-      {images.map((image, i) => (
-        <View key={i}>
+      {filteredImages.map((image, i) => (
+        <TouchableOpacity onPress={() => goToGallery(indexes[i])} key={i}>
           <Image source={image} style={{ height: size, width: size }} />
-        </View>
+        </TouchableOpacity>
       ))}
     </View>
   )

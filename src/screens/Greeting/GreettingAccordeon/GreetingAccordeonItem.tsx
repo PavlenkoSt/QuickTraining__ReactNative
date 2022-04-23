@@ -1,30 +1,28 @@
-import {
-  Dimensions,
-  Image,
-  ImageSourcePropType,
-  TouchableOpacity,
-  useWindowDimensions,
-  View,
-} from 'react-native'
+import { Dimensions, ImageSourcePropType, TouchableOpacity, View } from 'react-native'
 import React, { FC, useState } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import CustomText from 'src/components/CustomText'
+import GreetingAccordeonItemImages from './GreetingAccordeonItemImages'
 
 import Arrow from 'src/assets/imgs/up-arrow.svg'
-import GreetingAccordeonItemImages from './GreetingAccordeonItemImages'
 
 interface IGreetingAccordeonItemOption {
   text?: string | null
-  images?: ImageSourcePropType[] | null
+  imagesIdx?: number[]
 }
 
 type GreetingAccordeonItemPropsType = {
   title: string
   options: IGreetingAccordeonItemOption[]
+  blockImages?: ImageSourcePropType[]
 }
 
-const GreetingAccordeonItem: FC<GreetingAccordeonItemPropsType> = ({ title, options }) => {
+const GreetingAccordeonItem: FC<GreetingAccordeonItemPropsType> = ({
+  title,
+  options,
+  blockImages,
+}) => {
   const [showDetail, setShowDetail] = useState(false)
 
   return (
@@ -47,8 +45,14 @@ const GreetingAccordeonItem: FC<GreetingAccordeonItemPropsType> = ({ title, opti
       {showDetail && (
         <View style={styles.detailContainer}>
           {options.map((option, i) => {
-            if (option.images) {
-              return <GreetingAccordeonItemImages key={i} images={option.images} />
+            if (option.imagesIdx && blockImages) {
+              return (
+                <GreetingAccordeonItemImages
+                  key={i}
+                  images={blockImages}
+                  indexes={option.imagesIdx}
+                />
+              )
             } else {
               return (
                 <CustomText key={i} style={styles.detailParam}>

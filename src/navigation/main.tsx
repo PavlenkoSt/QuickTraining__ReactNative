@@ -12,6 +12,7 @@ import Statistics from 'src/screens/Statistics'
 import Settings from 'src/screens/Settings'
 import Greeting from 'src/screens/Greeting'
 import GreetingForm from 'src/screens/GreetingForm'
+import Gallery from 'src/screens/Gallery'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -31,6 +32,7 @@ const GreetingStack = () => {
     <Stack.Navigator initialRouteName="Greeting" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Greeting" component={Greeting} />
       <Stack.Screen name="GreetingForm" component={GreetingForm} />
+      <Stack.Screen name="Gallery" component={Gallery} />
     </Stack.Navigator>
   )
 }
