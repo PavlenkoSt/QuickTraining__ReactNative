@@ -8,18 +8,23 @@
 
 import React from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
-import RealmDB from 'src/RealmDB/index'
+import Toast from 'react-native-toast-message'
 
+import RealmDB from 'src/RealmDB/index'
 import Navigation from 'src/navigation/main'
+import { toastConfig } from './services/ToastService'
 
 const App = () => {
   const { RealmProvider } = RealmDB
 
   return (
-    //@ts-ignore
-    <RealmProvider>
-      <Navigation />
-    </RealmProvider>
+    <>
+      {/* @ts-ignore */}
+      <RealmProvider>
+        <Navigation />
+      </RealmProvider>
+      <Toast config={toastConfig} />
+    </>
   )
 }
 

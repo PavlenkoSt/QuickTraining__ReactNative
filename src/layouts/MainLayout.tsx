@@ -6,7 +6,7 @@ type MainLayoutPropsType = {
   children: React.ReactNode
   withoutScroll?: boolean
   Header?: FC
-  keyboardShouldPersistTaps?: boolean
+  keyboardShouldPersistTaps?: 'always' | 'never' | 'handled'
 }
 
 const MainLayout: FC<MainLayoutPropsType> = ({

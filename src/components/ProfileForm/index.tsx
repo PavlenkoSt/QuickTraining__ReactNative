@@ -7,6 +7,7 @@ import CustomButton from '../CustomButton'
 import FormInput from './FormInput'
 import validation from './validation'
 import FormSelect from './FormSelect'
+import ToastService from 'src/services/ToastService'
 
 export enum GenderEnum {
   Male = 'Male',
@@ -35,6 +36,12 @@ const ProfileForm = () => {
 
   const onSubmit = (data: IProfileFormData) => {
     console.log(data)
+
+    const { name, age } = data
+  }
+
+  const onError = () => {
+    ToastService.error('Error', 'Check fields for correctness')
   }
 
   return (
@@ -50,7 +57,7 @@ const ProfileForm = () => {
         />
         <FormSelect setGender={setGender} />
       </View>
-      <CustomButton onPress={handleSubmit(onSubmit)}>Save and go</CustomButton>
+      <CustomButton onPress={handleSubmit(onSubmit, onError)}>Save and go</CustomButton>
     </View>
   )
 }
