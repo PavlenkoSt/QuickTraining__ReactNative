@@ -7,7 +7,7 @@ import ProfileForm from 'src/components/ProfileForm'
 
 const GreetingForm = () => {
   return (
-    <MainLayout Header={() => <EmptyHeader title="Questionnaire" />}>
+    <MainLayout Header={() => <EmptyHeader title="Questionnaire" />} keyboardShouldPersistTaps>
       <ProfileForm />
     </MainLayout>
   )

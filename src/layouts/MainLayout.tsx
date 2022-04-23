@@ -6,9 +6,15 @@ type MainLayoutPropsType = {
   children: React.ReactNode
   withoutScroll?: boolean
   Header?: FC
+  keyboardShouldPersistTaps?: boolean
 }
 
-const MainLayout: FC<MainLayoutPropsType> = ({ children, withoutScroll, Header }) => {
+const MainLayout: FC<MainLayoutPropsType> = ({
+  children,
+  withoutScroll,
+  Header,
+  keyboardShouldPersistTaps,
+}) => {
   return (
     <View style={styles.mainContainer}>
       <StatusBar backgroundColor="transparent" translucent barStyle="light-content" />
@@ -16,7 +22,7 @@ const MainLayout: FC<MainLayoutPropsType> = ({ children, withoutScroll, Header }
       {withoutScroll ? (
         <View style={styles.noScrollInnerContainer}>{children}</View>
       ) : (
-        <ScrollView>
+        <ScrollView keyboardShouldPersistTaps={keyboardShouldPersistTaps}>
           <View style={styles.scrollInnerContainer}>{children}</View>
         </ScrollView>
       )}
