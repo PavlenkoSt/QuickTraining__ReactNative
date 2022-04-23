@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { View } from 'react-native'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
@@ -9,12 +10,18 @@ import GreetingHeader from './GreetingHeader'
 import GreetingAccordeon from './GreettingAccordeon'
 
 const Greeting = () => {
+  const { navigate } = useNavigation()
+
   return (
     <MainLayout Header={GreetingHeader}>
       <CustomText style={styles.title}>Reveal the blocks below and get to know the app:</CustomText>
       <GreetingAccordeon />
       <View style={styles.btnContainer}>
-        <CustomButton styles={styles.btn} textStyles={styles.btnText}>
+        <CustomButton
+          onPress={() => navigate('GreetingForm' as never)}
+          styles={styles.btn}
+          textStyles={styles.btnText}
+        >
           Get started
         </CustomButton>
       </View>
@@ -28,7 +35,7 @@ const styles = EStyleSheet.create({
   title: {
     marginBottom: 20,
     fontSize: 15,
-    fontFamily: '$fontMedium'
+    fontFamily: '$fontMedium',
   },
   btnContainer: {
     alignItems: 'center',
