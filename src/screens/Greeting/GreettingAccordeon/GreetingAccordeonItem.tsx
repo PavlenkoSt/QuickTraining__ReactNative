@@ -82,9 +82,10 @@ const styles = EStyleSheet.create({
     borderTopRightRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between'
   },
   titleContainer: {
-    width: width - 130,
+    width: width - 100,
   },
   title: {
     fontSize: 16,
@@ -92,9 +93,8 @@ const styles = EStyleSheet.create({
   },
   arrowContainer: {
     justifyContent: 'center',
-    paddingHorizontal: 15,
-    width: 70,
-    alignItems: 'center',
+    alignItems: 'flex-end',
+    flex: 1,
   },
   detailContainer: {
     backgroundColor: '$secondaryTheme',
