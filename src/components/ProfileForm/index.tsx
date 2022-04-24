@@ -1,6 +1,7 @@
 import { View } from 'react-native'
 import React, { Dispatch, SetStateAction, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigation } from '@react-navigation/native'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import CustomButton from '../CustomButton'
@@ -16,6 +17,8 @@ interface IProfileFormData {
 }
 
 const ProfileForm = () => {
+  const { navigate } = useNavigation()
+
   const {
     control,
     handleSubmit,
@@ -37,11 +40,13 @@ const ProfileForm = () => {
 
     const userInfo = {
       name,
-      age,
+      age: +age,
       goal,
       duration,
       gender,
     }
+
+    navigate('GreetingInventar' as never, { userInfo } as never)
   }
 
   const onError = () => ToastService.error('Error', 'Check fields for correctness')
