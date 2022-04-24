@@ -71,7 +71,7 @@ const GreetingAccordeon = () => {
         title="Configure training program"
         options={[
           {
-            text: 'You will need to fill out a questionnaire, where you will need to indicate your name, age, gender, height, weight, desired duration of training in minutes and select desired goal. You can change all this information at any time.',
+            text: 'You will need to fill out a questionnaire, where you will need to indicate your name, age, gender, desired duration of training in minutes and select desired goal. You can change all this information at any time.',
           },
           {
             text: 'And you will also need to pass a simple test of your physical fitness.',

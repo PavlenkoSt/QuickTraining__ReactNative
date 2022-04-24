@@ -9,9 +9,10 @@ type FormSelectPropsType = {
   setValue: Dispatch<SetStateAction<string>>
   options: string[]
   defaultValue: string
+  label: string
 }
 
-const FormSelect: FC<FormSelectPropsType> = ({ setValue, options, defaultValue }) => {
+const FormSelect: FC<FormSelectPropsType> = ({ setValue, options, defaultValue, label }) => {
   const selectRef = useRef<ModalDropdown>(null)
 
   return (
@@ -20,10 +21,10 @@ const FormSelect: FC<FormSelectPropsType> = ({ setValue, options, defaultValue }
       activeOpacity={0.8}
       style={styles.container}
     >
-      <CustomText style={styles.label}>Gender</CustomText>
+      <CustomText style={styles.label}>{label}</CustomText>
       <ModalDropdown
         style={styles.dropdownContainer}
-        dropdownStyle={styles.dropdown}
+        dropdownStyle={[styles.dropdown, { height: 45 * options.length }]}
         textStyle={styles.text}
         defaultIndex={0}
         defaultValue={defaultValue}
@@ -62,9 +63,7 @@ const styles = EStyleSheet.create({
   },
   dropdown: {
     width: width - 50,
-    position: 'relative',
     transform: [{ translateX: -5 }, { translateY: -15 }],
-    height: 90,
   },
   text: {
     color: '#fff',

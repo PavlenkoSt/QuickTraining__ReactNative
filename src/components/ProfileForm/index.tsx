@@ -8,10 +8,25 @@ import FormInput from './FormInput'
 import validation from './validation'
 import FormSelect from './FormSelect'
 import ToastService from 'src/services/ToastService'
+import RealmDB from 'src/RealmDB'
 
 enum GenderEnum {
   Male = 'Male',
   Female = 'Female',
+}
+
+enum DurationEnum {
+  '20min' = '20 minutes',
+  '30min' = '30 minutes',
+  '40min' = '40 minutes',
+  '50min' = '50 minutes',
+  '60min' = '60 minutes',
+}
+
+enum GoalEnum {
+  'Relief' = 'Working out the muscle mass and relief',
+  'LoseWeight' = 'Lose weight',
+  'Health' = 'Improve health',
 }
 
 interface IProfileFormData {
@@ -33,11 +48,19 @@ const ProfileForm = () => {
   })
 
   const [gender, setGender] = useState<GenderEnum>(GenderEnum.Male)
+  const [duration, setDuration] = useState<DurationEnum>(DurationEnum['20min'])
+  const [goal, setGoal] = useState<GoalEnum>(GoalEnum.Relief)
 
   const onSubmit = (data: IProfileFormData) => {
-    console.log(data)
-
     const { name, age } = data
+
+    console.log({
+      name,
+      age,
+      gender,
+      duration,
+      goal,
+    })
   }
 
   const onError = () => ToastService.error('Error', 'Check fields for correctness')
@@ -54,9 +77,28 @@ const ProfileForm = () => {
           keyboardType="numeric"
         />
         <FormSelect
+          label="Gender"
           setValue={setGender as Dispatch<SetStateAction<string>>}
-          options={['Male', 'Female']}
-          defaultValue="Male"
+          options={[GenderEnum.Male, GenderEnum.Female]}
+          defaultValue={GenderEnum.Male}
+        />
+        <FormSelect
+          label="Training duration"
+          setValue={setDuration as Dispatch<SetStateAction<string>>}
+          options={[
+            DurationEnum['20min'],
+            DurationEnum['30min'],
+            DurationEnum['40min'],
+            DurationEnum['50min'],
+            DurationEnum['60min'],
+          ]}
+          defaultValue={DurationEnum['20min']}
+        />
+        <FormSelect
+          label="Your goal"
+          setValue={setGoal as Dispatch<SetStateAction<string>>}
+          options={[GoalEnum.Relief, GoalEnum.LoseWeight, GoalEnum.Health]}
+          defaultValue={GoalEnum.Relief}
         />
       </View>
       <CustomButton onPress={handleSubmit(onSubmit, onError)}>Save and go</CustomButton>
