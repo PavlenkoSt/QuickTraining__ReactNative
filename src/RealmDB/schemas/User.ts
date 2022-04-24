@@ -1,9 +1,31 @@
 import { Realm } from '@realm/react'
 
+export enum GenderEnum {
+  Male = 'Male',
+  Female = 'Female',
+}
+
+export enum GoalEnum {
+  'Relief' = 'Working out the muscle mass and relief',
+  'LoseWeight' = 'Lose weight',
+  'Health' = 'Improve health',
+}
+
+export enum DurationEnum {
+  '20min' = '20 minutes',
+  '30min' = '30 minutes',
+  '40min' = '40 minutes',
+  '50min' = '50 minutes',
+  '60min' = '60 minutes',
+}
+
 export default class UserSchema extends Realm.Object {
   _id!: Realm.BSON.ObjectId
   name!: string
-  gender!: string
+  age!: number
+  gender!: GenderEnum
+  goal!: GoalEnum
+  duration!: DurationEnum
   pushUpMax!: number
   sitUpMax!: number
   plankMax!: number
@@ -19,7 +41,10 @@ export default class UserSchema extends Realm.Object {
     properties: {
       _id: 'int',
       name: 'string',
+      age: 'int',
       gender: 'string',
+      goal: 'string',
+      duration: 'string',
       pushUpMax: 'int',
       sitUpMax: 'int',
       plankMax: 'int',
@@ -31,7 +56,10 @@ export default class UserSchema extends Realm.Object {
 export interface IUser {
   _id: number
   name: string
-  gender: 'male' | 'female'
+  age: number
+  gender: GenderEnum
+  goal: GoalEnum
+  duration: DurationEnum
   pushUpMax: number
   sitUpMax: number
   plankMax: number

@@ -8,26 +8,7 @@ import FormInput from './FormInput'
 import validation from './validation'
 import FormSelect from './FormSelect'
 import ToastService from 'src/services/ToastService'
-import RealmDB from 'src/RealmDB'
-
-enum GenderEnum {
-  Male = 'Male',
-  Female = 'Female',
-}
-
-enum DurationEnum {
-  '20min' = '20 minutes',
-  '30min' = '30 minutes',
-  '40min' = '40 minutes',
-  '50min' = '50 minutes',
-  '60min' = '60 minutes',
-}
-
-enum GoalEnum {
-  'Relief' = 'Working out the muscle mass and relief',
-  'LoseWeight' = 'Lose weight',
-  'Health' = 'Improve health',
-}
+import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
 
 interface IProfileFormData {
   name: string
@@ -54,13 +35,13 @@ const ProfileForm = () => {
   const onSubmit = (data: IProfileFormData) => {
     const { name, age } = data
 
-    console.log({
+    const userInfo = {
       name,
       age,
-      gender,
-      duration,
       goal,
-    })
+      duration,
+      gender,
+    }
   }
 
   const onError = () => ToastService.error('Error', 'Check fields for correctness')
