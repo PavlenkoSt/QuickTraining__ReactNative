@@ -4,13 +4,14 @@ import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import ModalDropdown from 'react-native-modal-dropdown'
 
 import CustomText from '../CustomText'
-import { GenderEnum } from '.'
 
 type FormSelectPropsType = {
-  setGender: Dispatch<SetStateAction<GenderEnum>>
+  setValue: Dispatch<SetStateAction<string>>
+  options: string[]
+  defaultValue: string
 }
 
-const FormSelect: FC<FormSelectPropsType> = ({ setGender }) => {
+const FormSelect: FC<FormSelectPropsType> = ({ setValue, options, defaultValue }) => {
   const selectRef = useRef<ModalDropdown>(null)
 
   return (
@@ -25,9 +26,9 @@ const FormSelect: FC<FormSelectPropsType> = ({ setGender }) => {
         dropdownStyle={styles.dropdown}
         textStyle={styles.text}
         defaultIndex={0}
-        defaultValue="Male"
-        options={['Male', 'Female']}
-        onSelect={(index, option) => setGender(option as GenderEnum)}
+        defaultValue={defaultValue}
+        options={options}
+        onSelect={(index, option) => setValue(option as string)}
         ref={selectRef}
         dropdownTextStyle={styles.dropdownText}
         dropdownTextHighlightStyle={styles.activeDropdownText}

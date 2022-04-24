@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import React, { useState } from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -9,7 +9,7 @@ import validation from './validation'
 import FormSelect from './FormSelect'
 import ToastService from 'src/services/ToastService'
 
-export enum GenderEnum {
+enum GenderEnum {
   Male = 'Male',
   Female = 'Female',
 }
@@ -40,9 +40,7 @@ const ProfileForm = () => {
     const { name, age } = data
   }
 
-  const onError = () => {
-    ToastService.error('Error', 'Check fields for correctness')
-  }
+  const onError = () => ToastService.error('Error', 'Check fields for correctness')
 
   return (
     <View>
@@ -55,7 +53,11 @@ const ProfileForm = () => {
           name="age"
           keyboardType="numeric"
         />
-        <FormSelect setGender={setGender} />
+        <FormSelect
+          setValue={setGender as Dispatch<SetStateAction<string>>}
+          options={['Male', 'Female']}
+          defaultValue="Male"
+        />
       </View>
       <CustomButton onPress={handleSubmit(onSubmit, onError)}>Save and go</CustomButton>
     </View>
