@@ -33,12 +33,7 @@ const GreetingInventar: FC<GreetingInventarPropsType> = ({ route }) => {
         <CustomText style={styles.title}>
           Choose the inventory you have on your training place:
         </CustomText>
-        <InventarForm />
-        <CustomText style={styles.mess}>
-          Don't worry if you don't have any of the above. You will still have access to a lot of
-          exercises that do not require any equipment.
-        </CustomText>
-        <CustomButton>Save and go</CustomButton>
+        <InventarForm mode="set" />
       </View>
     </MainLayout>
   )
@@ -51,9 +46,5 @@ const styles = EStyleSheet.create({
     fontSize: 16,
     fontFamily: '$fontMedium',
     marginBottom: 15,
-  },
-  mess: {
-    fontStyle: 'italic',
-    marginBottom: 10,
   },
 })
