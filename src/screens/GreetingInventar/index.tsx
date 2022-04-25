@@ -1,14 +1,12 @@
 import { View } from 'react-native'
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import MainLayout from 'src/layouts/MainLayout'
 import EmptyHeader from 'src/components/EmptyHeader'
 import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
 import CustomText from 'src/components/CustomText'
-import InventoryItem from '../../components/InventarForm/InventoryItem'
 import InventarForm from 'src/components/InventarForm'
-import CustomButton from 'src/components/CustomButton'
 
 type GreetingInventarPropsType = {
   route: {
@@ -25,15 +23,13 @@ type GreetingInventarPropsType = {
 }
 
 const GreetingInventar: FC<GreetingInventarPropsType> = ({ route }) => {
-  console.log('1', route.params.userInfo)
-
   return (
     <MainLayout Header={() => <EmptyHeader title="Inventory" />}>
       <View>
         <CustomText style={styles.title}>
           Choose the inventory you have on your training place:
         </CustomText>
-        <InventarForm mode="set" />
+        <InventarForm userInfo={route.params.userInfo} mode="set" />
       </View>
     </MainLayout>
   )
