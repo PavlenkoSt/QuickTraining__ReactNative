@@ -1,4 +1,5 @@
-import React, { FC } from 'react'
+import { useNavigation } from '@react-navigation/native'
+import React, { FC, useCallback } from 'react'
 import { View } from 'react-native'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
@@ -32,6 +33,15 @@ type GreetingTestPropsType = {
 }
 
 const GreetingTest: FC<GreetingTestPropsType> = ({ route }) => {
+  const { navigate } = useNavigation()
+
+  const onPress = useCallback(() => {
+    navigate(
+      'GreetingEx1' as never,
+      { userInfo: route.params.userInfo, inventary: route.params.inventary } as never
+    )
+  }, [route])
+
   return (
     <MainLayout Header={() => <EmptyHeader title="Physical test" />}>
       <View>
@@ -45,7 +55,7 @@ const GreetingTest: FC<GreetingTestPropsType> = ({ route }) => {
           minutes rest between exercises.
         </CustomText>
         <CustomText style={styles.param}>Push-ups, squats and plank holds.</CustomText>
-        <CustomButton>I'am ready</CustomButton>
+        <CustomButton onPress={onPress}>I'am ready</CustomButton>
       </View>
     </MainLayout>
   )

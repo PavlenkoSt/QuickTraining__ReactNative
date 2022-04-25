@@ -19,7 +19,7 @@ type InventarFormPropsType = {
   }
 }
 
-const InventarForm: FC<InventarFormPropsType> = ({ mode }) => {
+const InventarForm: FC<InventarFormPropsType> = ({ mode, userInfo }) => {
   const [haveBar, setHaveBar] = useState(false)
   const [haveWallBar, setHaveWallBar] = useState(false)
   const [haveBars, setHaveBars] = useState(false)
@@ -43,7 +43,7 @@ const InventarForm: FC<InventarFormPropsType> = ({ mode }) => {
 
     if (mode === 'set') {
       console.log('inventary', inventary)
-      navigate('GreetingTest' as never)
+      navigate('GreetingTest' as never, { userInfo, inventary } as never)
     } else {
     }
   }, [mode])
