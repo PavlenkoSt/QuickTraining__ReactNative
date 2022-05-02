@@ -8,7 +8,6 @@ import CustomButton from '../CustomButton'
 import FormInput from './FormInput'
 import validation from './validation'
 import FormSelect from './FormSelect'
-import ToastService from 'src/services/ToastService'
 import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
 
 interface IProfileFormData {
@@ -49,8 +48,6 @@ const ProfileForm = () => {
     navigate('GreetingInventar' as never, { userInfo } as never)
   }
 
-  const onError = () => ToastService.error('Error', 'Check fields for correctness')
-
   return (
     <View>
       <View>
@@ -87,7 +84,7 @@ const ProfileForm = () => {
           defaultValue={GoalEnum.Relief}
         />
       </View>
-      <CustomButton onPress={handleSubmit(onSubmit, onError)}>Save and go</CustomButton>
+      <CustomButton onPress={handleSubmit(onSubmit)}>Save and go</CustomButton>
     </View>
   )
 }
