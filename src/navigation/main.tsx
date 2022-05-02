@@ -15,7 +15,7 @@ import GreetingForm from 'src/screens/GreetingForm'
 import Gallery from 'src/screens/Gallery'
 import GreetingInventar from 'src/screens/GreetingInventar'
 import GreetingTest from 'src/screens/GreetingTest'
-import GreetingEx1 from 'src/screens/GreetingEx1'
+import GreetingEx from 'src/screens/GreetingEx'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -37,7 +37,7 @@ const GreetingStack = () => {
       <Stack.Screen name="GreetingForm" component={GreetingForm} />
       <Stack.Screen name="GreetingInventar" component={GreetingInventar} />
       <Stack.Screen name="GreetingTest" component={GreetingTest} />
-      <Stack.Screen name="GreetingEx1" component={GreetingEx1} />
+      <Stack.Screen name="GreetingEx" component={GreetingEx} />
       <Stack.Screen name="Gallery" component={Gallery} />
     </Stack.Navigator>
   )

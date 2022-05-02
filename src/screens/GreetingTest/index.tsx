@@ -37,7 +37,7 @@ const GreetingTest: FC<GreetingTestPropsType> = ({ route }) => {
 
   const onPress = useCallback(() => {
     navigate(
-      'GreetingEx1' as never,
+      'GreetingEx' as never,
       { userInfo: route.params.userInfo, inventary: route.params.inventary } as never
     )
   }, [route])

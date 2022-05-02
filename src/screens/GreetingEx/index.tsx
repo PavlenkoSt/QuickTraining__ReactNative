@@ -29,14 +29,14 @@ type GreetingEx1PropsType = {
   }
 }
 
-const GreetingEx1: FC<GreetingEx1PropsType> = ({}) => {
+const GreetingEx: FC<GreetingEx1PropsType> = ({}) => {
   return (
-    <MainLayout Header={() => <EmptyHeader title="Push-ups maximum" />}>
+    <MainLayout Header={() => <EmptyHeader title="Physical form test" />}>
       <Exercise />
     </MainLayout>
   )
 }
 
-export default GreetingEx1
+export default GreetingEx
 
 const styles = EStyleSheet.create({})
