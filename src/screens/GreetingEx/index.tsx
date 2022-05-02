@@ -2,9 +2,9 @@ import React, { FC } from 'react'
 
 import Exercise from 'src/components/Exercise'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
-import MainLayout from 'src/layouts/MainLayout'
-import EmptyHeader from 'src/components/EmptyHeader'
 import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
+
+import ExerciseLayout from 'src/layouts/ExerciseLayout'
 
 type GreetingEx1PropsType = {
   route: {
@@ -31,9 +31,9 @@ type GreetingEx1PropsType = {
 
 const GreetingEx: FC<GreetingEx1PropsType> = ({}) => {
   return (
-    <MainLayout Header={() => <EmptyHeader title="Physical form test" />}>
+    <ExerciseLayout>
       <Exercise />
-    </MainLayout>
+    </ExerciseLayout>
   )
 }
 
