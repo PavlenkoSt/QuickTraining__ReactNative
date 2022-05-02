@@ -42,7 +42,7 @@ export default CustomButton
 const styles = EStyleSheet.create({
   container: {
     backgroundColor: '#078c4e',
-    paddingVertical: 8,
+    paddingVertical: 10,
     paddingHorizontal: 16,
     borderRadius: 6,
     alignItems: 'center',
