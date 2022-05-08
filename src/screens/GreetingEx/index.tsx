@@ -54,6 +54,7 @@ const GreetingEx: FC<GreetingEx1PropsType> = ({ route }) => {
             isLast={testPlan.length - 1 === i}
             testResult={testResult}
             setTestResult={setTestResult}
+            isTest
           />
         ))}
       </ScrollView>

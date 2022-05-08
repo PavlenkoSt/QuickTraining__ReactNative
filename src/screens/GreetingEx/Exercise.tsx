@@ -1,10 +1,11 @@
 import { Dimensions, View } from 'react-native'
-import React, { Dispatch, FC, SetStateAction } from 'react'
+import React, { Dispatch, FC, SetStateAction, useState } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import VideoPlayer from 'react-native-video-player'
 
 import CustomText from 'src/components/CustomText'
 import { ExecutionExerciseEnum } from 'src/types/ExerciseTypes'
+import RepeatCounter from 'src/components/Exercise/RepeatCounter'
 
 type ExercisePropsType = {
   active: boolean
@@ -17,6 +18,7 @@ type ExercisePropsType = {
   counterType: ExecutionExerciseEnum
   testResult: Object | null
   setTestResult: Dispatch<SetStateAction<Object | null>>
+  isTest?: boolean
 }
 
 const Exercise: FC<ExercisePropsType> = ({
@@ -29,7 +31,10 @@ const Exercise: FC<ExercisePropsType> = ({
   video,
   counterType,
   testResult,
+  isTest,
 }) => {
+  const [count, setCount] = useState(0)
+
   if (!active) return null
 
   return (
@@ -57,7 +62,17 @@ const Exercise: FC<ExercisePropsType> = ({
           }}
         />
       </View>
-      <CustomText>{name}</CustomText>
+      <View style={styles.container}>
+        <CustomText style={styles.name}>{name}</CustomText>
+        {isTest && (
+          <CustomText style={styles.description}>
+            Execute the maximum number of repetitions and fix the result
+          </CustomText>
+        )}
+        <View style={styles.repeaterContainer}>
+          <RepeatCounter count={count} setCount={setCount} />
+        </View>
+      </View>
     </View>
   )
 }
@@ -71,5 +86,25 @@ const styles = EStyleSheet.create({
     width,
     height: 200,
     flex: 1,
+  },
+  container: {
+    paddingHorizontal: 15,
+  },
+  name: {
+    marginTop: 30,
+    marginBottom: 30,
+    fontSize: 26,
+    fontFamily: '$fontBold',
+    textAlign: 'center',
+  },
+  description: {
+    textAlign: 'center',
+    fontStyle: 'italic',
+    paddingHorizontal: 40,
+    fontSize: 13,
+    marginBottom: 30,
+  },
+  repeaterContainer: {
+    marginBottom: 30,
   },
 })
