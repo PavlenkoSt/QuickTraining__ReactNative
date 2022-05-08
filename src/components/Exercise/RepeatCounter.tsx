@@ -1,8 +1,9 @@
 import { TouchableOpacity, View } from 'react-native'
-import React, { Dispatch, FC, SetStateAction, useCallback } from 'react'
+import React, { Dispatch, FC, SetStateAction, useCallback, useState } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import CustomText from '../CustomText'
+import RepeatCounterEditModal from './RepeatCounterEditModal'
 
 type RepeatCounterPropsType = {
   count: number
@@ -10,6 +11,8 @@ type RepeatCounterPropsType = {
 }
 
 const RepeatCounter: FC<RepeatCounterPropsType> = ({ count, setCount }) => {
+  const [editModalVisible, setEditModalVisible] = useState(false)
+
   const increment = useCallback(() => {
     setCount((prev) => prev + 1)
   }, [])
@@ -20,6 +23,8 @@ const RepeatCounter: FC<RepeatCounterPropsType> = ({ count, setCount }) => {
     setCount((prev) => prev - 1)
   }, [count])
 
+  const openEditModal = useCallback(() => setEditModalVisible(true), [])
+
   return (
     <View style={styles.container}>
       <View style={styles.counter}>
@@ -29,9 +34,9 @@ const RepeatCounter: FC<RepeatCounterPropsType> = ({ count, setCount }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.viewContainer}>
-          <View style={styles.view}>
+          <TouchableOpacity style={styles.view} onPress={openEditModal}>
             <CustomText style={styles.viewText}>{count}</CustomText>
-          </View>
+          </TouchableOpacity>
         </View>
         <View style={styles.btnContainer}>
           <TouchableOpacity style={styles.btn} onPress={increment}>
@@ -39,6 +44,14 @@ const RepeatCounter: FC<RepeatCounterPropsType> = ({ count, setCount }) => {
           </TouchableOpacity>
         </View>
       </View>
+      {editModalVisible && (
+        <RepeatCounterEditModal
+          visible={editModalVisible}
+          setVisible={setEditModalVisible}
+          initialValue={count}
+          setValue={setCount}
+        />
+      )}
     </View>
   )
 }
