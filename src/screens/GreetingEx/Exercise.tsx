@@ -1,13 +1,5 @@
 import { Dimensions, View } from 'react-native'
-import React, {
-  Dispatch,
-  FC,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import React, { Dispatch, FC, SetStateAction, useCallback, useState } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import VideoPlayer from 'react-native-video-player'
 
@@ -18,6 +10,9 @@ import RepeatCounter from 'src/components/Exercise/RepeatCounter'
 import CustomButton from 'src/components/CustomButton'
 import RelaxTimer from 'src/components/Exercise/RelaxTimer'
 import HoldCounter from 'src/components/Exercise/HoldCounter'
+
+import useHoldEx from 'src/hooks/Exercise/useHoldEx'
+import useRelaxEx from 'src/hooks/Exercise/useRelaxEx'
 
 type ExercisePropsType = {
   active: boolean
@@ -45,44 +40,10 @@ const Exercise: FC<ExercisePropsType> = ({
   toNextExercise,
 }) => {
   const [count, setCount] = useState(0)
-  const [relax, setRelax] = useState(() => relaxDelation)
 
-  const relaxTimer = useRef<any>(null)
+  const { relax, relaxTimer, startRelaxTimer } = useRelaxEx({ relaxDelation, toNextExercise })
 
-  const startRelaxTimer = () => {
-    relaxTimer.current = setInterval(() => {
-      setRelax((prev) => prev - 1)
-    }, 1000)
-  }
-
-  const clearRelaxTimer = () => {
-    clearInterval(relaxTimer.current)
-    relaxTimer.current = null
-  }
-
-  useEffect(() => {
-    if (relax <= 0) {
-      clearRelaxTimer()
-      toNextExercise()
-    }
-  }, [relax])
-
-  useEffect(() => {
-    return () => clearRelaxTimer()
-  }, [])
-
-  const [time, setTime] = useState(0)
-
-  const timer = useRef<any>()
-
-  const startTimer = () => {
-    timer.current = setInterval(() => setTime((prev) => prev + 1), 1000)
-  }
-
-  const stopTimer = () => {
-    clearInterval(timer.current)
-    timer.current = null
-  }
+  const { time, timer, startTimer, stopTimer } = useHoldEx()
 
   const done = useCallback(() => {
     setTestResult((prev) => [...prev, { name, result: count }])
@@ -91,9 +52,9 @@ const Exercise: FC<ExercisePropsType> = ({
       stopTimer()
     }
 
-    if (!isLast) {
-      startRelaxTimer()
+    if (isLast) {
     } else {
+      startRelaxTimer()
     }
   }, [name, count, isLast])
 
