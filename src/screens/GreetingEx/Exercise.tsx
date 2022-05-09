@@ -11,12 +11,13 @@ import React, {
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import VideoPlayer from 'react-native-video-player'
 
+import { IResult } from './index'
 import CustomText from 'src/components/CustomText'
 import { ExecutionExerciseEnum } from 'src/types/ExerciseTypes'
 import RepeatCounter from 'src/components/Exercise/RepeatCounter'
 import CustomButton from 'src/components/CustomButton'
-import { IResult } from '.'
 import RelaxTimer from 'src/components/Exercise/RelaxTimer'
+import HoldCounter from 'src/components/Exercise/HoldCounter'
 
 type ExercisePropsType = {
   active: boolean
@@ -57,28 +58,44 @@ const Exercise: FC<ExercisePropsType> = ({
   const clearRelaxTimer = () => {
     clearInterval(relaxTimer.current)
     relaxTimer.current = null
-    console.log('clear !')
   }
-
-  const done = useCallback(() => {
-    setTestResult((prev) => [...prev, { name, result: count }])
-
-    if (!isLast) {
-      startRelaxTimer()
-      // toNextExercise()
-    } else {
-    }
-  }, [name, count, isLast])
 
   useEffect(() => {
     if (relax <= 0) {
       clearRelaxTimer()
+      toNextExercise()
     }
   }, [relax])
 
   useEffect(() => {
     return () => clearRelaxTimer()
   }, [])
+
+  const [time, setTime] = useState(0)
+
+  const timer = useRef<any>()
+
+  const startTimer = () => {
+    timer.current = setInterval(() => setTime((prev) => prev + 1), 1000)
+  }
+
+  const stopTimer = () => {
+    clearInterval(timer.current)
+    timer.current = null
+  }
+
+  const done = useCallback(() => {
+    setTestResult((prev) => [...prev, { name, result: count }])
+
+    if (counterType === ExecutionExerciseEnum.HOLD) {
+      stopTimer()
+    }
+
+    if (!isLast) {
+      startRelaxTimer()
+    } else {
+    }
+  }, [name, count, isLast])
 
   if (!active) return null
 
@@ -120,12 +137,22 @@ const Exercise: FC<ExercisePropsType> = ({
           ) : counterType === ExecutionExerciseEnum.REPEAT ? (
             <RepeatCounter count={count} setCount={setCount} />
           ) : (
-            <View />
+            <HoldCounter time={time} />
           )}
         </View>
         <View style={styles.btnContainer}>
           {!!relaxTimer.current ? (
-            <CustomButton>Go to nex exercise</CustomButton>
+            <CustomButton
+              onPress={toNextExercise}
+              styles={[styles.btn, styles.btnWide]}
+              textStyles={styles.btnText}
+            >
+              Go to next exercise
+            </CustomButton>
+          ) : counterType === ExecutionExerciseEnum.HOLD && !timer ? (
+            <CustomButton onPress={startTimer} styles={styles.btn} textStyles={styles.btnText}>
+              Start
+            </CustomButton>
           ) : (
             <CustomButton onPress={done} styles={styles.btn} textStyles={styles.btnText}>
               Done
@@ -172,6 +199,9 @@ const styles = EStyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  btnWide: {
+    width: 180,
+  },
   btn: {
     width: 100,
     height: 80,
@@ -182,6 +212,7 @@ const styles = EStyleSheet.create({
     fontFamily: '$fontMedium',
     fontSize: 20,
     textTransform: 'uppercase',
+    textAlign: 'center',
   },
   program: {
     flexDirection: 'row',

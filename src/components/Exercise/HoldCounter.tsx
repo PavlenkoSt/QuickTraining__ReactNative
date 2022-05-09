@@ -5,12 +5,12 @@ import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import CustomText from '../CustomText'
 import time from 'src/utilts/time'
 
-type RelaxTimerPropsType = {
-  value: number
+type HoldCounterPropsType = {
+  time: number
 }
 
-const RelaxTimer: FC<RelaxTimerPropsType> = ({ value }) => {
-  const { minutes, seconds } = time.fromSecondsToMinutesAndSeconds(value)
+const HoldCounter: FC<HoldCounterPropsType> = ({ time: timeCount }) => {
+  const { minutes, seconds } = time.fromSecondsToMinutesAndSeconds(timeCount)
 
   return (
     <View style={styles.container}>
@@ -29,7 +29,7 @@ const RelaxTimer: FC<RelaxTimerPropsType> = ({ value }) => {
   )
 }
 
-export default RelaxTimer
+export default HoldCounter
 
 const styles = EStyleSheet.create({
   container: {
@@ -40,13 +40,13 @@ const styles = EStyleSheet.create({
     flexDirection: 'row',
   },
   numberContainer: {
-    backgroundColor: '$secondaryTheme',
+    backgroundColor: '$blue',
     width: 70,
     height: 80,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '$blue',
+    borderColor: '#111',
   },
   middleContainer: {
     width: 20,

@@ -9,8 +9,8 @@ type ButtonPropsType = {
   onPress?: (event: GestureResponderEvent) => void
   disable?: boolean
   danger?: boolean
-  styles?: ViewStyle
-  textStyles?: ViewStyle
+  styles?: ViewStyle | ViewStyle[]
+  textStyles?: ViewStyle | ViewStyle[]
 }
 
 const CustomButton: FC<ButtonPropsType> = ({
