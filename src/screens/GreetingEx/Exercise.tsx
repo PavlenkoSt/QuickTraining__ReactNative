@@ -98,7 +98,9 @@ const Exercise: FC<ExercisePropsType> = ({
         <CustomText style={styles.name}>{name}</CustomText>
         {isTest && (
           <CustomText style={styles.description}>
-            Execute the maximum number of repetitions and fix the result
+            {counterType === ExecutionExerciseEnum.REPEAT
+              ? 'Execute the maximum number of repetitions and fix the result'
+              : 'Hold the position for as long as possible and fix the result'}
           </CustomText>
         )}
         <View style={styles.repeaterContainer}>
