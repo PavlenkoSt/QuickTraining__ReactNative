@@ -5,7 +5,7 @@ import VideoPlayer from 'react-native-video-player'
 
 import { IResult } from './index'
 import CustomText from 'src/components/CustomText'
-import { ExecutionExerciseEnum } from 'src/types/ExerciseTypes'
+import { ExecutionExerciseEnum, IExercise } from 'src/types/ExerciseTypes'
 import RepeatCounter from 'src/components/Exercise/RepeatCounter'
 import CustomButton from 'src/components/CustomButton'
 import RelaxTimer from 'src/components/Exercise/RelaxTimer'
@@ -13,8 +13,10 @@ import HoldCounter from 'src/components/Exercise/HoldCounter'
 
 import useHoldEx from 'src/hooks/Exercise/useHoldEx'
 import useRelaxEx from 'src/hooks/Exercise/useRelaxEx'
+import ExerciseFooter from './ExerciseFooter'
 
 type ExercisePropsType = {
+  activeIndex: number
   active: boolean
   name: string
   relaxDelation: number
@@ -24,11 +26,13 @@ type ExercisePropsType = {
   counterType: ExecutionExerciseEnum
   testResult: IResult[]
   setTestResult: Dispatch<SetStateAction<IResult[]>>
+  testPlan: IExercise[]
   isTest?: boolean
 }
 
 const Exercise: FC<ExercisePropsType> = ({
   active,
+  activeIndex,
   name,
   relaxDelation,
   isLast,
@@ -36,6 +40,7 @@ const Exercise: FC<ExercisePropsType> = ({
   counterType,
   testResult,
   isTest,
+  testPlan,
   setTestResult,
   toNextExercise,
 }) => {
@@ -46,17 +51,21 @@ const Exercise: FC<ExercisePropsType> = ({
   const { time, timer, startTimer, stopTimer } = useHoldEx()
 
   const done = useCallback(() => {
-    setTestResult((prev) => [...prev, { name, result: count }])
-
     if (counterType === ExecutionExerciseEnum.HOLD) {
+      setTestResult((prev) => [...prev, { name, result: time, type: ExecutionExerciseEnum.HOLD }])
       stopTimer()
+    } else {
+      setTestResult((prev) => [
+        ...prev,
+        { name, result: count, type: ExecutionExerciseEnum.REPEAT },
+      ])
     }
 
     if (isLast) {
     } else {
       startRelaxTimer()
     }
-  }, [name, count, isLast])
+  }, [name, count, isLast, time])
 
   if (!active) return null
 
@@ -120,7 +129,12 @@ const Exercise: FC<ExercisePropsType> = ({
             </CustomButton>
           )}
         </View>
-        <View style={styles.program}></View>
+        <ExerciseFooter
+          testPlan={testPlan}
+          activeIndex={activeIndex}
+          testResult={testResult}
+          exercisePercent={null}
+        />
       </View>
     </View>
   )
@@ -159,6 +173,7 @@ const styles = EStyleSheet.create({
   btnContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 30,
   },
   btnWide: {
     width: 180,
@@ -174,10 +189,5 @@ const styles = EStyleSheet.create({
     fontSize: 20,
     textTransform: 'uppercase',
     textAlign: 'center',
-  },
-  program: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 })

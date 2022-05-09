@@ -6,10 +6,12 @@ import Exercise from 'src/screens/GreetingEx/Exercise'
 import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
 import ExerciseLayout from 'src/layouts/ExerciseLayout'
 import ExerciseService from 'src/services/ExerciseService'
+import { ExecutionExerciseEnum } from 'src/types/ExerciseTypes'
 
 export interface IResult {
   name: string
   result: number
+  type: ExecutionExerciseEnum
 }
 
 type GreetingEx1PropsType = {
@@ -53,11 +55,13 @@ const GreetingEx: FC<GreetingEx1PropsType> = ({ route }) => {
             counterType={exercise.execution}
             relaxDelation={120}
             video={exercise.video}
+            activeIndex={activeIndex}
             active={activeIndex === i}
             toNextExercise={() => setActiveIndex(i + 1)}
             isLast={testPlan.length - 1 === i}
             testResult={testResult}
             setTestResult={setTestResult}
+            testPlan={testPlan}
             isTest
           />
         ))}
