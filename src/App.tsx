@@ -8,6 +8,7 @@
 
 import React from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
+import { LogBox } from 'react-native'
 import Toast from 'react-native-toast-message'
 
 import RealmDB from 'src/RealmDB/index'
@@ -16,6 +17,8 @@ import { toastConfig } from './services/ToastService'
 
 const App = () => {
   const { RealmProvider } = RealmDB
+
+  LogBox.ignoreLogs(['ViewPropTypes'])
 
   return (
     <>

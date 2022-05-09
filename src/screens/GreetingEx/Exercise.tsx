@@ -149,7 +149,7 @@ const Exercise: FC<ExercisePropsType> = ({
             >
               Go to next exercise
             </CustomButton>
-          ) : counterType === ExecutionExerciseEnum.HOLD && !timer ? (
+          ) : counterType === ExecutionExerciseEnum.HOLD && !timer.current ? (
             <CustomButton onPress={startTimer} styles={styles.btn} textStyles={styles.btnText}>
               Start
             </CustomButton>
