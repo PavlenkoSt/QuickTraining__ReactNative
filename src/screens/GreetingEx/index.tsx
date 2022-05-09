@@ -7,6 +7,11 @@ import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
 import ExerciseLayout from 'src/layouts/ExerciseLayout'
 import ExerciseService from 'src/services/ExerciseService'
 
+export interface IResult {
+  name: string
+  result: number
+}
+
 type GreetingEx1PropsType = {
   route: {
     params: {
@@ -36,7 +41,7 @@ const GreetingEx: FC<GreetingEx1PropsType> = ({ route }) => {
   )
 
   const [activeIndex, setActiveIndex] = useState(0)
-  const [testResult, setTestResult] = useState<Object | null>(null)
+  const [testResult, setTestResult] = useState<IResult[]>([])
 
   return (
     <ExerciseLayout>
@@ -48,9 +53,8 @@ const GreetingEx: FC<GreetingEx1PropsType> = ({ route }) => {
             counterType={exercise.execution}
             relaxDelation={120}
             video={exercise.video}
-            setActiveIndex={setActiveIndex}
             active={activeIndex === i}
-            indexToNextExercise={i + 1}
+            toNextExercise={() => setActiveIndex(i + 1)}
             isLast={testPlan.length - 1 === i}
             testResult={testResult}
             setTestResult={setTestResult}

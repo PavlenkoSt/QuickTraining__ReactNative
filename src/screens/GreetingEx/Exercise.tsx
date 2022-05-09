@@ -1,23 +1,33 @@
 import { Dimensions, View } from 'react-native'
-import React, { Dispatch, FC, SetStateAction, useState } from 'react'
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import VideoPlayer from 'react-native-video-player'
 
 import CustomText from 'src/components/CustomText'
 import { ExecutionExerciseEnum } from 'src/types/ExerciseTypes'
 import RepeatCounter from 'src/components/Exercise/RepeatCounter'
+import CustomButton from 'src/components/CustomButton'
+import { IResult } from '.'
+import RelaxTimer from 'src/components/Exercise/RelaxTimer'
 
 type ExercisePropsType = {
   active: boolean
   name: string
   relaxDelation: number
-  setActiveIndex: Dispatch<SetStateAction<number>>
-  indexToNextExercise: number
+  toNextExercise: () => void
   isLast: boolean
   video: NodeRequire
   counterType: ExecutionExerciseEnum
-  testResult: Object | null
-  setTestResult: Dispatch<SetStateAction<Object | null>>
+  testResult: IResult[]
+  setTestResult: Dispatch<SetStateAction<IResult[]>>
   isTest?: boolean
 }
 
@@ -25,15 +35,50 @@ const Exercise: FC<ExercisePropsType> = ({
   active,
   name,
   relaxDelation,
-  setActiveIndex,
-  indexToNextExercise,
   isLast,
   video,
   counterType,
   testResult,
   isTest,
+  setTestResult,
+  toNextExercise,
 }) => {
   const [count, setCount] = useState(0)
+  const [relax, setRelax] = useState(() => relaxDelation)
+
+  const relaxTimer = useRef<any>(null)
+
+  const startRelaxTimer = () => {
+    relaxTimer.current = setInterval(() => {
+      setRelax((prev) => prev - 1)
+    }, 1000)
+  }
+
+  const clearRelaxTimer = () => {
+    clearInterval(relaxTimer.current)
+    relaxTimer.current = null
+    console.log('clear !')
+  }
+
+  const done = useCallback(() => {
+    setTestResult((prev) => [...prev, { name, result: count }])
+
+    if (!isLast) {
+      startRelaxTimer()
+      // toNextExercise()
+    } else {
+    }
+  }, [name, count, isLast])
+
+  useEffect(() => {
+    if (relax <= 0) {
+      clearRelaxTimer()
+    }
+  }, [relax])
+
+  useEffect(() => {
+    return () => clearRelaxTimer()
+  }, [])
 
   if (!active) return null
 
@@ -70,8 +115,24 @@ const Exercise: FC<ExercisePropsType> = ({
           </CustomText>
         )}
         <View style={styles.repeaterContainer}>
-          <RepeatCounter count={count} setCount={setCount} />
+          {!!relaxTimer.current ? (
+            <RelaxTimer value={relax} />
+          ) : counterType === ExecutionExerciseEnum.REPEAT ? (
+            <RepeatCounter count={count} setCount={setCount} />
+          ) : (
+            <View />
+          )}
         </View>
+        <View style={styles.btnContainer}>
+          {!!relaxTimer.current ? (
+            <CustomButton>Go to nex exercise</CustomButton>
+          ) : (
+            <CustomButton onPress={done} styles={styles.btn} textStyles={styles.btnText}>
+              Done
+            </CustomButton>
+          )}
+        </View>
+        <View style={styles.program}></View>
       </View>
     </View>
   )
@@ -106,5 +167,25 @@ const styles = EStyleSheet.create({
   },
   repeaterContainer: {
     marginBottom: 30,
+  },
+  btnContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  btn: {
+    width: 100,
+    height: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  btnText: {
+    fontFamily: '$fontMedium',
+    fontSize: 20,
+    textTransform: 'uppercase',
+  },
+  program: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 })
