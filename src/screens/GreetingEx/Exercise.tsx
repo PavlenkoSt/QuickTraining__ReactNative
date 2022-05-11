@@ -14,6 +14,8 @@ import HoldCounter from 'src/components/Exercise/HoldCounter'
 import useHoldEx from 'src/hooks/Exercise/useHoldEx'
 import useRelaxEx from 'src/hooks/Exercise/useRelaxEx'
 import ExerciseFooter from './ExerciseFooter'
+import { useNavigation, StackActions } from '@react-navigation/native'
+import useFlowEx from 'src/hooks/Exercise/useFlowEx'
 
 type ExercisePropsType = {
   activeIndex: number
@@ -50,22 +52,17 @@ const Exercise: FC<ExercisePropsType> = ({
 
   const { time, timer, startTimer, stopTimer } = useHoldEx()
 
-  const done = useCallback(() => {
-    if (counterType === ExecutionExerciseEnum.HOLD) {
-      setTestResult((prev) => [...prev, { name, result: time, type: ExecutionExerciseEnum.HOLD }])
-      stopTimer()
-    } else {
-      setTestResult((prev) => [
-        ...prev,
-        { name, result: count, type: ExecutionExerciseEnum.REPEAT },
-      ])
-    }
-
-    if (isLast) {
-    } else {
-      startRelaxTimer()
-    }
-  }, [name, count, isLast, time])
+  const { done } = useFlowEx({
+    counterType,
+    testResult,
+    isLast,
+    count,
+    name,
+    time,
+    setTestResult,
+    startRelaxTimer,
+    stopTimer,
+  })
 
   if (!active) return null
 
