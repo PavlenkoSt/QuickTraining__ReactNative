@@ -1,5 +1,5 @@
 import { TouchableOpacity, View } from 'react-native'
-import React, { Dispatch, FC, SetStateAction, useCallback, useState } from 'react'
+import React, { Dispatch, FC, SetStateAction, useCallback, useState, memo } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import CustomText from '../CustomText'
@@ -56,7 +56,7 @@ const RepeatCounter: FC<RepeatCounterPropsType> = ({ count, setCount }) => {
   )
 }
 
-export default RepeatCounter
+export default memo(RepeatCounter)
 
 const styles = EStyleSheet.create({
   container: {

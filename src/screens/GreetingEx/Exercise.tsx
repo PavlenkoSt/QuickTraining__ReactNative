@@ -1,5 +1,5 @@
 import { Dimensions, View } from 'react-native'
-import React, { Dispatch, FC, SetStateAction, useCallback, useState } from 'react'
+import React, { Dispatch, FC, SetStateAction, useCallback, useState, memo } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import VideoPlayer from 'react-native-video-player'
 
@@ -142,7 +142,7 @@ const Exercise: FC<ExercisePropsType> = ({
   )
 }
 
-export default Exercise
+export default memo(Exercise)
 
 const { width } = Dimensions.get('window')
 

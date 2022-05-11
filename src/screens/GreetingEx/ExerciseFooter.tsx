@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import React, { FC } from 'react'
+import React, { FC, memo } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import CustomText from 'src/components/CustomText'
@@ -57,7 +57,7 @@ const ExerciseFooter: FC<ExerciseFooterPropsType> = ({
   )
 }
 
-export default ExerciseFooter
+export default memo(ExerciseFooter)
 
 const styles = EStyleSheet.create({
   program: {
