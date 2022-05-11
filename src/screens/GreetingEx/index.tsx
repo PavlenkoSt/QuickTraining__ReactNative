@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import { ScrollView } from 'react-native'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
-import Exercise from 'src/screens/GreetingEx/Exercise'
+import Exercise from 'src/components/Exercise'
 import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
 import ExerciseLayout from 'src/layouts/ExerciseLayout'
 import ExerciseService from 'src/services/ExerciseService'

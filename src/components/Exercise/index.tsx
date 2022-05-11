@@ -1,20 +1,19 @@
 import { Dimensions, View } from 'react-native'
-import React, { Dispatch, FC, SetStateAction, useCallback, useState, memo } from 'react'
+import React, { Dispatch, FC, SetStateAction, useState, memo } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import VideoPlayer from 'react-native-video-player'
 
-import { IResult } from './index'
+import { IResult } from 'src/screens/GreetingEx/index'
 import CustomText from 'src/components/CustomText'
 import { ExecutionExerciseEnum, IExercise } from 'src/types/ExerciseTypes'
 import RepeatCounter from 'src/components/Exercise/RepeatCounter'
 import CustomButton from 'src/components/CustomButton'
 import RelaxTimer from 'src/components/Exercise/RelaxTimer'
 import HoldCounter from 'src/components/Exercise/HoldCounter'
+import ExerciseFooter from 'src/components/Exercise/ExerciseFooter'
 
 import useHoldEx from 'src/hooks/Exercise/useHoldEx'
 import useRelaxEx from 'src/hooks/Exercise/useRelaxEx'
-import ExerciseFooter from './ExerciseFooter'
-import { useNavigation, StackActions } from '@react-navigation/native'
 import useFlowEx from 'src/hooks/Exercise/useFlowEx'
 
 type ExercisePropsType = {

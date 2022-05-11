@@ -4,7 +4,7 @@ import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import CustomText from 'src/components/CustomText'
 import { IExercise } from 'src/types/ExerciseTypes'
-import { IResult } from '.'
+import { IResult } from 'src/screens/GreetingEx'
 
 import Check from 'src/assets/imgs/check.svg'
 
