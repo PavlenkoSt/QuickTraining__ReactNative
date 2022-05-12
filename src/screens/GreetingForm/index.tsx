@@ -1,7 +1,7 @@
 import React from 'react'
 
 import MainLayout from 'src/layouts/MainLayout'
-import EmptyHeader from 'src/components/EmptyHeader'
+import EmptyHeader from 'src/components/Headers/EmptyHeader'
 import ProfileForm from 'src/components/ProfileForm'
 
 const GreetingForm = () => {

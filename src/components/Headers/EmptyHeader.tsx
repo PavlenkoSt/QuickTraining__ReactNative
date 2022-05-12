@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
-import CustomText from './CustomText'
+import CustomText from '../CustomText'
 
 import Arrow from 'src/assets/imgs/up-arrow.svg'
 

@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import MainLayout from 'src/layouts/MainLayout'
-import EmptyHeader from 'src/components/EmptyHeader'
+import EmptyHeader from 'src/components/Headers/EmptyHeader'
 import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
 import CustomText from 'src/components/CustomText'
 import InventarForm from 'src/components/InventarForm'

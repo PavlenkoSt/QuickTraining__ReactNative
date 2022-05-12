@@ -5,6 +5,7 @@ import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import CustomText from 'src/components/CustomText'
 import { IResult } from '../GreetingEx'
 import MainLayout from 'src/layouts/MainLayout'
+import TitleHeader from 'src/components/Headers/TitleHeader'
 
 type TrainingResultPropsType = {
   route: {
@@ -18,7 +19,7 @@ const TrainingResult: FC<TrainingResultPropsType> = ({ route }) => {
   console.log('res', route.params.testResult)
 
   return (
-    <MainLayout>
+    <MainLayout Header={() => <TitleHeader title="Training result" subtitle='Good job' />}>
       <CustomText>results - fix, show and save results</CustomText>
     </MainLayout>
   )
