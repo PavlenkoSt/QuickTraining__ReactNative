@@ -16,8 +16,6 @@ type TrainingResultPropsType = {
 }
 
 const TrainingResult: FC<TrainingResultPropsType> = ({ route }) => {
-  console.log('res', route.params.testResult)
-
   return (
     <MainLayout Header={() => <TitleHeader title="Training done" subtitle="Good job" />}>
       <ResultList results={route.params.testResult} />

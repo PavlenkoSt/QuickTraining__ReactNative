@@ -29,6 +29,8 @@ export default class UserSchema extends Realm.Object {
   pushUpMax!: number
   sitUpMax!: number
   plankMax!: number
+  levelLabel!: string
+  levelPercent!: number
 
   // the Task.generate() method creates Task objects with fields with default values
   static generate(user: IUser) {
@@ -48,6 +50,8 @@ export default class UserSchema extends Realm.Object {
       pushUpMax: 'int',
       sitUpMax: 'int',
       plankMax: 'int',
+      levelLabel: 'string',
+      levelPercent: 'int',
     },
     primaryKey: '_id',
   }
@@ -63,4 +67,6 @@ export interface IUser {
   pushUpMax: number
   sitUpMax: number
   plankMax: number
+  levelLabel: string
+  levelPercent: number
 }
