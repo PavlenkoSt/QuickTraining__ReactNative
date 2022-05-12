@@ -6,6 +6,10 @@ const useHoldEx = () => {
   const timer = useRef<any>()
 
   const startTimer = () => {
+    if (timer.current) {
+      stopTimer()
+    }
+
     timer.current = setInterval(() => setTime((prev) => prev + 1), 1000)
   }
 
