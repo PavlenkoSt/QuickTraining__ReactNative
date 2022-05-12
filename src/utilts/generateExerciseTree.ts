@@ -32,7 +32,7 @@ const generateExerciseTree = (): IExercisesTree => {
           forTrainingPart: ExerciseTrainingPart.MAIN,
           needInventar: null,
           min: 10,
-          max: 50,
+          max: 100,
         },
         {
           id: 2,
@@ -43,7 +43,7 @@ const generateExerciseTree = (): IExercisesTree => {
           forTrainingPart: ExerciseTrainingPart.MAIN,
           needInventar: null,
           min: 10,
-          max: 300,
+          max: 600,
         },
       ],
       [ExerciseLevel.MEDIUM]: [],
