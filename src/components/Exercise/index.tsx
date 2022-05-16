@@ -61,6 +61,7 @@ const Exercise: FC<ExercisePropsType> = ({
     setTestResult,
     startRelaxTimer,
     stopTimer,
+    isTest
   })
 
   if (!active) return null

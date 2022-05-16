@@ -14,6 +14,7 @@ type useFlowExPropsType = {
   setTestResult: Dispatch<SetStateAction<IResult[]>>
   startRelaxTimer: () => void
   stopTimer: () => void
+  isTest?: boolean
 }
 
 const useFlowEx = ({
@@ -26,6 +27,7 @@ const useFlowEx = ({
   setTestResult,
   startRelaxTimer,
   stopTimer,
+  isTest,
 }: useFlowExPropsType) => {
   const { dispatch } = useNavigation()
 
@@ -45,7 +47,7 @@ const useFlowEx = ({
 
     if (isLast) {
       dispatch(
-        StackActions.replace('TrainingResult', { testResult: [...testResult, thisTransaction] })
+        StackActions.replace('TrainingResult', { testResult: [...testResult, thisTransaction], isTest })
       )
     } else {
       startRelaxTimer()

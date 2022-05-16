@@ -67,6 +67,14 @@ class LevelService {
 
     return (pushUpsPercent + sitUpsPercent + plankPercent) / 3
   }
+
+  getLabelByPercent(percent: number) {
+    const level = this.levels.find((level) => level.percent - percent < 10)
+
+    if (level) return level.level
+
+    return ''
+  }
 }
 
 export default new LevelService()
