@@ -45,6 +45,8 @@ const GreetingEx: FC<GreetingEx1PropsType> = ({ route }) => {
   const [activeIndex, setActiveIndex] = useState(0)
   const [testResult, setTestResult] = useState<IResult[]>([])
 
+  const { inventary, userInfo } = route.params
+
   return (
     <ExerciseLayout>
       <ScrollView>
@@ -62,6 +64,8 @@ const GreetingEx: FC<GreetingEx1PropsType> = ({ route }) => {
             testResult={testResult}
             setTestResult={setTestResult}
             testPlan={testPlan}
+            userInfo={userInfo}
+            inventary={inventary}
             isTest
           />
         ))}

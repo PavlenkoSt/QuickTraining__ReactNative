@@ -69,7 +69,10 @@ class LevelService {
   }
 
   getLabelByPercent(percent: number) {
-    const level = this.levels.find((level) => level.percent - percent < 10)
+    const level = this.levels.find((level) => {
+      const diff = level.percent - percent
+      return diff < 10 && diff >= 0
+    })
 
     if (level) return level.level
 

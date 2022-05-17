@@ -6,17 +6,21 @@
  * @flow strict-local
  */
 
-import React from 'react'
+import React, { useState } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import { LogBox } from 'react-native'
 import Toast from 'react-native-toast-message'
 
+import Context from './Context'
 import RealmDB from 'src/RealmDB/index'
-import Navigation from 'src/navigation/main'
+
 import { toastConfig } from './services/ToastService'
+import Navigation from 'src/navigation/main'
 
 const App = () => {
   const { RealmProvider } = RealmDB
+
+  const [auth, setAuth] = useState(false)
 
   LogBox.ignoreLogs(['ViewPropTypes'])
 
@@ -24,7 +28,9 @@ const App = () => {
     <>
       {/* @ts-ignore */}
       <RealmProvider>
-        <Navigation />
+        <Context.Provider value={{ setIsAuth: setAuth }}>
+          <Navigation isAuth={auth} setIsAuth={setAuth} />
+        </Context.Provider>
       </RealmProvider>
       <Toast config={toastConfig} />
     </>

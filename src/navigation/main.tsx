@@ -1,11 +1,9 @@
-import React from 'react'
+import React, { Dispatch, FC, SetStateAction, useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import TabBar from 'src/components/TabBar'
-import RealmDB from 'src/RealmDB'
-import { IUser } from 'src/RealmDB/schemas/User'
 
 import Home from 'src/screens/Home'
 import Statistics from 'src/screens/Statistics'
@@ -17,17 +15,29 @@ import GreetingInventar from 'src/screens/GreetingInventar'
 import GreetingTest from 'src/screens/GreetingTest'
 import GreetingEx from 'src/screens/GreetingEx'
 import TrainingResult from 'src/screens/TrainingResult'
+import useRealmUser from 'src/hooks/Realm/useRealmUser'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
 
-const NavigationWrapper = () => {
-  const { useObject } = RealmDB
+type NavigationWrapperPropsType = {
+  isAuth: boolean
+  setIsAuth: Dispatch<SetStateAction<boolean>>
+}
 
-  const user: IUser | null = useObject('User', 0)?.toJSON()
+const NavigationWrapper: FC<NavigationWrapperPropsType> = ({ isAuth, setIsAuth }) => {
+  const { getUser } = useRealmUser()
+
+  useEffect(() => {
+    const user = getUser()
+
+    if (user) {
+      setIsAuth(true)
+    }
+  }, [])
 
   return (
-    <NavigationContainer>{!!user ? <TabsNavigation /> : <GreetingStack />}</NavigationContainer>
+    <NavigationContainer>{!!isAuth ? <TabsNavigation /> : <GreetingStack />}</NavigationContainer>
   )
 }
 

@@ -1,41 +1,35 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Text } from 'react-native'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
-import RealmDB from 'src/RealmDB/index'
-import UserSchema, { IUser } from 'src/RealmDB/schemas/User'
+import CustomButton from 'src/components/CustomButton'
+import Context from 'src/Context'
+import useRealmUser from 'src/hooks/Realm/useRealmUser'
 
 import MainLayout from 'src/layouts/MainLayout'
 import HomeHeader from 'src/screens/Home/HomeHeader'
 
 const Home = () => {
-  // const { useRealm } = RealmDB
-
-  // const realm = useRealm()
-
-  useEffect(() => {
-    // const handleAddTask = (user: IUser): void => {
-    //   if (!user) {
-    //     return
-    //   }
-    //   realm.write(() => {
-    //     realm.create('User', UserSchema.generate(user))
-    //   })
-    // }
-    // handleAddTask({
-    //   _id: 0,
-    //   gender: 'male',
-    //   name: 'Stass',
-    //   plankMax: 10,
-    //   pushUpMax: 10,
-    //   sitUpMax: 10,
-    // })
-  }, [])
+  const { clearUser } = useRealmUser()
 
   return (
-    <MainLayout Header={HomeHeader}>
-      <Text>Home</Text>
-    </MainLayout>
+    <Context.Consumer>
+      {(context) => (
+        <MainLayout Header={HomeHeader}>
+          <Text>Home</Text>
+          <CustomButton
+            onPress={() => {
+              clearUser()
+              if (context.setIsAuth) {
+                context.setIsAuth(false)
+              }
+            }}
+          >
+            clear user data
+          </CustomButton>
+        </MainLayout>
+      )}
+    </Context.Consumer>
   )
 }
 
