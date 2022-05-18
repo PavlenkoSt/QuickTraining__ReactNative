@@ -9,10 +9,9 @@ import CustomButton from 'src/components/CustomButton'
 type ClearUserModalPropsType = {
   visible: boolean
   setVisible: Dispatch<SetStateAction<boolean>>
-  setIsAuth: Dispatch<SetStateAction<boolean>> | null
 }
 
-const ClearUserModal: FC<ClearUserModalPropsType> = ({ visible, setVisible, setIsAuth }) => {
+const ClearUserModal: FC<ClearUserModalPropsType> = ({ visible, setVisible }) => {
   const { clearUser } = useRealmUser()
 
   return (
@@ -27,9 +26,6 @@ const ClearUserModal: FC<ClearUserModalPropsType> = ({ visible, setVisible, setI
             danger
             onPress={() => {
               clearUser()
-              if (setIsAuth) {
-                setIsAuth(false)
-              }
               setVisible(false)
             }}
           >

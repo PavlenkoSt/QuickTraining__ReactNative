@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, SetStateAction, useEffect } from 'react'
+import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -20,24 +20,11 @@ import useRealmUser from 'src/hooks/Realm/useRealmUser'
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
 
-type NavigationWrapperPropsType = {
-  isAuth: boolean
-  setIsAuth: Dispatch<SetStateAction<boolean>>
-}
-
-const NavigationWrapper: FC<NavigationWrapperPropsType> = ({ isAuth, setIsAuth }) => {
-  const { getUser } = useRealmUser()
-
-  useEffect(() => {
-    const user = getUser()
-
-    if (user) {
-      setIsAuth(true)
-    }
-  }, [])
+const NavigationWrapper = () => {
+  const { user } = useRealmUser()
 
   return (
-    <NavigationContainer>{!!isAuth ? <TabsNavigation /> : <GreetingStack />}</NavigationContainer>
+    <NavigationContainer>{!!user ? <TabsNavigation /> : <GreetingStack />}</NavigationContainer>
   )
 }
 

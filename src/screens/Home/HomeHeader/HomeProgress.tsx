@@ -21,12 +21,7 @@ const HomeProgress: FC<HomeProgressPropsType> = ({ level, percent }) => {
       </View>
       <View style={styles.footer}>
         <View style={styles.line}>
-          <View
-            style={[
-              styles.progress,
-              { backgroundColor: '#078c4e', width: (width * percent) / 100 },
-            ]}
-          />
+          <View style={[styles.progress, { width: (width * percent) / 100 }]} />
         </View>
       </View>
     </View>
@@ -49,11 +44,12 @@ const styles = EStyleSheet.create({
   },
   line: {
     width,
-    backgroundColor: '#333',
+    backgroundColor: '#444',
     height: 4,
   },
   progress: {
     height: 4,
+    backgroundColor: '$green',
   },
   percent: {
     fontSize: 14,

@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import React, { useState } from 'react'
+import React from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import CustomText from 'src/components/CustomText'
@@ -8,16 +8,12 @@ import HomeProgress from './HomeProgress'
 import useRealmUser from 'src/hooks/Realm/useRealmUser'
 
 const HomeHeader = () => {
-  const { getUser } = useRealmUser()
-
-  const [user] = useState(getUser())
+  const { user } = useRealmUser()
 
   return (
     <View style={styles.container}>
-      <CustomText style={styles.header}>{user?.name ? `Hello, ${user.name}` : 'Hello'}</CustomText>
-      {!!user?.levelLabel && user.levelPercent && (
-        <HomeProgress level={user.levelLabel} percent={user.levelPercent} />
-      )}
+      <CustomText style={styles.header}>{!!user ? `Hello, ${user.name}` : 'Hello'}</CustomText>
+      {!!user && <HomeProgress level={user.levelLabel} percent={user.levelPercent} />}
     </View>
   )
 }

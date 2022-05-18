@@ -2,8 +2,6 @@ import { View } from 'react-native'
 import React, { FC } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
-import Context from 'src/Context'
-
 import ResultList from './ResultList'
 import { IResult } from '../GreetingEx'
 import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
@@ -47,75 +45,67 @@ const TrainingResult: FC<TrainingResultPropsType> = ({ route }) => {
   const { setUser } = useRealmUser()
 
   return (
-    <Context.Consumer>
-      {(context) => (
-        <MainLayout
-          Header={() => (
-            <TitleHeader title={isTest ? 'Test completed' : 'Training done'} subtitle="Good job" />
-          )}
-        >
-          {!!isTest && (
-            <View style={styles.testBlock}>
-              <CustomText style={styles.testText}>Your level is defined as</CustomText>
-              <CustomText style={styles.testRes}>
-                {LevelService.getLabelByPercent(
-                  LevelService.calculatePercent(
-                    route.params.testResult[0].result,
-                    route.params.testResult[1].result,
-                    route.params.testResult[2].result
-                  )
-                )}
-              </CustomText>
-            </View>
-          )}
-          <ResultList results={route.params.testResult} />
-          {isTest && (
-            <CustomButton
-              styles={{ marginTop: 30 }}
-              onPress={() => {
-                const { userData } = route.params
-
-                if (!userData) return
-
-                const { userInfo, inventary } = userData
-
-                if (!userInfo || !inventary) return
-
-                setUser({
-                  _id: 0,
-                  name: userInfo.name,
-                  age: userInfo.age,
-                  gender: userInfo.gender,
-                  goal: userInfo.goal,
-                  duration: userInfo.duration,
-                  pushUpMax: route.params.testResult[0].result,
-                  sitUpMax: route.params.testResult[1].result,
-                  plankMax: route.params.testResult[2].result,
-                  levelLabel: LevelService.getLabelByPercent(
-                    LevelService.calculatePercent(
-                      route.params.testResult[0].result,
-                      route.params.testResult[1].result,
-                      route.params.testResult[2].result
-                    )
-                  ),
-                  levelPercent: LevelService.calculatePercent(
-                    route.params.testResult[0].result,
-                    route.params.testResult[1].result,
-                    route.params.testResult[2].result
-                  ),
-                })
-
-                if (context.setIsAuth) {
-                  context.setIsAuth(true)
-                }
-              }}
-            >
-              Accept and build the training program
-            </CustomButton>
-          )}
-        </MainLayout>
+    <MainLayout
+      Header={() => (
+        <TitleHeader title={isTest ? 'Test completed' : 'Training done'} subtitle="Good job" />
       )}
-    </Context.Consumer>
+    >
+      {!!isTest && (
+        <View style={styles.testBlock}>
+          <CustomText style={styles.testText}>Your level is defined as</CustomText>
+          <CustomText style={styles.testRes}>
+            {LevelService.getLabelByPercent(
+              LevelService.calculatePercent(
+                route.params.testResult[0].result,
+                route.params.testResult[1].result,
+                route.params.testResult[2].result
+              )
+            )}
+          </CustomText>
+        </View>
+      )}
+      <ResultList results={route.params.testResult} />
+      {isTest && (
+        <CustomButton
+          styles={{ marginTop: 30 }}
+          onPress={() => {
+            const { userData } = route.params
+
+            if (!userData) return
+
+            const { userInfo, inventary } = userData
+
+            if (!userInfo || !inventary) return
+
+            setUser({
+              _id: 0,
+              name: userInfo.name,
+              age: userInfo.age,
+              gender: userInfo.gender,
+              goal: userInfo.goal,
+              duration: userInfo.duration,
+              pushUpMax: route.params.testResult[0].result,
+              sitUpMax: route.params.testResult[1].result,
+              plankMax: route.params.testResult[2].result,
+              levelLabel: LevelService.getLabelByPercent(
+                LevelService.calculatePercent(
+                  route.params.testResult[0].result,
+                  route.params.testResult[1].result,
+                  route.params.testResult[2].result
+                )
+              ),
+              levelPercent: LevelService.calculatePercent(
+                route.params.testResult[0].result,
+                route.params.testResult[1].result,
+                route.params.testResult[2].result
+              ),
+            })
+          }}
+        >
+          Accept and build the training program
+        </CustomButton>
+      )}
+    </MainLayout>
   )
 }
 

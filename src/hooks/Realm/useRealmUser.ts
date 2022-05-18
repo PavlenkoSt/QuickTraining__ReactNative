@@ -1,12 +1,21 @@
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 
 import RealmDB from 'src/RealmDB'
 import UserSchema, { IUser } from 'src/RealmDB/schemas/User'
 
 const useRealmUser = () => {
-  const { useRealm } = RealmDB
+  const { useRealm, useQuery } = RealmDB
 
   const realm = useRealm()
+  const userRealm = useQuery('User')
+
+  const user: IUser | null = useMemo(() => {
+    if (userRealm.length) {
+      return userRealm[0].toJSON()
+    }
+
+    return null
+  }, [userRealm])
 
   const setUser = useCallback((user: IUser) => {
     if (!user) {
@@ -17,26 +26,27 @@ const useRealmUser = () => {
     })
   }, [])
 
+  const updateUser = useCallback(() => {
+    if (user) {
+      realm.write(() => {
+        // example
+        //@ts-ignore
+        userRealm[0].levelPercent = 23
+      })
+    }
+  }, [user])
+
   const clearUser = useCallback(() => {
     realm.write(() => {
       realm.delete(realm.objects('User'))
     })
   }, [])
 
-  const getUser = useCallback((): IUser | null => {
-    const users = realm.objects('User').toJSON()
-
-    if (users.length) {
-      return users[0]
-    }
-
-    return null
-  }, [])
-
   return {
     setUser,
     clearUser,
-    getUser,
+    updateUser,
+    user,
   }
 }
 
