@@ -23,8 +23,8 @@ const useRealmUser = () => {
     })
   }, [])
 
-  const getUser = useCallback(() => {
-    const users = realm.objects('User')
+  const getUser = useCallback((): IUser | null => {
+    const users = realm.objects('User').toJSON()
 
     if (users.length) {
       return users[0]
