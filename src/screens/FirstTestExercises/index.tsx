@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react'
 import { ScrollView } from 'react-native'
-import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import Exercise from 'src/components/Exercise'
 import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
@@ -14,7 +13,7 @@ export interface IResult {
   type: ExecutionExerciseEnum
 }
 
-type GreetingEx1PropsType = {
+type FirstTestExercisesPropsType = {
   route: {
     params: {
       inventary: {
@@ -37,7 +36,7 @@ type GreetingEx1PropsType = {
   }
 }
 
-const GreetingEx: FC<GreetingEx1PropsType> = ({ route }) => {
+const FirstTestExercises: FC<FirstTestExercisesPropsType> = ({ route }) => {
   const testPlan = ExerciseService.exercisesTree.man.low.filter(
     (exercise) => exercise.id >= 0 && exercise.id <= 2
   )
@@ -74,6 +73,4 @@ const GreetingEx: FC<GreetingEx1PropsType> = ({ route }) => {
   )
 }
 
-export default GreetingEx
-
-const styles = EStyleSheet.create({})
+export default FirstTestExercises

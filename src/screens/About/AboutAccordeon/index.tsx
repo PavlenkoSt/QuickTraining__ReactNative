@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react'
 
-import GreetingAccordeonItem from './GreetingAccordeonItem'
+import AboutAccordeonItem from './AboutAccordeonItem'
 
-const GreetingAccordeon = () => {
+const AboutAccordeon = () => {
   const images = useMemo(
     () => ({
       configuring: [
@@ -47,7 +47,7 @@ const GreetingAccordeon = () => {
 
   return (
     <>
-      <GreetingAccordeonItem
+      <AboutAccordeonItem
         title="Main application concept"
         options={[
           {
@@ -67,7 +67,7 @@ const GreetingAccordeon = () => {
           },
         ]}
       />
-      <GreetingAccordeonItem
+      <AboutAccordeonItem
         title="Configure training program"
         options={[
           {
@@ -88,7 +88,7 @@ const GreetingAccordeon = () => {
         ]}
         blockImages={images.configuring}
       />
-      <GreetingAccordeonItem
+      <AboutAccordeonItem
         title="Workout flow"
         options={[
           {
@@ -121,7 +121,7 @@ const GreetingAccordeon = () => {
         ]}
         blockImages={images.workout}
       />
-      <GreetingAccordeonItem
+      <AboutAccordeonItem
         title="Control your progress"
         options={[
           {
@@ -147,4 +147,4 @@ const GreetingAccordeon = () => {
   )
 }
 
-export default GreetingAccordeon
+export default AboutAccordeon

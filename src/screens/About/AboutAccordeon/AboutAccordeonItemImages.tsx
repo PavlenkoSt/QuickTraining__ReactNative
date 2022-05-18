@@ -4,15 +4,12 @@ import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import useAccordeonItem from 'src/hooks/useAccordeonItem'
 
-type GreetingAccordeonItemImagesPropsType = {
+type AboutAccordeonItemImagesPropsType = {
   images: ImageSourcePropType[]
   indexes: number[]
 }
 
-const GreetingAccordeonItemImages: FC<GreetingAccordeonItemImagesPropsType> = ({
-  images,
-  indexes,
-}) => {
+const AboutAccordeonItemImages: FC<AboutAccordeonItemImagesPropsType> = ({ images, indexes }) => {
   const { filteredImages, goToGallery, size } = useAccordeonItem({ images, indexes })
 
   return (
@@ -26,7 +23,7 @@ const GreetingAccordeonItemImages: FC<GreetingAccordeonItemImagesPropsType> = ({
   )
 }
 
-export default GreetingAccordeonItemImages
+export default AboutAccordeonItemImages
 
 const styles = EStyleSheet.create({
   line: {

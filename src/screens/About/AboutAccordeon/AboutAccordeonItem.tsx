@@ -3,26 +3,22 @@ import React, { FC, useState } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import CustomText from 'src/components/CustomText'
-import GreetingAccordeonItemImages from './GreetingAccordeonItemImages'
+import AboutAccordeonItemImages from './AboutAccordeonItemImages'
 
 import Arrow from 'src/assets/imgs/up-arrow.svg'
 
-interface IGreetingAccordeonItemOption {
+interface IAboutAccordeonItemOption {
   text?: string | null
   imagesIdx?: number[]
 }
 
-type GreetingAccordeonItemPropsType = {
+type AboutAccordeonItemPropsType = {
   title: string
-  options: IGreetingAccordeonItemOption[]
+  options: IAboutAccordeonItemOption[]
   blockImages?: ImageSourcePropType[]
 }
 
-const GreetingAccordeonItem: FC<GreetingAccordeonItemPropsType> = ({
-  title,
-  options,
-  blockImages,
-}) => {
+const AboutAccordeonItem: FC<AboutAccordeonItemPropsType> = ({ title, options, blockImages }) => {
   const [showDetail, setShowDetail] = useState(false)
 
   return (
@@ -47,11 +43,7 @@ const GreetingAccordeonItem: FC<GreetingAccordeonItemPropsType> = ({
           {options.map((option, i) => {
             if (option.imagesIdx && blockImages) {
               return (
-                <GreetingAccordeonItemImages
-                  key={i}
-                  images={blockImages}
-                  indexes={option.imagesIdx}
-                />
+                <AboutAccordeonItemImages key={i} images={blockImages} indexes={option.imagesIdx} />
               )
             } else {
               return (
@@ -67,7 +59,7 @@ const GreetingAccordeonItem: FC<GreetingAccordeonItemPropsType> = ({
   )
 }
 
-export default GreetingAccordeonItem
+export default AboutAccordeonItem
 
 const { width } = Dimensions.get('window')
 
@@ -82,7 +74,7 @@ const styles = EStyleSheet.create({
     borderTopRightRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   titleContainer: {
     width: width - 100,

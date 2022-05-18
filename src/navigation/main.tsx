@@ -8,13 +8,14 @@ import TabBar from 'src/components/TabBar'
 import Home from 'src/screens/Home'
 import Statistics from 'src/screens/Statistics'
 import Settings from 'src/screens/Settings'
-import Greeting from 'src/screens/Greeting'
-import GreetingForm from 'src/screens/GreetingForm'
+import About from 'src/screens/About'
+import FirstSetUserInfoForm from 'src/screens/FirstSetUserInfoForm'
 import Gallery from 'src/screens/Gallery'
-import GreetingInventar from 'src/screens/GreetingInventar'
-import GreetingTest from 'src/screens/GreetingTest'
-import GreetingEx from 'src/screens/GreetingEx'
+import FirstSetInventarForm from 'src/screens/FirstSetInventarForm'
+import FirtsTestInfo from 'src/screens/FirtsTestInfo'
+import FirstTestExercises from 'src/screens/FirstTestExercises'
 import TrainingResult from 'src/screens/TrainingResult'
+
 import useRealmUser from 'src/hooks/Realm/useRealmUser'
 
 const Tab = createBottomTabNavigator()
@@ -30,12 +31,12 @@ const NavigationWrapper = () => {
 
 const GreetingStack = () => {
   return (
-    <Stack.Navigator initialRouteName="Greeting" screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Greeting" component={Greeting} />
-      <Stack.Screen name="GreetingForm" component={GreetingForm} />
-      <Stack.Screen name="GreetingInventar" component={GreetingInventar} />
-      <Stack.Screen name="GreetingTest" component={GreetingTest} />
-      <Stack.Screen name="GreetingEx" component={GreetingEx} />
+    <Stack.Navigator initialRouteName="About" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="About" component={About} />
+      <Stack.Screen name="FirstSetUserInfoForm" component={FirstSetUserInfoForm} />
+      <Stack.Screen name="FirstSetInventarForm" component={FirstSetInventarForm} />
+      <Stack.Screen name="FirtsTestInfo" component={FirtsTestInfo} />
+      <Stack.Screen name="FirstTestExercises" component={FirstTestExercises} />
       <Stack.Screen name="Gallery" component={Gallery} />
       <Stack.Screen name="TrainingResult" component={TrainingResult} />
     </Stack.Navigator>

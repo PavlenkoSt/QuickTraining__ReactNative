@@ -1,7 +1,7 @@
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { Dispatch, SetStateAction, useCallback } from 'react'
 
-import { IResult } from 'src/screens/GreetingEx'
+import { IResult } from 'src/screens/FirstTestExercises'
 import { ExecutionExerciseEnum } from 'src/types/ExerciseTypes'
 import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
 

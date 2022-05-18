@@ -45,7 +45,7 @@ const ProfileForm = () => {
       gender,
     }
 
-    navigate('GreetingInventar' as never, { userInfo } as never)
+    navigate('FirstSetInventarForm' as never, { userInfo } as never)
   }
 
   return (

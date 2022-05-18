@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import ResultList from './ResultList'
-import { IResult } from '../GreetingEx'
+import { IResult } from '../FirstTestExercises'
 import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
 import MainLayout from 'src/layouts/MainLayout'
 import TitleHeader from 'src/components/Headers/TitleHeader'

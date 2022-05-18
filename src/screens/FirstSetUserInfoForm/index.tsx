@@ -4,7 +4,7 @@ import MainLayout from 'src/layouts/MainLayout'
 import EmptyHeader from 'src/components/Headers/EmptyHeader'
 import ProfileForm from 'src/components/ProfileForm'
 
-const GreetingForm = () => {
+const FirstSetUserInfoForm = () => {
   return (
     <MainLayout
       Header={() => <EmptyHeader title="Questionnaire" />}
@@ -15,4 +15,4 @@ const GreetingForm = () => {
   )
 }
 
-export default GreetingForm
+export default FirstSetUserInfoForm

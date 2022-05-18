@@ -8,7 +8,7 @@ import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
 import CustomText from 'src/components/CustomText'
 import InventarForm from 'src/components/InventarForm'
 
-type GreetingInventarPropsType = {
+type FirstSetInventarFormPropsType = {
   route: {
     params: {
       userInfo: {
@@ -22,7 +22,7 @@ type GreetingInventarPropsType = {
   }
 }
 
-const GreetingInventar: FC<GreetingInventarPropsType> = ({ route }) => {
+const FirstSetInventarForm: FC<FirstSetInventarFormPropsType> = ({ route }) => {
   return (
     <MainLayout Header={() => <EmptyHeader title="Inventory" />}>
       <View>
@@ -35,7 +35,7 @@ const GreetingInventar: FC<GreetingInventarPropsType> = ({ route }) => {
   )
 }
 
-export default GreetingInventar
+export default FirstSetInventarForm
 
 const styles = EStyleSheet.create({
   title: {

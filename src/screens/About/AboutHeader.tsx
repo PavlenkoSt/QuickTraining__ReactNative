@@ -4,7 +4,7 @@ import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import CustomText from 'src/components/CustomText'
 
-const GreetingHeader = () => {
+const AboutHeader = () => {
   return (
     <View style={styles.container}>
       <CustomText style={styles.title}>Welcome</CustomText>
@@ -13,7 +13,7 @@ const GreetingHeader = () => {
   )
 }
 
-export default GreetingHeader
+export default AboutHeader
 
 const styles = EStyleSheet.create({
   container: {

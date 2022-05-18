@@ -43,7 +43,7 @@ const InventarForm: FC<InventarFormPropsType> = ({ mode, userInfo }) => {
 
     if (mode === 'set') {
       console.log('inventary', inventary)
-      navigate('GreetingTest' as never, { userInfo, inventary } as never)
+      navigate('FirtsTestInfo' as never, { userInfo, inventary } as never)
     } else {
     }
   }, [mode])

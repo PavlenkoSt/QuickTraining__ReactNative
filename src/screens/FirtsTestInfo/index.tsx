@@ -9,7 +9,7 @@ import EmptyHeader from 'src/components/Headers/EmptyHeader'
 import MainLayout from 'src/layouts/MainLayout'
 import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
 
-type GreetingTestPropsType = {
+type FirtsTestInfoPropsType = {
   route: {
     params: {
       inventary: {
@@ -32,12 +32,12 @@ type GreetingTestPropsType = {
   }
 }
 
-const GreetingTest: FC<GreetingTestPropsType> = ({ route }) => {
+const FirtsTestInfo: FC<FirtsTestInfoPropsType> = ({ route }) => {
   const { navigate } = useNavigation()
 
   const onPress = useCallback(() => {
     navigate(
-      'GreetingEx' as never,
+      'FirstTestExercises' as never,
       { userInfo: route.params.userInfo, inventary: route.params.inventary } as never
     )
   }, [route])
@@ -61,7 +61,7 @@ const GreetingTest: FC<GreetingTestPropsType> = ({ route }) => {
   )
 }
 
-export default GreetingTest
+export default FirtsTestInfo
 
 const styles = EStyleSheet.create({
   title: {
