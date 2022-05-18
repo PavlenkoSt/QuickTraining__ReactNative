@@ -8,6 +8,7 @@ type ButtonPropsType = {
   children: ReactNode
   onPress?: (event: GestureResponderEvent) => void
   disable?: boolean
+  small?: boolean
   danger?: boolean
   styles?: ViewStyle | ViewStyle[]
   textStyles?: ViewStyle | ViewStyle[]
@@ -20,6 +21,7 @@ const CustomButton: FC<ButtonPropsType> = ({
   danger,
   styles: stylesFromProps,
   textStyles,
+  small,
 }) => {
   return (
     <TouchableOpacity
@@ -29,6 +31,7 @@ const CustomButton: FC<ButtonPropsType> = ({
         styles.container,
         danger && styles.danger,
         disable && styles.containerDisable,
+        small && styles.small,
         stylesFromProps,
       ]}
     >
@@ -46,6 +49,9 @@ const styles = EStyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 6,
     alignItems: 'center',
+  },
+  small: {
+    paddingVertical: 5,
   },
   containerDisable: {
     backgroundColor: '#01912a',
