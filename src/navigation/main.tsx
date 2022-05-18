@@ -15,6 +15,9 @@ import FirstSetInventarForm from 'src/screens/FirstSetInventarForm'
 import FirtsTestInfo from 'src/screens/FirtsTestInfo'
 import FirstTestExercises from 'src/screens/FirstTestExercises'
 import TrainingResult from 'src/screens/TrainingResult'
+import Profile from 'src/screens/Profile'
+import TrainingSettings from 'src/screens/TrainingSettings'
+import Inventar from 'src/screens/Inventar'
 
 import useRealmUser from 'src/hooks/Realm/useRealmUser'
 
@@ -25,11 +28,11 @@ const NavigationWrapper = () => {
   const { user } = useRealmUser()
 
   return (
-    <NavigationContainer>{!!user ? <TabsNavigation /> : <GreetingStack />}</NavigationContainer>
+    <NavigationContainer>{!!user ? <TabsNavigation /> : <RegisterStack />}</NavigationContainer>
   )
 }
 
-const GreetingStack = () => {
+const RegisterStack = () => {
   return (
     <Stack.Navigator initialRouteName="About" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="About" component={About} />
@@ -77,6 +80,9 @@ const SettingsStack = () => {
   return (
     <Stack.Navigator initialRouteName="Settings" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Settings" component={Settings} />
+      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="TrainingSettings" component={TrainingSettings} />
+      <Stack.Screen name="Inventar" component={Inventar} />
     </Stack.Navigator>
   )
 }

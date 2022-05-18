@@ -9,16 +9,19 @@ import Arrow from 'src/assets/imgs/up-arrow.svg'
 
 type EmptyHeaderPropsType = {
   title: string
+  withoutBackArr?: boolean
 }
 
-const EmptyHeader: FC<EmptyHeaderPropsType> = ({ title }) => {
+const EmptyHeader: FC<EmptyHeaderPropsType> = ({ title, withoutBackArr }) => {
   const { goBack } = useNavigation()
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => goBack()} style={styles.arrowContainer}>
-        <Arrow fill="#fff" style={styles.arrow} />
-      </TouchableOpacity>
+    <View style={[styles.container, withoutBackArr && styles.containerWithoutArr]}>
+      {!withoutBackArr && (
+        <TouchableOpacity onPress={() => goBack()} style={styles.arrowContainer}>
+          <Arrow fill="#fff" style={styles.arrow} />
+        </TouchableOpacity>
+      )}
       <CustomText style={styles.title}>{title}</CustomText>
     </View>
   )
@@ -36,6 +39,11 @@ const styles = EStyleSheet.create({
     borderBottomWidth: 1,
     alignItems: 'center',
     flexDirection: 'row',
+  },
+  containerWithoutArr: {
+    justifyContent: 'center',
+    paddingBottom: 15,
+    paddingRight: 0,
   },
   arrowContainer: {
     transform: [{ rotate: '-90deg' }],
