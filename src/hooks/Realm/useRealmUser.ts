@@ -1,7 +1,15 @@
 import { useCallback, useMemo } from 'react'
 
 import RealmDB from 'src/RealmDB'
-import UserSchema, { IUser } from 'src/RealmDB/schemas/User'
+import UserSchema, { DurationEnum, IUser } from 'src/RealmDB/schemas/User'
+import { GenderEnum } from './../../RealmDB/schemas/User'
+
+type UserInfoPropsType = {
+  name: string
+  age: number
+  duration: DurationEnum
+  gender: GenderEnum
+}
 
 const useRealmUser = () => {
   const { useRealm, useQuery } = RealmDB
@@ -26,15 +34,25 @@ const useRealmUser = () => {
     })
   }, [])
 
-  const updateUser = useCallback(() => {
-    if (user) {
-      realm.write(() => {
-        // example
-        //@ts-ignore
-        userRealm[0].levelPercent = 23
-      })
-    }
-  }, [user])
+  const updateUser = useCallback(
+    (userInfo: UserInfoPropsType | null) => {
+      if (user) {
+        realm.write(() => {
+          if (userInfo) {
+            //@ts-ignore
+            userRealm[0].name = userInfo.name
+            //@ts-ignore
+            userRealm[0].age = userInfo.age
+            //@ts-ignore
+            userRealm[0].gender = userInfo.gender
+            //@ts-ignore
+            userRealm[0].duration = userInfo.duration
+          }
+        })
+      }
+    },
+    [user]
+  )
 
   const clearUser = useCallback(() => {
     realm.write(() => {

@@ -1,9 +1,10 @@
 import { Dimensions, TouchableOpacity } from 'react-native'
-import React, { Dispatch, FC, SetStateAction, useRef } from 'react'
+import React, { Dispatch, FC, SetStateAction, useMemo, useRef } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import ModalDropdown from 'react-native-modal-dropdown'
 
 import CustomText from '../CustomText'
+import { DurationEnum } from 'src/RealmDB/schemas/User'
 
 type FormSelectPropsType = {
   setValue: Dispatch<SetStateAction<string>>
@@ -14,6 +15,23 @@ type FormSelectPropsType = {
 
 const FormSelect: FC<FormSelectPropsType> = ({ setValue, options, defaultValue, label }) => {
   const selectRef = useRef<ModalDropdown>(null)
+
+  const defaultIndex = useMemo(() => {
+    switch (defaultValue) {
+      case DurationEnum['20min']:
+        return 0
+      case DurationEnum['30min']:
+        return 1
+      case DurationEnum['40min']:
+        return 2
+      case DurationEnum['50min']:
+        return 3
+      case DurationEnum['60min']:
+        return 4
+      default:
+        return 0
+    }
+  }, [defaultValue])
 
   return (
     <TouchableOpacity
@@ -26,7 +44,7 @@ const FormSelect: FC<FormSelectPropsType> = ({ setValue, options, defaultValue, 
         style={styles.dropdownContainer}
         dropdownStyle={[styles.dropdown, { height: 45 * options.length }]}
         textStyle={styles.text}
-        defaultIndex={0}
+        defaultIndex={defaultIndex}
         defaultValue={defaultValue}
         options={options}
         onSelect={(index, option) => setValue(option as string)}

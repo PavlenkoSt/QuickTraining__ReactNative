@@ -21,9 +21,9 @@ type ProfileFormPropsType = {
 }
 
 const ProfileForm: FC<ProfileFormPropsType> = ({ isProfile }) => {
-  const { navigate } = useNavigation()
+  const { navigate, goBack } = useNavigation()
 
-  const { user } = useRealmUser()
+  const { user, updateUser } = useRealmUser()
 
   const {
     control,
@@ -55,8 +55,9 @@ const ProfileForm: FC<ProfileFormPropsType> = ({ isProfile }) => {
       gender,
     }
 
-    if (isProfile) {
-      console.log(userInfo)
+    if (isProfile && user) {
+      updateUser(userInfo)
+      goBack()
     } else {
       navigate('FirstSetInventarForm' as never, { userInfo } as never)
     }
