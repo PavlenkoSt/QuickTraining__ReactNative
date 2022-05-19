@@ -10,6 +10,7 @@ import validation from './validation'
 import FormSelect from './FormSelect'
 import { DurationEnum, GenderEnum } from 'src/RealmDB/schemas/User'
 import useRealmUser from 'src/hooks/Realm/useRealmUser'
+import ToastService from 'src/services/ToastService'
 
 interface IProfileFormData {
   name: string
@@ -57,6 +58,7 @@ const ProfileForm: FC<ProfileFormPropsType> = ({ isProfile }) => {
 
     if (isProfile && user) {
       updateUser(userInfo)
+      ToastService.success('Profile have been edited success')
       goBack()
     } else {
       navigate('FirstSetInventarForm' as never, { userInfo } as never)

@@ -3,17 +3,16 @@ import React, { FC, useCallback, useState } from 'react'
 import { View } from 'react-native'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
-import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
+import { DurationEnum, GenderEnum } from 'src/RealmDB/schemas/User'
 import CustomButton from '../CustomButton'
 import CustomText from '../CustomText'
 import InventoryItem from './InventoryItem'
 
 type InventarFormPropsType = {
   mode: 'set' | 'edit'
-  userInfo: {
+  userInfo?: {
     name: string
     age: number
-    goal: GoalEnum
     duration: DurationEnum
     gender: GenderEnum
   }
