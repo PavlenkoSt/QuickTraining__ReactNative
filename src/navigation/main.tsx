@@ -16,7 +16,6 @@ import FirtsTestInfo from 'src/screens/FirtsTestInfo'
 import FirstTestExercises from 'src/screens/FirstTestExercises'
 import TrainingResult from 'src/screens/TrainingResult'
 import Profile from 'src/screens/Profile'
-import TrainingSettings from 'src/screens/TrainingSettings'
 import Inventar from 'src/screens/Inventar'
 
 import useRealmUser from 'src/hooks/Realm/useRealmUser'
@@ -81,7 +80,6 @@ const SettingsStack = () => {
     <Stack.Navigator initialRouteName="Settings" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="Profile" component={Profile} />
-      <Stack.Screen name="TrainingSettings" component={TrainingSettings} />
       <Stack.Screen name="Inventar" component={Inventar} />
     </Stack.Navigator>
   )

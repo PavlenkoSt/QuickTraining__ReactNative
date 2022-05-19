@@ -5,12 +5,6 @@ export enum GenderEnum {
   Female = 'Female',
 }
 
-export enum GoalEnum {
-  'Relief' = 'Working out the muscle mass and relief',
-  'LoseWeight' = 'Lose weight',
-  'Health' = 'Improve health',
-}
-
 export enum DurationEnum {
   '20min' = '20 minutes',
   '30min' = '30 minutes',
@@ -24,7 +18,6 @@ export default class UserSchema extends Realm.Object {
   name!: string
   age!: number
   gender!: GenderEnum
-  goal!: GoalEnum
   duration!: DurationEnum
   pushUpMax!: number
   sitUpMax!: number
@@ -45,7 +38,6 @@ export default class UserSchema extends Realm.Object {
       name: 'string',
       age: 'int',
       gender: 'string',
-      goal: 'string',
       duration: 'string',
       pushUpMax: 'int',
       sitUpMax: 'int',
@@ -62,7 +54,6 @@ export interface IUser {
   name: string
   age: number
   gender: GenderEnum
-  goal: GoalEnum
   duration: DurationEnum
   pushUpMax: number
   sitUpMax: number

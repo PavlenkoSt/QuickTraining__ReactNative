@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, { Dispatch, FC, SetStateAction, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigation } from '@react-navigation/native'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -8,15 +8,22 @@ import CustomButton from '../CustomButton'
 import FormInput from './FormInput'
 import validation from './validation'
 import FormSelect from './FormSelect'
-import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
+import { DurationEnum, GenderEnum } from 'src/RealmDB/schemas/User'
+import useRealmUser from 'src/hooks/Realm/useRealmUser'
 
 interface IProfileFormData {
   name: string
   age: string
 }
 
-const ProfileForm = () => {
+type ProfileFormPropsType = {
+  isProfile?: boolean
+}
+
+const ProfileForm: FC<ProfileFormPropsType> = ({ isProfile }) => {
   const { navigate } = useNavigation()
+
+  const { user } = useRealmUser()
 
   const {
     control,
@@ -24,15 +31,19 @@ const ProfileForm = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: '',
-      age: '',
+      name: isProfile && user ? user.name : '',
+      age: isProfile && user ? user.age.toString() : '',
     },
     resolver: yupResolver(validation),
   })
 
   const [gender, setGender] = useState<GenderEnum>(GenderEnum.Male)
-  const [duration, setDuration] = useState<DurationEnum>(DurationEnum['20min'])
-  const [goal, setGoal] = useState<GoalEnum>(GoalEnum.Relief)
+  const [duration, setDuration] = useState<DurationEnum>(
+    isProfile && user
+      ? //@ts-ignore
+        DurationEnum[`${user.duration.substring(0, 2)}min`]
+      : DurationEnum['20min']
+  )
 
   const onSubmit = (data: IProfileFormData) => {
     const { name, age } = data
@@ -40,12 +51,15 @@ const ProfileForm = () => {
     const userInfo = {
       name,
       age: +age,
-      goal,
       duration,
       gender,
     }
 
-    navigate('FirstSetInventarForm' as never, { userInfo } as never)
+    if (isProfile) {
+      console.log(userInfo)
+    } else {
+      navigate('FirstSetInventarForm' as never, { userInfo } as never)
+    }
   }
 
   return (
@@ -75,13 +89,7 @@ const ProfileForm = () => {
             DurationEnum['50min'],
             DurationEnum['60min'],
           ]}
-          defaultValue={DurationEnum['20min']}
-        />
-        <FormSelect
-          label="Your goal"
-          setValue={setGoal as Dispatch<SetStateAction<string>>}
-          options={[GoalEnum.Relief, GoalEnum.LoseWeight, GoalEnum.Health]}
-          defaultValue={GoalEnum.Relief}
+          defaultValue={isProfile && user ? user.duration.toString() : DurationEnum['20min']}
         />
       </View>
       <CustomButton onPress={handleSubmit(onSubmit)}>Save and go</CustomButton>

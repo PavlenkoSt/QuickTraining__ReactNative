@@ -24,10 +24,7 @@ const Settings = () => {
       <View style={styles.container}>
         <CustomText style={styles.title}>Actions</CustomText>
         <SettingsItem onPress={() => navigate('Profile' as never)} Icon={ProfilePic}>
-          Edit profile
-        </SettingsItem>
-        <SettingsItem onPress={() => navigate('TrainingSettings' as never)} Icon={MusclesPic}>
-          Edit training settings
+          Profile settings
         </SettingsItem>
         <SettingsItem onPress={() => navigate('Inventar' as never)} Icon={RingsPic}>
           Edit inventory list
