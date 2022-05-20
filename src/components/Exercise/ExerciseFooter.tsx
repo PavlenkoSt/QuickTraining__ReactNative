@@ -32,7 +32,9 @@ const ExerciseFooter: FC<ExerciseFooterPropsType> = ({
             : testResult?.[i]?.result
             ? testResult?.[i]?.result
             : exercisePercent
-            ? ((((exercise.max - exercise.min) * 100) / exercise.max) * exercisePercent) / 100
+            ? // here we need calculate count of repeaten
+              // ? ((((exercise.max - exercise.min) * 100) / exercise.max) * exercisePercent) / 100
+              -1
             : 'max'
 
         return (

@@ -52,11 +52,15 @@ const InventarForm: FC<InventarFormPropsType> = ({ mode, userInfo }) => {
       haveSkippingRope: +haveSkippingRope,
     }
 
-    if (mode === 'set') {
+    if (!inventary) {
       setInventory(inventary)
-      navigate('FirtsTestInfo' as never, { userInfo } as never)
     } else {
       updateInventory(inventary)
+    }
+
+    if (mode === 'set') {
+      navigate('FirtsTestInfo' as never, { userInfo } as never)
+    } else {
       ToastService.success('Inventory have been changed success')
       goBack()
     }

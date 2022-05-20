@@ -1,9 +1,3 @@
-export enum ExerciseLevel {
-  LOW = 'low',
-  MEDIUM = 'medium',
-  HARD = 'hard',
-}
-
 export enum ExecutionExerciseEnum {
   REPEAT = 'repeat',
   HOLD = 'hold',
@@ -45,19 +39,10 @@ export interface IExercise {
   targetMuscles: ExerciseTargetMuscle[]
   forTrainingPart: ExerciseTrainingPart
   needInventar: InventarNeedForExerciseEnum | null
-  min: number
   max: number
 }
 
 export interface IExercisesTree {
-  man: {
-    low: IExercise[]
-    medium: IExercise[]
-    hard: IExercise[]
-  }
-  women: {
-    low: IExercise[]
-    medium: IExercise[]
-    hard: IExercise[]
-  }
+  man: IExercise[]
+  woman: IExercise[]
 }

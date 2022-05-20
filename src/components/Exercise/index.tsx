@@ -1,4 +1,4 @@
-import { Dimensions, View } from 'react-native'
+import { Dimensions, useWindowDimensions, View } from 'react-native'
 import React, { Dispatch, FC, SetStateAction, useState, memo } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import VideoPlayer from 'react-native-video-player'
@@ -73,6 +73,8 @@ const Exercise: FC<ExercisePropsType> = ({
     userInfo,
   })
 
+  const { width } = useWindowDimensions()
+
   if (!active) return null
 
   return (
@@ -96,6 +98,16 @@ const Exercise: FC<ExercisePropsType> = ({
             },
             seekBar: {
               display: 'none',
+            },
+            wrapper: {
+              marginTop: 20,
+              height: 230,
+              overflow: 'hidden',
+              alignItems: 'center',
+              justifyContent: 'center',
+            },
+            video: {
+              width,
             },
           }}
         />
@@ -162,8 +174,8 @@ const styles = EStyleSheet.create({
     paddingHorizontal: 15,
   },
   name: {
-    marginTop: 30,
-    marginBottom: 30,
+    marginTop: 20,
+    marginBottom: 20,
     fontSize: 26,
     fontFamily: '$fontBold',
     textAlign: 'center',
@@ -173,15 +185,15 @@ const styles = EStyleSheet.create({
     fontStyle: 'italic',
     paddingHorizontal: 40,
     fontSize: 13,
-    marginBottom: 30,
+    marginBottom: 20,
   },
   repeaterContainer: {
-    marginBottom: 30,
+    marginBottom: 20,
   },
   btnContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 30,
+    marginBottom: 20,
   },
   btnWide: {
     width: 180,

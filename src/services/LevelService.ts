@@ -49,8 +49,8 @@ class LevelService {
   ]
 
   maxTargetValues = [
-    { ex: TestExercisesEnum.pushUps, max: 100 },
-    { ex: TestExercisesEnum.sitUps, max: 300 },
+    { ex: TestExercisesEnum.pushUps, max: 200 },
+    { ex: TestExercisesEnum.sitUps, max: 500 },
     { ex: TestExercisesEnum.plank, max: 1800 },
   ]
 
@@ -65,7 +65,9 @@ class LevelService {
     const sitUpsPercent = (sitUps * 100) / sitUpsMax
     const plankPercent = (plank * 100) / plankMax
 
-    return (pushUpsPercent + sitUpsPercent + plankPercent) / 3
+    const calcCommonPercent = (pushUpsPercent + sitUpsPercent + plankPercent) / 3
+
+    return calcCommonPercent > 100 ? 100 : calcCommonPercent
   }
 
   getLabelByPercent(percent: number) {

@@ -5,7 +5,7 @@ import Exercise from 'src/components/Exercise'
 import { DurationEnum, GenderEnum } from 'src/RealmDB/schemas/User'
 import ExerciseLayout from 'src/layouts/ExerciseLayout'
 import ExerciseService from 'src/services/ExerciseService'
-import { ExecutionExerciseEnum } from 'src/types/ExerciseTypes'
+import { ExecutionExerciseEnum, IExercise } from 'src/types/ExerciseTypes'
 
 export interface IResult {
   name: string
@@ -27,9 +27,8 @@ type FirstTestExercisesPropsType = {
 }
 
 const FirstTestExercises: FC<FirstTestExercisesPropsType> = ({ route }) => {
-  const testPlan = ExerciseService.exercisesTree.man.low.filter(
-    (exercise) => exercise.id >= 0 && exercise.id <= 2
-  )
+  //@ts-ignore
+  const testPlan = ExerciseService.exercisesTree.man.filter((exercise: IExercise) => exercise.id >= 0 && exercise.id <= 2)
 
   const [activeIndex, setActiveIndex] = useState(0)
   const [testResult, setTestResult] = useState<IResult[]>([])
@@ -37,7 +36,7 @@ const FirstTestExercises: FC<FirstTestExercisesPropsType> = ({ route }) => {
   return (
     <ExerciseLayout>
       <ScrollView>
-        {testPlan.map((exercise, i) => (
+        {testPlan.map((exercise: IExercise, i: number) => (
           <Exercise
             key={exercise.id}
             name={exercise.name}
