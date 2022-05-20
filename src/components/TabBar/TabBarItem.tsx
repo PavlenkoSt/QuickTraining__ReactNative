@@ -35,11 +35,13 @@ const styles = EStyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
+    borderColor: '$secondaryTheme',
+    borderWidth: 1,
   },
   itemActive: {
     backgroundColor: '#2b3d47',
     borderColor: '#395666',
-    borderWidth: 1
+    borderWidth: 1,
   },
   text: {
     fontFamily: '$fontMedium',
