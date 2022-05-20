@@ -4,7 +4,7 @@ import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import MainLayout from 'src/layouts/MainLayout'
 import EmptyHeader from 'src/components/Headers/EmptyHeader'
-import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
+import { DurationEnum, GenderEnum } from 'src/RealmDB/schemas/User'
 import CustomText from 'src/components/CustomText'
 import InventarForm from 'src/components/InventarForm'
 
@@ -14,7 +14,6 @@ type FirstSetInventarFormPropsType = {
       userInfo: {
         name: string
         age: number
-        goal: GoalEnum
         duration: DurationEnum
         gender: GenderEnum
       }

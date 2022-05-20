@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import { ScrollView } from 'react-native'
 
 import Exercise from 'src/components/Exercise'
-import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
+import { DurationEnum, GenderEnum } from 'src/RealmDB/schemas/User'
 import ExerciseLayout from 'src/layouts/ExerciseLayout'
 import ExerciseService from 'src/services/ExerciseService'
 import { ExecutionExerciseEnum } from 'src/types/ExerciseTypes'
@@ -16,19 +16,9 @@ export interface IResult {
 type FirstTestExercisesPropsType = {
   route: {
     params: {
-      inventary: {
-        haveBar: boolean
-        haveWallBar: boolean
-        haveBars: boolean
-        haveStands: boolean
-        havePowerTape: boolean
-        haveWideTape: boolean
-        haveSkippingRope: boolean
-      }
       userInfo: {
         name: string
         age: number
-        goal: GoalEnum
         duration: DurationEnum
         gender: GenderEnum
       }
@@ -43,8 +33,6 @@ const FirstTestExercises: FC<FirstTestExercisesPropsType> = ({ route }) => {
 
   const [activeIndex, setActiveIndex] = useState(0)
   const [testResult, setTestResult] = useState<IResult[]>([])
-
-  const { inventary, userInfo } = route.params
 
   return (
     <ExerciseLayout>
@@ -63,8 +51,7 @@ const FirstTestExercises: FC<FirstTestExercisesPropsType> = ({ route }) => {
             testResult={testResult}
             setTestResult={setTestResult}
             testPlan={testPlan}
-            userInfo={userInfo}
-            inventary={inventary}
+            userInfo={route.params.userInfo}
             isTest
           />
         ))}

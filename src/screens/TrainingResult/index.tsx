@@ -4,7 +4,7 @@ import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import ResultList from './ResultList'
 import { IResult } from '../FirstTestExercises'
-import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
+import { DurationEnum, GenderEnum } from 'src/RealmDB/schemas/User'
 import MainLayout from 'src/layouts/MainLayout'
 import TitleHeader from 'src/components/Headers/TitleHeader'
 import CustomText from 'src/components/CustomText'
@@ -18,19 +18,9 @@ type TrainingResultPropsType = {
       testResult: IResult[]
       isTest?: boolean
       userData?: {
-        inventary?: {
-          haveBar: boolean
-          haveWallBar: boolean
-          haveBars: boolean
-          haveStands: boolean
-          havePowerTape: boolean
-          haveWideTape: boolean
-          haveSkippingRope: boolean
-        }
-        userInfo?: {
+        userInfo: {
           name: string
           age: number
-          goal: GoalEnum
           duration: DurationEnum
           gender: GenderEnum
         }
@@ -73,17 +63,12 @@ const TrainingResult: FC<TrainingResultPropsType> = ({ route }) => {
 
             if (!userData) return
 
-            const { userInfo, inventary } = userData
-
-            if (!userInfo || !inventary) return
-
             setUser({
               _id: 0,
-              name: userInfo.name,
-              age: userInfo.age,
-              gender: userInfo.gender,
-              goal: userInfo.goal,
-              duration: userInfo.duration,
+              name: userData.userInfo.name,
+              age: userData.userInfo.age,
+              gender: userData.userInfo.gender,
+              duration: userData.userInfo.duration,
               pushUpMax: route.params.testResult[0].result,
               sitUpMax: route.params.testResult[1].result,
               plankMax: route.params.testResult[2].result,

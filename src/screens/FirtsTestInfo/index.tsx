@@ -7,24 +7,14 @@ import CustomButton from 'src/components/CustomButton'
 import CustomText from 'src/components/CustomText'
 import EmptyHeader from 'src/components/Headers/EmptyHeader'
 import MainLayout from 'src/layouts/MainLayout'
-import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
+import { DurationEnum, GenderEnum } from 'src/RealmDB/schemas/User'
 
 type FirtsTestInfoPropsType = {
   route: {
     params: {
-      inventary: {
-        haveBar: boolean
-        haveWallBar: boolean
-        haveBars: boolean
-        haveStands: boolean
-        havePowerTape: boolean
-        haveWideTape: boolean
-        haveSkippingRope: boolean
-      }
       userInfo: {
         name: string
         age: number
-        goal: GoalEnum
         duration: DurationEnum
         gender: GenderEnum
       }
@@ -36,10 +26,7 @@ const FirtsTestInfo: FC<FirtsTestInfoPropsType> = ({ route }) => {
   const { navigate } = useNavigation()
 
   const onPress = useCallback(() => {
-    navigate(
-      'FirstTestExercises' as never,
-      { userInfo: route.params.userInfo, inventary: route.params.inventary } as never
-    )
+    navigate('FirstTestExercises' as never, { userInfo: route.params.userInfo } as never)
   }, [route])
 
   return (

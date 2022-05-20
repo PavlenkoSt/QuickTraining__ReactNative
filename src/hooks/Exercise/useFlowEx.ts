@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, useCallback } from 'react'
 
 import { IResult } from 'src/screens/FirstTestExercises'
 import { ExecutionExerciseEnum } from 'src/types/ExerciseTypes'
-import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
+import { DurationEnum, GenderEnum } from 'src/RealmDB/schemas/User'
 
 type useFlowExPropsType = {
   counterType: ExecutionExerciseEnum
@@ -16,19 +16,9 @@ type useFlowExPropsType = {
   startRelaxTimer: () => void
   stopTimer: () => void
   isTest?: boolean
-  inventary?: {
-    haveBar: boolean
-    haveWallBar: boolean
-    haveBars: boolean
-    haveStands: boolean
-    havePowerTape: boolean
-    haveWideTape: boolean
-    haveSkippingRope: boolean
-  }
   userInfo?: {
     name: string
     age: number
-    goal: GoalEnum
     duration: DurationEnum
     gender: GenderEnum
   }
@@ -45,7 +35,6 @@ const useFlowEx = ({
   startRelaxTimer,
   stopTimer,
   isTest,
-  inventary,
   userInfo,
 }: useFlowExPropsType) => {
   const { dispatch } = useNavigation()
@@ -69,13 +58,13 @@ const useFlowEx = ({
         StackActions.replace('TrainingResult', {
           testResult: [...testResult, thisTransaction],
           isTest,
-          userData: { inventary, userInfo },
+          userData: { userInfo },
         })
       )
     } else {
       startRelaxTimer()
     }
-  }, [name, count, isLast, time, testResult, inventary, userInfo])
+  }, [name, count, isLast, time, testResult, userInfo])
 
   return { done }
 }

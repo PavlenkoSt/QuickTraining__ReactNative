@@ -3,7 +3,7 @@ import React, { Dispatch, FC, SetStateAction, useState, memo } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import VideoPlayer from 'react-native-video-player'
 
-import { DurationEnum, GenderEnum, GoalEnum } from 'src/RealmDB/schemas/User'
+import { DurationEnum, GenderEnum } from 'src/RealmDB/schemas/User'
 import { IResult } from 'src/screens/FirstTestExercises/index'
 import CustomText from 'src/components/CustomText'
 import { ExecutionExerciseEnum, IExercise } from 'src/types/ExerciseTypes'
@@ -30,19 +30,9 @@ type ExercisePropsType = {
   setTestResult: Dispatch<SetStateAction<IResult[]>>
   testPlan: IExercise[]
   isTest?: boolean
-  inventary?: {
-    haveBar: boolean
-    haveWallBar: boolean
-    haveBars: boolean
-    haveStands: boolean
-    havePowerTape: boolean
-    haveWideTape: boolean
-    haveSkippingRope: boolean
-  }
   userInfo?: {
     name: string
     age: number
-    goal: GoalEnum
     duration: DurationEnum
     gender: GenderEnum
   }
@@ -62,7 +52,6 @@ const Exercise: FC<ExercisePropsType> = ({
   setTestResult,
   toNextExercise,
   userInfo,
-  inventary,
 }) => {
   const [count, setCount] = useState(0)
 
@@ -82,7 +71,6 @@ const Exercise: FC<ExercisePropsType> = ({
     stopTimer,
     isTest,
     userInfo,
-    inventary,
   })
 
   if (!active) return null
