@@ -15,12 +15,6 @@ export enum ExerciseTargetMuscle {
   SHINS = 'shins',
 }
 
-export enum ExerciseTrainingPart {
-  WARM_UP = 'warm_up',
-  MAIN = 'main',
-  END = 'end',
-}
-
 export enum InventarNeedForExerciseEnum {
   BAR = 'haveBar',
   BARS = 'haveBars',
@@ -31,15 +25,24 @@ export enum InventarNeedForExerciseEnum {
   WIDE_TAPE = 'haveWideTape',
 }
 
+export enum ExerciseType {
+  PULL = 'PULL',
+  PUSH = 'PUSH',
+  CORE = 'CORE',
+  LEGS = 'LEGS',
+}
+
 export interface IExercise {
   id: number
   name: string
   video: NodeRequire
   execution: ExecutionExerciseEnum
   targetMuscles: ExerciseTargetMuscle[]
-  forTrainingPart: ExerciseTrainingPart
   needInventar: InventarNeedForExerciseEnum | null
-  max: number
+  type: ExerciseType
+  coefficientDifficult: number
+  awailableForPercent: number
+  max?: number
 }
 
 export interface IExercisesTree {
