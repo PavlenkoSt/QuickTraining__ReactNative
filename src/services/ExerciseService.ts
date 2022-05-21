@@ -5,13 +5,13 @@ import generateExerciseTree from 'src/utilts/generateExerciseTree'
 import chunk from 'src/utilts/arrays/chunk'
 import shuffle from 'src/utilts/arrays/shuffle'
 
-interface IDay {
+export interface IDay {
   status: IStatus
   exercises: IExercise[]
   restTime: number
 }
 
-type WeekPlanType = IDay[] | 'test'[] | 'rest'[]
+export type WeekPlanType = IDay[] | 'test'[] | 'rest'[]
 
 enum IStatus {
   INCOMPLETE = 'INCOMPLETE',
