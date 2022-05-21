@@ -27,8 +27,7 @@ type FirstTestExercisesPropsType = {
 }
 
 const FirstTestExercises: FC<FirstTestExercisesPropsType> = ({ route }) => {
-  //@ts-ignore
-  const testPlan = ExerciseService.exercisesTree.man.filter((exercise: IExercise) => exercise.id >= 0 && exercise.id <= 2)
+  const testPlan = ExerciseService.getTestExercises(route.params.userInfo.gender)
 
   const [activeIndex, setActiveIndex] = useState(0)
   const [testResult, setTestResult] = useState<IResult[]>([])
@@ -38,7 +37,7 @@ const FirstTestExercises: FC<FirstTestExercisesPropsType> = ({ route }) => {
       <ScrollView>
         {testPlan.map((exercise: IExercise, i: number) => (
           <Exercise
-            key={exercise.id}
+            key={`${exercise.type}-${exercise.id}`}
             name={exercise.name}
             counterType={exercise.execution}
             relaxDelation={120}

@@ -3,15 +3,7 @@ import React from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 const WeekPlan = () => {
-  const plan = [{ exerciseId: 1, count: 20 }]
-
-  return (
-    <View>
-      {plan.map((ex) => (
-        <View></View>
-      ))}
-    </View>
-  )
+  return <View></View>
 }
 
 export default WeekPlan

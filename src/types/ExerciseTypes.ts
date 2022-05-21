@@ -46,6 +46,16 @@ export interface IExercise {
 }
 
 export interface IExercisesTree {
-  man: IExercise[]
-  woman: IExercise[]
+  man: {
+    [ExerciseType.PUSH]: IExercise[]
+    [ExerciseType.LEGS]: IExercise[]
+    [ExerciseType.CORE]: IExercise[]
+    [ExerciseType.PULL]: IExercise[]
+  }
+  woman: {
+    [ExerciseType.PUSH]: IExercise[]
+    [ExerciseType.LEGS]: IExercise[]
+    [ExerciseType.CORE]: IExercise[]
+    [ExerciseType.PULL]: IExercise[]
+  }
 }
