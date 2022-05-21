@@ -15,6 +15,12 @@ const time = {
 
     return { minutes: time.addZeroIfNeed(minutes), seconds: time.addZeroIfNeed(seconds) }
   },
+  timeFormat: (seconds: number) => {
+    const minutes = Math.floor(seconds / 60)
+    const sec = seconds - minutes * 60
+
+    return `${time.addZeroIfNeed(minutes)}:${time.addZeroIfNeed(sec)}`
+  },
 }
 
 export default time
