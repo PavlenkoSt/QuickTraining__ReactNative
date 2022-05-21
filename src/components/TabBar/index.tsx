@@ -50,8 +50,9 @@ const styles = EStyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     backgroundColor: '$secondaryTheme',
-    borderTopColor: '#41494E',
-    borderTopWidth: 0.5,
+    borderTopColor: '#2d3438',
+    borderTopWidth: 1,
+    paddingTop: 1,
   },
   icon: {
     padding: 10,
