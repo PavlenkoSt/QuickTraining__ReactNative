@@ -13,7 +13,7 @@ export interface IDay {
 
 export type WeekPlanType = IDay[] | 'test'[] | 'rest'[]
 
-enum IStatus {
+export enum IStatus {
   INCOMPLETE = 'INCOMPLETE',
   COMPLETE = 'COMPLETE',
 }

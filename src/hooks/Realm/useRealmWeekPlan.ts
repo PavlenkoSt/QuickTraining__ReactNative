@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react'
 
 import RealmDB from 'src/RealmDB'
 import WeekPlanSchema from 'src/RealmDB/schemas/WeekPlan'
-import { WeekPlanType } from 'src/services/ExerciseService'
+import { IStatus, WeekPlanType } from 'src/services/ExerciseService'
 
 const useRealmWeekPlan = () => {
   const { useRealm, useQuery } = RealmDB
@@ -18,6 +18,22 @@ const useRealmWeekPlan = () => {
     return null
   }, [weekPlanRealm])
 
+  const activeDay: number | null = useMemo(() => {
+    if (weekPlan) {
+      const findFirsIncompleteDayIndex = weekPlan.findIndex(
+        (ex) => ex !== 'test' && ex !== 'rest' && ex.status === IStatus.INCOMPLETE
+      )
+
+      if (findFirsIncompleteDayIndex !== -1) {
+        return findFirsIncompleteDayIndex
+      } else {
+        return 6
+      }
+    }
+
+    return null
+  }, [weekPlan])
+
   const setWeekPlan = useCallback((weekPlan: WeekPlanType) => {
     realm.write(() => {
       realm.create('WeekPlan', WeekPlanSchema.generate(weekPlan))
@@ -30,7 +46,7 @@ const useRealmWeekPlan = () => {
     })
   }, [])
 
-  return { weekPlan, setWeekPlan, clearWeekPlan }
+  return { weekPlan, setWeekPlan, clearWeekPlan, activeDay }
 }
 
 export default useRealmWeekPlan
