@@ -54,13 +54,17 @@ const useFlowEx = ({
     }
 
     if (isLast) {
-      dispatch(
-        StackActions.replace('TrainingResult', {
-          testResult: [...testResult, thisTransaction],
-          isTest,
-          userData: { userInfo },
-        })
-      )
+      if (isTest) {
+        dispatch(
+          StackActions.replace('TestResult', {
+            testResult: [...testResult, thisTransaction],
+            isTest,
+            userData: { userInfo },
+          })
+        )
+      } else {
+        StackActions.replace('Home')
+      }
     } else {
       startRelaxTimer()
     }

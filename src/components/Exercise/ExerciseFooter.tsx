@@ -32,7 +32,7 @@ const ExerciseFooter: FC<ExerciseFooterPropsType> = ({ testPlan, testResult, act
             ? testResult?.[i]?.result
             : !!weekPlan
             ? calculateExerciseReply(exercise.coefficientDifficult, exercise.type, i, user)
-            : 'max'
+            : 0
 
         return (
           <View

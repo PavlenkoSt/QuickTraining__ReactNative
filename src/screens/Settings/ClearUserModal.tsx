@@ -6,6 +6,7 @@ import useRealmUser from 'src/hooks/Realm/useRealmUser'
 import CustomText from 'src/components/CustomText'
 import CustomButton from 'src/components/CustomButton'
 import useInventory from 'src/hooks/Realm/useRealmInventory'
+import useRealmWeekPlan from 'src/hooks/Realm/useRealmWeekPlan'
 
 type ClearUserModalPropsType = {
   visible: boolean
@@ -15,6 +16,7 @@ type ClearUserModalPropsType = {
 const ClearUserModal: FC<ClearUserModalPropsType> = ({ visible, setVisible }) => {
   const { clearUser } = useRealmUser()
   const { clearInventory } = useInventory()
+  const { clearWeekPlan } = useRealmWeekPlan()
 
   return (
     <ModalWrapper visible={visible} setVisible={setVisible}>
@@ -29,6 +31,7 @@ const ClearUserModal: FC<ClearUserModalPropsType> = ({ visible, setVisible }) =>
             onPress={() => {
               clearUser()
               clearInventory()
+              clearWeekPlan()
               setVisible(false)
             }}
           >

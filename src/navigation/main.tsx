@@ -14,12 +14,13 @@ import Gallery from 'src/screens/Gallery'
 import FirstSetInventarForm from 'src/screens/FirstSetInventarForm'
 import FirtsTestInfo from 'src/screens/FirtsTestInfo'
 import FirstTestExercises from 'src/screens/FirstTestExercises'
-import TrainingResult from 'src/screens/TrainingResult'
+import TrainingResult from 'src/screens/TestResult'
 import Profile from 'src/screens/Profile'
 import Inventar from 'src/screens/Inventar'
 import Training from 'src/screens/Training'
 
 import useRealmUser from 'src/hooks/Realm/useRealmUser'
+import TestResult from 'src/screens/TestResult'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -41,7 +42,7 @@ const RegisterStack = () => {
       <Stack.Screen name="FirtsTestInfo" component={FirtsTestInfo} />
       <Stack.Screen name="FirstTestExercises" component={FirstTestExercises} />
       <Stack.Screen name="Gallery" component={Gallery} />
-      <Stack.Screen name="TrainingResult" component={TrainingResult} />
+      <Stack.Screen name="TestResult" component={TestResult} />
     </Stack.Navigator>
   )
 }

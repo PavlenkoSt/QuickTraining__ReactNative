@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import React, { FC, useCallback } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
-import ResultList from './ResultList'
+import ResultList from '../../components/ResultList'
 import { IResult } from '../FirstTestExercises'
 import { DurationEnum, GenderEnum } from 'src/RealmDB/schemas/User'
 import MainLayout from 'src/layouts/MainLayout'
@@ -14,7 +14,7 @@ import useRealmUser from 'src/hooks/Realm/useRealmUser'
 import useRealmWeekPlan from 'src/hooks/Realm/useRealmWeekPlan'
 import ExerciseService, { WeekPlanType } from 'src/services/ExerciseService'
 
-type TrainingResultPropsType = {
+type TestResultPropsType = {
   route: {
     params: {
       testResult: IResult[]
@@ -31,7 +31,7 @@ type TrainingResultPropsType = {
   }
 }
 
-const TrainingResult: FC<TrainingResultPropsType> = ({ route }) => {
+const TestResult: FC<TestResultPropsType> = ({ route }) => {
   const isTest = route.params.isTest
 
   const { setUser } = useRealmUser()
@@ -100,7 +100,7 @@ const TrainingResult: FC<TrainingResultPropsType> = ({ route }) => {
   )
 }
 
-export default TrainingResult
+export default TestResult
 
 const styles = EStyleSheet.create({
   testBlock: {

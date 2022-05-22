@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import React, { FC } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
-import { IResult } from '../FirstTestExercises'
+import { IResult } from '../screens/FirstTestExercises'
 import CustomText from 'src/components/CustomText'
 import { ExecutionExerciseEnum } from 'src/types/ExerciseTypes'
 import time from 'src/utilts/time'
