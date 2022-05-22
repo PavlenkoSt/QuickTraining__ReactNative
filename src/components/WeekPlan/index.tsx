@@ -18,26 +18,21 @@ const WeekPlan = () => {
       <CustomText style={styles.mainTitle}>Training plan</CustomText>
       {weekPlan.map((day: IDay | 'rest' | 'test', index) => {
         return (
-          <View style={styles.item}>
+          <View style={styles.item} key={index}>
             <View style={styles.header}>
               <View style={styles.line} />
               <CustomText style={styles.title}>Day {index + 1}</CustomText>
               <View style={styles.line} />
             </View>
             {day === 'rest' ? (
-              <CustomText style={styles.text} key={index}>
-                Rest day
-              </CustomText>
+              <CustomText style={styles.text}>Rest day</CustomText>
             ) : day === 'test' ? (
               <>
-                <CustomText style={styles.text} key={index}>
-                  Physical test
-                </CustomText>
+                <CustomText style={styles.text}>Physical test</CustomText>
                 {activeDay === 6 && <CustomButton styles={styles.btn}>Get started</CustomButton>}
               </>
             ) : (
               <WorkDay
-                key={index}
                 exercises={day.exercises}
                 restTime={day.restTime}
                 status={day.status}
