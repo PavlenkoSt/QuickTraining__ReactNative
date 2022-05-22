@@ -14,13 +14,12 @@ import Gallery from 'src/screens/Gallery'
 import FirstSetInventarForm from 'src/screens/FirstSetInventarForm'
 import FirtsTestInfo from 'src/screens/FirtsTestInfo'
 import FirstTestExercises from 'src/screens/FirstTestExercises'
-import TrainingResult from 'src/screens/TestResult'
 import Profile from 'src/screens/Profile'
 import Inventar from 'src/screens/Inventar'
 import Training from 'src/screens/Training'
+import TestResult from 'src/screens/TestResult'
 
 import useRealmUser from 'src/hooks/Realm/useRealmUser'
-import TestResult from 'src/screens/TestResult'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()

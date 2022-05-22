@@ -3,15 +3,15 @@ import React, { FC } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import { useNavigation, StackActions } from '@react-navigation/native'
 
+import time from 'src/utilts/time'
 import { ExecutionExerciseEnum, IExercise } from 'src/types/ExerciseTypes'
 import { IStatus } from 'src/services/ExerciseService'
-import CustomText from '../CustomText'
+import useRealmUser from 'src/hooks/Realm/useRealmUser'
 import calculateExerciseReply from 'src/utilts/calculateExerciseReply'
+import CustomText from '../CustomText'
 import CustomButton from '../CustomButton'
-import time from 'src/utilts/time'
 
 import Check from 'src/assets/imgs/check.svg'
-import useRealmUser from 'src/hooks/Realm/useRealmUser'
 
 type WorkDayPropsType = {
   exercises: IExercise[]

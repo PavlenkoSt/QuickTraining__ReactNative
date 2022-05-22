@@ -37,7 +37,7 @@ const useFlowEx = ({
   isTest,
   userInfo,
 }: useFlowExPropsType) => {
-  const { dispatch } = useNavigation()
+  const { dispatch, navigate } = useNavigation()
 
   const done = useCallback(() => {
     let thisTransaction: any
@@ -63,7 +63,11 @@ const useFlowEx = ({
           })
         )
       } else {
-        StackActions.replace('Home')
+        dispatch(
+          StackActions.replace('Home', {
+            results: [...testResult, thisTransaction],
+          })
+        )
       }
     } else {
       startRelaxTimer()

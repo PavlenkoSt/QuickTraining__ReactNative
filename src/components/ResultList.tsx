@@ -14,8 +14,8 @@ type ResultListPropsType = {
 const ResultList: FC<ResultListPropsType> = ({ results }) => {
   return (
     <View>
-      {results.map((result) => (
-        <View style={styles.item} key={result.name}>
+      {results.map((result, i) => (
+        <View style={styles.item} key={`${result.name}-${i}`}>
           <CustomText>{result.name}</CustomText>
           <CustomText>
             {result.type === ExecutionExerciseEnum.REPEAT
