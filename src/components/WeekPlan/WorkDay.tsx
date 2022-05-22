@@ -2,13 +2,14 @@ import { Dimensions, View } from 'react-native'
 import React, { FC } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
-import { IExercise } from 'src/types/ExerciseTypes'
+import { ExecutionExerciseEnum, IExercise } from 'src/types/ExerciseTypes'
 import { IStatus } from 'src/services/ExerciseService'
 import CustomText from '../CustomText'
-
-import Check from 'src/assets/imgs/check.svg'
+import calculateExerciseReply from 'src/utilts/calculateExerciseReply'
 import CustomButton from '../CustomButton'
 import time from 'src/utilts/time'
+
+import Check from 'src/assets/imgs/check.svg'
 
 type WorkDayPropsType = {
   exercises: IExercise[]
@@ -25,7 +26,13 @@ const WorkDay: FC<WorkDayPropsType> = ({ exercises, restTime, status, activeDay 
           {exercises.map((exercise, i) => (
             <View key={`${exercise.id}-${i}`} style={styles.exBox}>
               <CustomText style={styles.exName}>{exercise.name}</CustomText>
-              <CustomText style={styles.exGoal}>{exercise.coefficientDifficult}</CustomText>
+              <CustomText style={styles.exGoal}>
+                {exercise.execution === ExecutionExerciseEnum.HOLD
+                  ? time.timeFormat(
+                      calculateExerciseReply(exercise.coefficientDifficult, exercise.type, i)
+                    )
+                  : calculateExerciseReply(exercise.coefficientDifficult, exercise.type, i)}
+              </CustomText>
             </View>
           ))}
         </View>

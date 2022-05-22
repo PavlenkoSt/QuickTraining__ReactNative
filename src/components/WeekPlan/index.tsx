@@ -15,7 +15,7 @@ const WeekPlan = () => {
 
   return (
     <View>
-      <CustomText style={styles.mainTitle}>Week training plan</CustomText>
+      <CustomText style={styles.mainTitle}>Training plan</CustomText>
       {weekPlan.map((day: IDay | 'rest' | 'test', index) => {
         return (
           <View style={styles.item}>
