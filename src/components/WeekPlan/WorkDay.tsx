@@ -22,8 +22,8 @@ const WorkDay: FC<WorkDayPropsType> = ({ exercises, restTime, status, activeDay 
     <>
       <View style={styles.container}>
         <View style={styles.row}>
-          {exercises.map((exercise) => (
-            <View style={styles.exBox}>
+          {exercises.map((exercise, i) => (
+            <View key={`${exercise.id}-${i}`} style={styles.exBox}>
               <CustomText style={styles.exName}>{exercise.name}</CustomText>
               <CustomText style={styles.exGoal}>{exercise.coefficientDifficult}</CustomText>
             </View>
