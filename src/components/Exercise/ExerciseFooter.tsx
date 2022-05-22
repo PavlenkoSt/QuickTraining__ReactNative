@@ -39,7 +39,7 @@ const ExerciseFooter: FC<ExerciseFooterPropsType> = ({
 
         return (
           <View
-            key={`${exercise.type}-${exercise.id}`}
+            key={`${exercise.type}-${exercise.id}-${i}`}
             style={[styles.item, activeIndex === i && styles.itemActive]}
           >
             <CustomText style={styles.name}>{exercise.name}</CustomText>

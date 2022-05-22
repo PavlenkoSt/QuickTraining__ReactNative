@@ -17,6 +17,7 @@ import FirstTestExercises from 'src/screens/FirstTestExercises'
 import TrainingResult from 'src/screens/TrainingResult'
 import Profile from 'src/screens/Profile'
 import Inventar from 'src/screens/Inventar'
+import Training from 'src/screens/Training'
 
 import useRealmUser from 'src/hooks/Realm/useRealmUser'
 
@@ -63,6 +64,7 @@ const WorkoutStack = () => {
   return (
     <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Training" component={Training} />
     </Stack.Navigator>
   )
 }

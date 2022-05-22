@@ -1,6 +1,7 @@
 import { Dimensions, View } from 'react-native'
 import React, { FC } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
+import { useNavigation, StackActions } from '@react-navigation/native'
 
 import { ExecutionExerciseEnum, IExercise } from 'src/types/ExerciseTypes'
 import { IStatus } from 'src/services/ExerciseService'
@@ -19,6 +20,8 @@ type WorkDayPropsType = {
 }
 
 const WorkDay: FC<WorkDayPropsType> = ({ exercises, restTime, status, activeDay }) => {
+  const { dispatch } = useNavigation()
+
   return (
     <>
       <View style={styles.container}>
@@ -45,7 +48,23 @@ const WorkDay: FC<WorkDayPropsType> = ({ exercises, restTime, status, activeDay 
             <Check width={80} height={80} />
           </View>
         )}
-        {activeDay && <CustomButton styles={styles.btn}>Get started</CustomButton>}
+        {activeDay && (
+          <CustomButton
+            onPress={() =>
+              dispatch(
+                StackActions.replace('Training', {
+                  day: {
+                    exercises,
+                    restTime,
+                  },
+                })
+              )
+            }
+            styles={styles.btn}
+          >
+            Get started
+          </CustomButton>
+        )}
       </View>
     </>
   )

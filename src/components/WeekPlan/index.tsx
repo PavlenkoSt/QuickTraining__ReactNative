@@ -4,12 +4,15 @@ import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import useRealmWeekPlan from 'src/hooks/Realm/useRealmWeekPlan'
 import { IDay } from 'src/services/ExerciseService'
-import CustomText from '../CustomText'
 import WorkDay from './WorkDay'
+import CustomText from '../CustomText'
 import CustomButton from '../CustomButton'
+import { useNavigation, StackActions } from '@react-navigation/native'
 
 const WeekPlan = () => {
   const { weekPlan, activeDay } = useRealmWeekPlan()
+
+  const { dispatch } = useNavigation()
 
   if (!weekPlan) return <></>
 
@@ -50,7 +53,7 @@ export default WeekPlan
 
 const styles = EStyleSheet.create({
   mainTitle: {
-    fontSize: 16,
+    fontSize: 18,
     textAlign: 'center',
     marginBottom: 15,
     color: '#ccc',
