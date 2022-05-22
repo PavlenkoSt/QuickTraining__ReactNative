@@ -2,13 +2,13 @@ import { View } from 'react-native'
 import React, { FC, memo } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
-import CustomText from 'src/components/CustomText'
 import { IExercise } from 'src/types/ExerciseTypes'
+import CustomText from 'src/components/CustomText'
 import { IResult } from 'src/screens/FirstTestExercises'
-
-import Check from 'src/assets/imgs/check.svg'
 import useRealmWeekPlan from 'src/hooks/Realm/useRealmWeekPlan'
 import calculateExerciseReply from 'src/utilts/calculateExerciseReply'
+
+import Check from 'src/assets/imgs/check.svg'
 
 type ExerciseFooterPropsType = {
   testPlan: IExercise[]

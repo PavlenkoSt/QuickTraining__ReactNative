@@ -38,6 +38,7 @@ type ExercisePropsType = {
   }
 
   needCount?: number
+  finishTrainingPress?: () => void
 }
 
 const Exercise: FC<ExercisePropsType> = ({
@@ -56,6 +57,7 @@ const Exercise: FC<ExercisePropsType> = ({
   userInfo,
 
   needCount,
+  finishTrainingPress,
 }) => {
   const [count, setCount] = useState(0)
 
@@ -154,11 +156,13 @@ const Exercise: FC<ExercisePropsType> = ({
           )}
         </View>
         <ExerciseFooter testPlan={testPlan} activeIndex={activeIndex} testResult={testResult} />
-        <View style={styles.closeBtnContainer}>
-          <CustomButton small danger>
-            Finish training
-          </CustomButton>
-        </View>
+        {!!finishTrainingPress && (
+          <View style={styles.closeBtnContainer}>
+            <CustomButton onPress={finishTrainingPress} small danger>
+              Finish training
+            </CustomButton>
+          </View>
+        )}
       </View>
     </View>
   )

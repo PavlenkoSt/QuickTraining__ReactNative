@@ -1,12 +1,12 @@
-import { ScrollView, View } from 'react-native'
+import { ScrollView } from 'react-native'
 import React, { FC, useState } from 'react'
-import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import { IExercise } from 'src/types/ExerciseTypes'
 import Exercise from 'src/components/Exercise'
 import { IResult } from '../FirstTestExercises'
 import ExerciseLayout from 'src/layouts/ExerciseLayout'
 import calculateExerciseReply from 'src/utilts/calculateExerciseReply'
+import EndTrainigModal from './EndTrainigModal'
 
 type TrainingPropsType = {
   route: {
@@ -24,6 +24,8 @@ const Training: FC<TrainingPropsType> = ({ route }) => {
   const [activeIndex, setActiveIndex] = useState(0)
 
   const { day } = route.params
+
+  const [endTrainingModalVisible, setEndTrainingModalVisible] = useState(false)
 
   return (
     <ExerciseLayout>
@@ -43,13 +45,13 @@ const Training: FC<TrainingPropsType> = ({ route }) => {
             setTestResult={setTestResult}
             testPlan={day.exercises}
             needCount={calculateExerciseReply(exercise.coefficientDifficult, exercise.type, i)}
+            finishTrainingPress={() => setEndTrainingModalVisible(true)}
           />
         ))}
       </ScrollView>
+      <EndTrainigModal visible={endTrainingModalVisible} setVisible={setEndTrainingModalVisible} />
     </ExerciseLayout>
   )
 }
 
 export default Training
-
-const styles = EStyleSheet.create({})
