@@ -7,21 +7,17 @@ import { IExercise } from 'src/types/ExerciseTypes'
 import { IResult } from 'src/screens/FirstTestExercises'
 
 import Check from 'src/assets/imgs/check.svg'
+import useRealmWeekPlan from 'src/hooks/Realm/useRealmWeekPlan'
+import calculateExerciseReply from 'src/utilts/calculateExerciseReply'
 
 type ExerciseFooterPropsType = {
   testPlan: IExercise[]
   testResult: IResult[]
   activeIndex: number
-  exercisePercent: number | null
 }
 
-const ExerciseFooter: FC<ExerciseFooterPropsType> = ({
-  testPlan,
-  testResult,
-  activeIndex,
-  exercisePercent,
-}) => {
-  console.log('testResult', testResult)
+const ExerciseFooter: FC<ExerciseFooterPropsType> = ({ testPlan, testResult, activeIndex }) => {
+  const { weekPlan } = useRealmWeekPlan()
 
   return (
     <View style={styles.program}>
@@ -31,10 +27,8 @@ const ExerciseFooter: FC<ExerciseFooterPropsType> = ({
             ? 0
             : testResult?.[i]?.result
             ? testResult?.[i]?.result
-            : exercisePercent
-            ? // here we need calculate count of repeaten
-              // ? ((((exercise.max - exercise.min) * 100) / exercise.max) * exercisePercent) / 100
-              -1
+            : !!weekPlan
+            ? calculateExerciseReply(exercise.coefficientDifficult, exercise.type, i)
             : 'max'
 
         return (
@@ -63,10 +57,8 @@ export default memo(ExerciseFooter)
 
 const styles = EStyleSheet.create({
   program: {
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    flexWrap: 'wrap',
     paddingBottom: 30,
   },
   item: {
@@ -74,7 +66,7 @@ const styles = EStyleSheet.create({
     borderColor: '$blue',
     borderWidth: 1,
     padding: 10,
-    minWidth: 100,
+    width: 260,
     position: 'relative',
   },
   itemLabel: {

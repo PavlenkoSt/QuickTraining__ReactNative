@@ -1,5 +1,5 @@
 import { TouchableOpacity, View } from 'react-native'
-import React, { Dispatch, FC, SetStateAction, useCallback, useState, memo } from 'react'
+import React, { Dispatch, FC, SetStateAction, useCallback, useState, memo, useEffect } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import CustomText from '../CustomText'
@@ -8,10 +8,17 @@ import RepeatCounterEditModal from './RepeatCounterEditModal'
 type RepeatCounterPropsType = {
   count: number
   setCount: Dispatch<SetStateAction<number>>
+  needCount?: number
 }
 
-const RepeatCounter: FC<RepeatCounterPropsType> = ({ count, setCount }) => {
+const RepeatCounter: FC<RepeatCounterPropsType> = ({ count, setCount, needCount }) => {
   const [editModalVisible, setEditModalVisible] = useState(false)
+
+  useEffect(() => {
+    if (needCount) {
+      setCount(needCount)
+    }
+  }, [needCount])
 
   const increment = useCallback(() => {
     setCount((prev) => prev + 1)

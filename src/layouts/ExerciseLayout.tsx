@@ -9,7 +9,7 @@ type ExerciseLayoutPropsType = {
 const ExerciseLayout: FC<ExerciseLayoutPropsType> = ({ children }) => {
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="#121B22" />
+      <StatusBar backgroundColor="#121B22" translucent />
       <View>{children}</View>
     </View>
   )

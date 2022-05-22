@@ -6,6 +6,7 @@ import { IExercise } from 'src/types/ExerciseTypes'
 import Exercise from 'src/components/Exercise'
 import { IResult } from '../FirstTestExercises'
 import ExerciseLayout from 'src/layouts/ExerciseLayout'
+import calculateExerciseReply from 'src/utilts/calculateExerciseReply'
 
 type TrainingPropsType = {
   route: {
@@ -41,6 +42,7 @@ const Training: FC<TrainingPropsType> = ({ route }) => {
             testResult={testResult}
             setTestResult={setTestResult}
             testPlan={day.exercises}
+            needCount={calculateExerciseReply(exercise.coefficientDifficult, exercise.type, i)}
           />
         ))}
       </ScrollView>

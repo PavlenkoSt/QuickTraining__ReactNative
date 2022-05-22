@@ -25,8 +25,6 @@ const calculateExerciseReply = (
 
   const difference = ((clearReplies * diffPercent) / 100) * (index + 1)
 
-  console.log('difference', difference)
-
   const result = clearReplies - difference
 
   return result < 20 ? 20 : Math.ceil(result)

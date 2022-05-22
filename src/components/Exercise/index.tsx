@@ -36,6 +36,8 @@ type ExercisePropsType = {
     duration: DurationEnum
     gender: GenderEnum
   }
+
+  needCount?: number
 }
 
 const Exercise: FC<ExercisePropsType> = ({
@@ -52,6 +54,8 @@ const Exercise: FC<ExercisePropsType> = ({
   setTestResult,
   toNextExercise,
   userInfo,
+
+  needCount,
 }) => {
   const [count, setCount] = useState(0)
 
@@ -125,7 +129,7 @@ const Exercise: FC<ExercisePropsType> = ({
           {!!relaxTimer.current ? (
             <RelaxTimer value={relax} />
           ) : counterType === ExecutionExerciseEnum.REPEAT ? (
-            <RepeatCounter count={count} setCount={setCount} />
+            <RepeatCounter count={count} setCount={setCount} needCount={needCount} />
           ) : (
             <HoldCounter time={time} />
           )}
@@ -149,12 +153,12 @@ const Exercise: FC<ExercisePropsType> = ({
             </CustomButton>
           )}
         </View>
-        <ExerciseFooter
-          testPlan={testPlan}
-          activeIndex={activeIndex}
-          testResult={testResult}
-          exercisePercent={null}
-        />
+        <ExerciseFooter testPlan={testPlan} activeIndex={activeIndex} testResult={testResult} />
+        <View style={styles.closeBtnContainer}>
+          <CustomButton small danger>
+            Finish training
+          </CustomButton>
+        </View>
       </View>
     </View>
   )
@@ -209,5 +213,10 @@ const styles = EStyleSheet.create({
     fontSize: 20,
     textTransform: 'uppercase',
     textAlign: 'center',
+  },
+  closeBtnContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 30,
   },
 })
