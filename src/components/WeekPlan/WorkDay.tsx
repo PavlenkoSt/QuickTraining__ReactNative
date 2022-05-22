@@ -11,6 +11,7 @@ import CustomButton from '../CustomButton'
 import time from 'src/utilts/time'
 
 import Check from 'src/assets/imgs/check.svg'
+import useRealmUser from 'src/hooks/Realm/useRealmUser'
 
 type WorkDayPropsType = {
   exercises: IExercise[]
@@ -22,6 +23,8 @@ type WorkDayPropsType = {
 const WorkDay: FC<WorkDayPropsType> = ({ exercises, restTime, status, activeDay }) => {
   const { dispatch } = useNavigation()
 
+  const { user } = useRealmUser()
+
   return (
     <>
       <View style={styles.container}>
@@ -32,9 +35,9 @@ const WorkDay: FC<WorkDayPropsType> = ({ exercises, restTime, status, activeDay 
               <CustomText style={styles.exGoal}>
                 {exercise.execution === ExecutionExerciseEnum.HOLD
                   ? time.timeFormat(
-                      calculateExerciseReply(exercise.coefficientDifficult, exercise.type, i)
+                      calculateExerciseReply(exercise.coefficientDifficult, exercise.type, i, user)
                     )
-                  : calculateExerciseReply(exercise.coefficientDifficult, exercise.type, i)}
+                  : calculateExerciseReply(exercise.coefficientDifficult, exercise.type, i, user)}
               </CustomText>
             </View>
           ))}

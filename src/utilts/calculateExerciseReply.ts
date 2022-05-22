@@ -1,13 +1,12 @@
-import useRealmUser from 'src/hooks/Realm/useRealmUser'
+import { IUser } from 'src/RealmDB/schemas/User'
 import { ExerciseType } from 'src/types/ExerciseTypes'
 
 const calculateExerciseReply = (
   exCoefficient: number,
   typeExercise: ExerciseType,
-  index: number
+  index: number,
+  user: IUser | null
 ) => {
-  const { user } = useRealmUser()
-
   if (!user) return 0
 
   const maxReplyExType =

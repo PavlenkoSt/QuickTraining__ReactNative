@@ -2,13 +2,14 @@ import { View } from 'react-native'
 import React, { FC, memo } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
-import { IExercise } from 'src/types/ExerciseTypes'
 import CustomText from 'src/components/CustomText'
+import { IExercise } from 'src/types/ExerciseTypes'
 import { IResult } from 'src/screens/FirstTestExercises'
 import useRealmWeekPlan from 'src/hooks/Realm/useRealmWeekPlan'
 import calculateExerciseReply from 'src/utilts/calculateExerciseReply'
 
 import Check from 'src/assets/imgs/check.svg'
+import useRealmUser from 'src/hooks/Realm/useRealmUser'
 
 type ExerciseFooterPropsType = {
   testPlan: IExercise[]
@@ -19,6 +20,8 @@ type ExerciseFooterPropsType = {
 const ExerciseFooter: FC<ExerciseFooterPropsType> = ({ testPlan, testResult, activeIndex }) => {
   const { weekPlan } = useRealmWeekPlan()
 
+  const { user } = useRealmUser()
+
   return (
     <View style={styles.program}>
       {testPlan.map((exercise, i) => {
@@ -28,7 +31,7 @@ const ExerciseFooter: FC<ExerciseFooterPropsType> = ({ testPlan, testResult, act
             : testResult?.[i]?.result
             ? testResult?.[i]?.result
             : !!weekPlan
-            ? calculateExerciseReply(exercise.coefficientDifficult, exercise.type, i)
+            ? calculateExerciseReply(exercise.coefficientDifficult, exercise.type, i, user)
             : 'max'
 
         return (

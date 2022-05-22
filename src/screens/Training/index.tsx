@@ -7,6 +7,7 @@ import { IResult } from '../FirstTestExercises'
 import ExerciseLayout from 'src/layouts/ExerciseLayout'
 import calculateExerciseReply from 'src/utilts/calculateExerciseReply'
 import EndTrainigModal from './EndTrainigModal'
+import useRealmUser from 'src/hooks/Realm/useRealmUser'
 
 type TrainingPropsType = {
   route: {
@@ -24,6 +25,8 @@ const Training: FC<TrainingPropsType> = ({ route }) => {
   const [activeIndex, setActiveIndex] = useState(0)
 
   const { day } = route.params
+
+  const { user } = useRealmUser()
 
   const [endTrainingModalVisible, setEndTrainingModalVisible] = useState(false)
 
@@ -44,7 +47,12 @@ const Training: FC<TrainingPropsType> = ({ route }) => {
             testResult={testResult}
             setTestResult={setTestResult}
             testPlan={day.exercises}
-            needCount={calculateExerciseReply(exercise.coefficientDifficult, exercise.type, i)}
+            needCount={calculateExerciseReply(
+              exercise.coefficientDifficult,
+              exercise.type,
+              i,
+              user
+            )}
             finishTrainingPress={() => setEndTrainingModalVisible(true)}
           />
         ))}
