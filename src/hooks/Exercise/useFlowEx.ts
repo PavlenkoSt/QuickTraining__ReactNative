@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction, useCallback } from 'react'
 import { IResult } from 'src/screens/FirstTestExercises'
 import { ExecutionExerciseEnum } from 'src/types/ExerciseTypes'
 import { DurationEnum, GenderEnum } from 'src/RealmDB/schemas/User'
+import useRealmWeekPlan from '../Realm/useRealmWeekPlan'
 
 type useFlowExPropsType = {
   counterType: ExecutionExerciseEnum
@@ -37,7 +38,9 @@ const useFlowEx = ({
   isTest,
   userInfo,
 }: useFlowExPropsType) => {
-  const { dispatch, navigate } = useNavigation()
+  const { dispatch } = useNavigation()
+
+  const { completeTraining } = useRealmWeekPlan()
 
   const done = useCallback(() => {
     let thisTransaction: any
@@ -63,6 +66,7 @@ const useFlowEx = ({
           })
         )
       } else {
+        completeTraining()
         dispatch(
           StackActions.replace('Home', {
             results: [...testResult, thisTransaction],
