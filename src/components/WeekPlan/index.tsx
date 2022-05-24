@@ -37,6 +37,8 @@ const WeekPlan = () => {
                 restTime={day.restTime}
                 status={day.status}
                 activeDay={activeDay === index}
+                withPullUps={false}
+                index={index}
               />
             )}
           </View>

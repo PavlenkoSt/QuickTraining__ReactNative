@@ -1,5 +1,5 @@
 import { Dimensions, View } from 'react-native'
-import React, { FC } from 'react'
+import React, { FC, useMemo } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import { useNavigation, StackActions } from '@react-navigation/native'
 
@@ -18,12 +18,49 @@ type WorkDayPropsType = {
   restTime: number
   status: IStatus
   activeDay: boolean
+  withPullUps: boolean
+  index: number
 }
 
-const WorkDay: FC<WorkDayPropsType> = ({ exercises, restTime, status, activeDay }) => {
+const WorkDay: FC<WorkDayPropsType> = ({
+  exercises,
+  restTime,
+  status,
+  activeDay,
+  withPullUps,
+  index,
+}) => {
   const { dispatch } = useNavigation()
 
   const { user } = useRealmUser()
+
+  const coefficientProgress = useMemo(() => {
+    if (withPullUps) {
+      switch (index) {
+        case 0:
+          return 1
+        case 1:
+          return 1.15
+        case 3:
+          return 1.25
+        case 4:
+          return 1.35
+        default:
+          return 1
+      }
+    } else {
+      switch (index) {
+        case 0:
+          return 1
+        case 2:
+          return 1.15
+        case 4:
+          return 1.35
+        default:
+          return 1
+      }
+    }
+  }, [withPullUps, index])
 
   return (
     <>
@@ -35,9 +72,21 @@ const WorkDay: FC<WorkDayPropsType> = ({ exercises, restTime, status, activeDay 
               <CustomText style={styles.exGoal}>
                 {exercise.execution === ExecutionExerciseEnum.HOLD
                   ? time.timeFormat(
-                      calculateExerciseReply(exercise.coefficientDifficult, exercise.type, i, user)
+                      calculateExerciseReply(
+                        exercise.coefficientDifficult,
+                        coefficientProgress,
+                        exercise.type,
+                        i,
+                        user
+                      )
                     )
-                  : calculateExerciseReply(exercise.coefficientDifficult, exercise.type, i, user)}
+                  : calculateExerciseReply(
+                      exercise.coefficientDifficult,
+                      coefficientProgress,
+                      exercise.type,
+                      i,
+                      user
+                    )}
               </CustomText>
             </View>
           ))}
@@ -60,6 +109,7 @@ const WorkDay: FC<WorkDayPropsType> = ({ exercises, restTime, status, activeDay 
                     exercises,
                     restTime,
                   },
+                  coefficientProgress,
                 })
               )
             }

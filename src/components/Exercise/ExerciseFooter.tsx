@@ -15,9 +15,15 @@ type ExerciseFooterPropsType = {
   testPlan: IExercise[]
   testResult: IResult[]
   activeIndex: number
+  coefficientProgress: number
 }
 
-const ExerciseFooter: FC<ExerciseFooterPropsType> = ({ testPlan, testResult, activeIndex }) => {
+const ExerciseFooter: FC<ExerciseFooterPropsType> = ({
+  testPlan,
+  testResult,
+  activeIndex,
+  coefficientProgress,
+}) => {
   const { weekPlan } = useRealmWeekPlan()
 
   const { user } = useRealmUser()
@@ -31,7 +37,13 @@ const ExerciseFooter: FC<ExerciseFooterPropsType> = ({ testPlan, testResult, act
             : testResult?.[i]?.result
             ? testResult?.[i]?.result
             : !!weekPlan
-            ? calculateExerciseReply(exercise.coefficientDifficult, exercise.type, i, user)
+            ? calculateExerciseReply(
+                exercise.coefficientDifficult,
+                coefficientProgress,
+                exercise.type,
+                i,
+                user
+              )
             : 0
 
         return (

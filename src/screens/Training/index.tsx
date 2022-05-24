@@ -16,6 +16,7 @@ type TrainingPropsType = {
         exercises: IExercise[]
         restTime: number
       }
+      coefficientProgress: number
     }
   }
 }
@@ -49,11 +50,13 @@ const Training: FC<TrainingPropsType> = ({ route }) => {
             testPlan={day.exercises}
             needCount={calculateExerciseReply(
               exercise.coefficientDifficult,
+              route.params.coefficientProgress,
               exercise.type,
               i,
               user
             )}
             finishTrainingPress={() => setEndTrainingModalVisible(true)}
+            coefficientProgress={route.params.coefficientProgress}
           />
         ))}
       </ScrollView>

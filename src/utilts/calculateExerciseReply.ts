@@ -3,6 +3,7 @@ import { ExerciseType } from 'src/types/ExerciseTypes'
 
 const calculateExerciseReply = (
   exCoefficient: number,
+  coefficientProgress: number,
   typeExercise: ExerciseType,
   index: number,
   user: IUser | null
@@ -24,9 +25,9 @@ const calculateExerciseReply = (
 
   const difference = ((clearReplies * diffPercent) / 100) * (index + 1)
 
-  const result = clearReplies - difference
+  const result = (clearReplies - difference) * coefficientProgress
 
-  return result < 20 ? 20 : Math.ceil(result)
+  return result < 10 ? 10 : Math.ceil(result)
 }
 
 export default calculateExerciseReply
