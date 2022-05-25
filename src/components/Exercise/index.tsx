@@ -4,7 +4,7 @@ import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import VideoPlayer from 'react-native-video-player'
 
 import { DurationEnum, GenderEnum } from 'src/RealmDB/schemas/User'
-import { IResult } from 'src/screens/FirstTestExercises/index'
+import { IResult } from 'src/screens/TestExercises/index'
 import CustomText from 'src/components/CustomText'
 import { ExecutionExerciseEnum, IExercise } from 'src/types/ExerciseTypes'
 import RepeatCounter from 'src/components/Exercise/RepeatCounter'

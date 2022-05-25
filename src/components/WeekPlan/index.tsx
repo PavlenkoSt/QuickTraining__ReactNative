@@ -1,5 +1,6 @@
-import { View } from 'react-native'
 import React from 'react'
+import { View } from 'react-native'
+import { StackActions, useNavigation } from '@react-navigation/native'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import useRealmWeekPlan from 'src/hooks/Realm/useRealmWeekPlan'
@@ -10,6 +11,8 @@ import CustomButton from '../CustomButton'
 
 const WeekPlan = () => {
   const { weekPlan, activeDay } = useRealmWeekPlan()
+
+  const { dispatch } = useNavigation()
 
   if (!weekPlan) return <></>
 
@@ -29,7 +32,16 @@ const WeekPlan = () => {
             ) : day === 'test' ? (
               <>
                 <CustomText style={styles.text}>Physical form test</CustomText>
-                {activeDay === 6 && <CustomButton styles={styles.btn}>Get started</CustomButton>}
+                {activeDay === 6 && (
+                  <CustomButton
+                    onPress={() =>
+                      dispatch(StackActions.replace('TestExercises', { userInfo: undefined }))
+                    }
+                    styles={styles.btn}
+                  >
+                    Get started
+                  </CustomButton>
+                )}
               </>
             ) : (
               <WorkDay

@@ -3,7 +3,7 @@ import React, { FC, useState } from 'react'
 
 import { IExercise } from 'src/types/ExerciseTypes'
 import Exercise from 'src/components/Exercise'
-import { IResult } from '../FirstTestExercises'
+import { IResult } from '../TestExercises'
 import ExerciseLayout from 'src/layouts/ExerciseLayout'
 import calculateExerciseReply from 'src/utilts/calculateExerciseReply'
 import EndTrainigModal from './EndTrainigModal'

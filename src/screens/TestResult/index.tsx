@@ -1,9 +1,10 @@
 import { View } from 'react-native'
 import React, { FC, useCallback } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
+import { useNavigation, StackActions } from '@react-navigation/native'
 
-import ResultList from '../../components/ResultList'
-import { IResult } from '../FirstTestExercises'
+import { IResult } from '../TestExercises'
+import ResultList from 'src/components/ResultList'
 import { DurationEnum, GenderEnum } from 'src/RealmDB/schemas/User'
 import MainLayout from 'src/layouts/MainLayout'
 import TitleHeader from 'src/components/Headers/TitleHeader'
@@ -34,13 +35,13 @@ type TestResultPropsType = {
 const TestResult: FC<TestResultPropsType> = ({ route }) => {
   const isTest = route.params.isTest
 
-  const { setUser } = useRealmUser()
-  const { setWeekPlan } = useRealmWeekPlan()
+  const { user, setUser, updateRecords, updatePercent } = useRealmUser()
+  const { weekPlan, setWeekPlan, clearWeekPlan } = useRealmWeekPlan()
+
+  const { dispatch } = useNavigation()
 
   const registerAndBuildProgram = useCallback(() => {
     const { userData } = route.params
-
-    if (!userData) return
 
     const percent = LevelService.calculatePercent(
       route.params.testResult[0].result,
@@ -48,27 +49,46 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
       route.params.testResult[2].result
     )
 
-    setUser({
-      _id: 0,
-      name: userData.userInfo.name,
-      age: userData.userInfo.age,
-      gender: userData.userInfo.gender,
-      duration: userData.userInfo.duration,
-      pushUpMax: route.params.testResult[0].result,
-      sitUpMax: route.params.testResult[1].result,
-      plankMax: route.params.testResult[2].result,
-      levelLabel: LevelService.getLabelByPercent(percent),
-      levelPercent: percent,
-    })
+    if (!userData) {
+      console.log('route.params.testResult', route.params.testResult)
+      updateRecords({
+        pushUpMax: route.params.testResult[0].result,
+        sitUpMax: route.params.testResult[1].result,
+        plankMax: route.params.testResult[2].result,
+      })
+    } else {
+      setUser({
+        _id: 0,
+        name: userData.userInfo.name,
+        age: userData.userInfo.age,
+        gender: userData.userInfo.gender,
+        duration: userData.userInfo.duration,
+        pushUpMax: route.params.testResult[0].result,
+        sitUpMax: route.params.testResult[1].result,
+        plankMax: route.params.testResult[2].result,
+        levelLabel: LevelService.getLabelByPercent(percent),
+        levelPercent: percent,
+      })
+    }
+
+    if (!!weekPlan) {
+      clearWeekPlan()
+      updatePercent({
+        levelLabel: LevelService.getLabelByPercent(percent),
+        percent,
+      })
+    }
 
     const plan = ExerciseService.autogeneratePlan(
       percent,
-      userData.userInfo.gender,
+      !!userData ? userData.userInfo.gender : !!user ? user.gender : GenderEnum.Male,
       false
     ) as WeekPlanType
 
     setWeekPlan(plan)
-  }, [])
+
+    dispatch(StackActions.replace('Home'))
+  }, [route.params])
 
   return (
     <MainLayout
@@ -91,9 +111,9 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
         </View>
       )}
       <ResultList results={route.params.testResult} />
-      {isTest && (
+      {!!isTest && (
         <CustomButton styles={{ marginTop: 30 }} onPress={registerAndBuildProgram}>
-          Accept and build the training program
+          {!!weekPlan ? 'Accept' : 'Accept and build the training program'}
         </CustomButton>
       )}
     </MainLayout>

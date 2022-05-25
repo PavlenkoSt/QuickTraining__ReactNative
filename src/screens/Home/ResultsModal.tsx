@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import React, { Dispatch, FC, SetStateAction } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
-import { IResult } from '../FirstTestExercises'
+import { IResult } from '../TestExercises'
 import ModalWrapper from 'src/components/ModalWrapper'
 import ResultList from 'src/components/ResultList'
 import CustomText from 'src/components/CustomText'

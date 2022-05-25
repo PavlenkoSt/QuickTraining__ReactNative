@@ -1,11 +1,12 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useMemo, useState } from 'react'
 import { ScrollView } from 'react-native'
 
 import Exercise from 'src/components/Exercise'
 import { DurationEnum, GenderEnum } from 'src/RealmDB/schemas/User'
 import ExerciseLayout from 'src/layouts/ExerciseLayout'
 import ExerciseService from 'src/services/ExerciseService'
-import { ExecutionExerciseEnum, IExercise } from 'src/types/ExerciseTypes'
+import { ExecutionExerciseEnum, ExerciseType, IExercise } from 'src/types/ExerciseTypes'
+import useRealmUser from 'src/hooks/Realm/useRealmUser'
 
 export interface IResult {
   name: string
@@ -13,10 +14,10 @@ export interface IResult {
   type: ExecutionExerciseEnum
 }
 
-type FirstTestExercisesPropsType = {
+type TestExercisesPropsType = {
   route: {
     params: {
-      userInfo: {
+      userInfo?: {
         name: string
         age: number
         duration: DurationEnum
@@ -26,8 +27,26 @@ type FirstTestExercisesPropsType = {
   }
 }
 
-const FirstTestExercises: FC<FirstTestExercisesPropsType> = ({ route }) => {
-  const testPlan = ExerciseService.getTestExercises(route.params.userInfo.gender)
+const TestExercises: FC<TestExercisesPropsType> = ({ route }) => {
+  const { user } = useRealmUser()
+
+  const gender = !!user
+    ? user.gender
+    : route.params?.userInfo
+    ? route.params.userInfo.gender
+    : GenderEnum.Male
+
+  const records = useMemo(
+    () => ({
+      [ExerciseType.PUSH]: !!user ? user.pushUpMax : 0,
+      [ExerciseType.LEGS]: !!user ? user.sitUpMax : 0,
+      [ExerciseType.CORE]: !!user ? user.plankMax : 0,
+      [ExerciseType.PULL]: !!user ? 0 : 0,
+    }),
+    [user]
+  )
+
+  const testPlan = ExerciseService.getTestExercises(gender)
 
   const [activeIndex, setActiveIndex] = useState(0)
   const [testResult, setTestResult] = useState<IResult[]>([])
@@ -50,6 +69,7 @@ const FirstTestExercises: FC<FirstTestExercisesPropsType> = ({ route }) => {
             setTestResult={setTestResult}
             testPlan={testPlan}
             userInfo={route.params.userInfo}
+            needCount={records[exercise.type]}
             isTest
           />
         ))}
@@ -58,4 +78,4 @@ const FirstTestExercises: FC<FirstTestExercisesPropsType> = ({ route }) => {
   )
 }
 
-export default FirstTestExercises
+export default TestExercises

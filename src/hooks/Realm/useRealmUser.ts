@@ -2,13 +2,24 @@ import { useCallback, useMemo } from 'react'
 
 import RealmDB from 'src/RealmDB'
 import UserSchema, { DurationEnum, IUser } from 'src/RealmDB/schemas/User'
-import { GenderEnum } from './../../RealmDB/schemas/User'
+import { GenderEnum } from 'src/RealmDB/schemas/User'
 
 type UserInfoPropsType = {
   name: string
   age: number
   duration: DurationEnum
   gender: GenderEnum
+}
+
+export type RecordsType = {
+  pushUpMax: number
+  sitUpMax: number
+  plankMax: number
+}
+
+export type PercentType = {
+  levelLabel: string
+  percent: number
 }
 
 const useRealmUser = () => {
@@ -54,6 +65,36 @@ const useRealmUser = () => {
     [user]
   )
 
+  const updateRecords = useCallback(
+    (records: RecordsType) => {
+      if (user) {
+        realm.write(() => {
+          //@ts-ignore
+          userRealm[0].pushUpMax = records.pushUpMax
+          //@ts-ignore
+          userRealm[0].sitUpMax = records.sitUpMax
+          //@ts-ignore
+          userRealm[0].plankMax = records.plankMax
+        })
+      }
+    },
+    [user]
+  )
+
+  const updatePercent = useCallback(
+    (percent: PercentType) => {
+      if (user) {
+        realm.write(() => {
+          //@ts-ignore
+          userRealm[0].levelLabel = percent.levelLabel
+          //@ts-ignore
+          userRealm[0].levelPercent = percent.percent
+        })
+      }
+    },
+    [user]
+  )
+
   const clearUser = useCallback(() => {
     realm.write(() => {
       realm.delete(realm.objects('User'))
@@ -64,6 +105,8 @@ const useRealmUser = () => {
     setUser,
     clearUser,
     updateUser,
+    updateRecords,
+    updatePercent,
     user,
   }
 }

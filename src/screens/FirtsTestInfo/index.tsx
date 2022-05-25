@@ -26,7 +26,7 @@ const FirtsTestInfo: FC<FirtsTestInfoPropsType> = ({ route }) => {
   const { navigate } = useNavigation()
 
   const onPress = useCallback(() => {
-    navigate('FirstTestExercises' as never, { userInfo: route.params.userInfo } as never)
+    navigate('TestExercises' as never, { userInfo: route.params.userInfo } as never)
   }, [route])
 
   return (

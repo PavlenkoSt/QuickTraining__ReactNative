@@ -1,10 +1,10 @@
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { Dispatch, SetStateAction, useCallback } from 'react'
 
-import { IResult } from 'src/screens/FirstTestExercises'
-import { ExecutionExerciseEnum } from 'src/types/ExerciseTypes'
+import { IResult } from 'src/screens/TestExercises'
 import { DurationEnum, GenderEnum } from 'src/RealmDB/schemas/User'
 import useRealmWeekPlan from '../Realm/useRealmWeekPlan'
+import { ExecutionExerciseEnum } from 'src/types/ExerciseTypes'
 
 type useFlowExPropsType = {
   counterType: ExecutionExerciseEnum
@@ -62,7 +62,7 @@ const useFlowEx = ({
           StackActions.replace('TestResult', {
             testResult: [...testResult, thisTransaction],
             isTest,
-            userData: { userInfo },
+            userData: !!userInfo ? { userInfo } : undefined,
           })
         )
       } else {

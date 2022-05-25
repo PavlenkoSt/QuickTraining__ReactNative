@@ -4,7 +4,7 @@ import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import CustomText from 'src/components/CustomText'
 import { IExercise } from 'src/types/ExerciseTypes'
-import { IResult } from 'src/screens/FirstTestExercises'
+import { IResult } from 'src/screens/TestExercises'
 import useRealmWeekPlan from 'src/hooks/Realm/useRealmWeekPlan'
 import calculateExerciseReply from 'src/utilts/calculateExerciseReply'
 

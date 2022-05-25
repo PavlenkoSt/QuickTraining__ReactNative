@@ -4,7 +4,7 @@ import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import WeekPlan from 'src/components/WeekPlan'
 import MainLayout from 'src/layouts/MainLayout'
 import HomeHeader from 'src/screens/Home/HomeHeader'
-import { IResult } from '../FirstTestExercises'
+import { IResult } from '../TestExercises'
 import ResultsModal from './ResultsModal'
 
 type HomePropsType = {

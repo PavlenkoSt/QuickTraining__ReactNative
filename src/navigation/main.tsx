@@ -13,7 +13,7 @@ import FirstSetUserInfoForm from 'src/screens/FirstSetUserInfoForm'
 import Gallery from 'src/screens/Gallery'
 import FirstSetInventarForm from 'src/screens/FirstSetInventarForm'
 import FirtsTestInfo from 'src/screens/FirtsTestInfo'
-import FirstTestExercises from 'src/screens/FirstTestExercises'
+import TestExercises from 'src/screens/TestExercises'
 import Profile from 'src/screens/Profile'
 import Inventar from 'src/screens/Inventar'
 import Training from 'src/screens/Training'
@@ -39,7 +39,7 @@ const RegisterStack = () => {
       <Stack.Screen name="FirstSetUserInfoForm" component={FirstSetUserInfoForm} />
       <Stack.Screen name="FirstSetInventarForm" component={FirstSetInventarForm} />
       <Stack.Screen name="FirtsTestInfo" component={FirtsTestInfo} />
-      <Stack.Screen name="FirstTestExercises" component={FirstTestExercises} />
+      <Stack.Screen name="TestExercises" component={TestExercises} />
       <Stack.Screen name="Gallery" component={Gallery} />
       <Stack.Screen name="TestResult" component={TestResult} />
     </Stack.Navigator>
@@ -65,6 +65,8 @@ const WorkoutStack = () => {
     <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Training" component={Training} />
+      <Stack.Screen name="TestExercises" component={TestExercises} />
+      <Stack.Screen name="TestResult" component={TestResult} />
     </Stack.Navigator>
   )
 }
