@@ -50,7 +50,6 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
     )
 
     if (!userData) {
-      console.log('route.params.testResult', route.params.testResult)
       updateRecords({
         pushUpMax: route.params.testResult[0].result,
         sitUpMax: route.params.testResult[1].result,
@@ -87,7 +86,9 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
 
     setWeekPlan(plan)
 
-    dispatch(StackActions.replace('Home'))
+    if (!userData) {
+      dispatch(StackActions.replace('Home'))
+    }
   }, [route.params])
 
   return (
