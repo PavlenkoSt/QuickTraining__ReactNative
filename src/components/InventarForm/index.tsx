@@ -41,7 +41,7 @@ const InventarForm: FC<InventarFormPropsType> = ({ mode, userInfo }) => {
   const { navigate, goBack } = useNavigation()
 
   const onPress = () => {
-    const inventary: IInventoryDB = {
+    const localInventary: IInventoryDB = {
       _id: 0,
       haveBar: +haveBar,
       haveWallBar: +haveWallBar,
@@ -52,10 +52,10 @@ const InventarForm: FC<InventarFormPropsType> = ({ mode, userInfo }) => {
       haveSkippingRope: +haveSkippingRope,
     }
 
-    if (!inventary) {
-      setInventory(inventary)
+    if (!inventory) {
+      setInventory(localInventary)
     } else {
-      updateInventory(inventary)
+      updateInventory(localInventary)
     }
 
     if (mode === 'set') {
