@@ -3,13 +3,14 @@ import React, { FC, memo } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import CustomText from 'src/components/CustomText'
-import { IExercise } from 'src/types/ExerciseTypes'
+import { ExecutionExerciseEnum, IExercise } from 'src/types/ExerciseTypes'
 import { IResult } from 'src/screens/TestExercises'
 import useRealmWeekPlan from 'src/hooks/Realm/useRealmWeekPlan'
 import calculateExerciseReply from 'src/utilts/calculateExerciseReply'
+import useRealmUser from 'src/hooks/Realm/useRealmUser'
+import time from 'src/utilts/time'
 
 import Check from 'src/assets/imgs/check.svg'
-import useRealmUser from 'src/hooks/Realm/useRealmUser'
 
 type ExerciseFooterPropsType = {
   testPlan: IExercise[]
@@ -37,13 +38,23 @@ const ExerciseFooter: FC<ExerciseFooterPropsType> = ({
             : testResult?.[i]?.result
             ? testResult?.[i]?.result
             : !!weekPlan
-            ? calculateExerciseReply(
-                exercise.coefficientDifficult,
-                coefficientProgress,
-                exercise.type,
-                i,
-                user
-              )
+            ? exercise.execution === ExecutionExerciseEnum.HOLD
+              ? time.timeFormat(
+                  calculateExerciseReply(
+                    exercise.coefficientDifficult,
+                    coefficientProgress,
+                    exercise.type,
+                    i,
+                    user
+                  )
+                )
+              : calculateExerciseReply(
+                  exercise.coefficientDifficult,
+                  coefficientProgress,
+                  exercise.type,
+                  i,
+                  user
+                )
             : 0
 
         return (
