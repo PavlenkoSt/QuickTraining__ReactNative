@@ -1,7 +1,7 @@
 import { Dimensions, View } from 'react-native'
 import React, { FC, useMemo } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
-import { useNavigation, StackActions } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 
 import time from 'src/utilts/time'
 import { ExecutionExerciseEnum, IExercise } from 'src/types/ExerciseTypes'
@@ -30,7 +30,7 @@ const WorkDay: FC<WorkDayPropsType> = ({
   withPullUps,
   index,
 }) => {
-  const { dispatch } = useNavigation()
+  const { navigate } = useNavigation()
 
   const { user } = useRealmUser()
 
@@ -103,14 +103,15 @@ const WorkDay: FC<WorkDayPropsType> = ({
         {activeDay && (
           <CustomButton
             onPress={() =>
-              dispatch(
-                StackActions.replace('Training', {
+              navigate(
+                'Training' as never,
+                {
                   day: {
                     exercises,
                     restTime,
                   },
                   coefficientProgress,
-                })
+                } as never
               )
             }
             styles={styles.btn}

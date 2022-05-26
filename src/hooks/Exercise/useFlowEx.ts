@@ -23,6 +23,7 @@ type useFlowExPropsType = {
     duration: DurationEnum
     gender: GenderEnum
   }
+  needCount?: number
 }
 
 const useFlowEx = ({
@@ -37,6 +38,7 @@ const useFlowEx = ({
   stopTimer,
   isTest,
   userInfo,
+  needCount,
 }: useFlowExPropsType) => {
   const { dispatch } = useNavigation()
 
@@ -46,7 +48,11 @@ const useFlowEx = ({
     let thisTransaction: any
 
     if (counterType === ExecutionExerciseEnum.HOLD) {
-      thisTransaction = { name, result: time, type: ExecutionExerciseEnum.HOLD }
+      thisTransaction = {
+        name,
+        result: !isTest && needCount ? needCount - time : time,
+        type: ExecutionExerciseEnum.HOLD,
+      }
 
       setTestResult((prev) => [...prev, thisTransaction])
       stopTimer()

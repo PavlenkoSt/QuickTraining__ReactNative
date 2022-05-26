@@ -1,16 +1,30 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-const useHoldEx = () => {
-  const [time, setTime] = useState(0)
+type useHoldExPropsType = {
+  needCount?: number
+  isTest?: boolean
+}
+
+const useHoldEx = ({ needCount, isTest }: useHoldExPropsType) => {
+  const [time, setTime] = useState(() => (needCount && !isTest ? needCount : 0))
 
   const timer = useRef<any>()
+
+  useEffect(() => {
+    if (time === 0) {
+      stopTimer()
+    }
+  }, [time])
 
   const startTimer = () => {
     if (timer.current) {
       stopTimer()
     }
 
-    timer.current = setInterval(() => setTime((prev) => prev + 1), 1000)
+    timer.current = setInterval(
+      () => setTime((prev) => (needCount && !isTest ? prev - 1 : prev + 1)),
+      1000
+    )
   }
 
   const stopTimer = () => {

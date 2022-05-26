@@ -65,7 +65,7 @@ const Exercise: FC<ExercisePropsType> = ({
 
   const { relax, relaxTimer, startRelaxTimer } = useRelaxEx({ relaxDelation, toNextExercise })
 
-  const { time, timer, startTimer, stopTimer } = useHoldEx()
+  const { time, timer, startTimer, stopTimer } = useHoldEx({ needCount, isTest })
 
   const { done } = useFlowEx({
     counterType,
@@ -79,6 +79,7 @@ const Exercise: FC<ExercisePropsType> = ({
     stopTimer,
     isTest,
     userInfo,
+    needCount,
   })
 
   const { width } = useWindowDimensions()
