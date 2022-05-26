@@ -12,7 +12,7 @@ type TabBarPropsType = {
 const TabBar: FC<TabBarPropsType> = ({ navState }) => {
   const currentRoute = useMemo(() => navState.routeNames[navState.index], [navState.index])
 
-  const isWorkoutStack = useMemo(() => currentRoute === 'WorkoutStack', [currentRoute])
+  const isHomeStack = useMemo(() => currentRoute === 'Home', [currentRoute])
   const isStatisticsStack = useMemo(() => currentRoute === 'StatisticsStack', [currentRoute])
   const isSettingsStack = useMemo(() => currentRoute === 'SettingsStack', [currentRoute])
 
@@ -20,8 +20,8 @@ const TabBar: FC<TabBarPropsType> = ({ navState }) => {
     <View style={styles.bar}>
       <TabbarItem
         name={'Workout'}
-        toScreen="WorkoutStack"
-        isActive={isWorkoutStack}
+        toScreen="Home"
+        isActive={isHomeStack}
         src={require('src/assets/imgs/tabbar/training.png')}
         bigImg
       />

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -27,9 +27,11 @@ const Stack = createNativeStackNavigator()
 const NavigationWrapper = () => {
   const { user } = useRealmUser()
 
-  return (
-    <NavigationContainer>{!!user ? <TabsNavigation /> : <RegisterStack />}</NavigationContainer>
-  )
+  useEffect(() => {
+    console.log('user', user)
+  }, [user])
+
+  return <NavigationContainer>{!!user ? <MainStack /> : <RegisterStack />}</NavigationContainer>
 }
 
 const RegisterStack = () => {
@@ -46,28 +48,28 @@ const RegisterStack = () => {
   )
 }
 
-const TabsNavigation = () => {
+const MainStack = () => {
   return (
-    <Tab.Navigator
-      initialRouteName="WorkoutStack"
-      screenOptions={{ headerShown: false }}
-      tabBar={({ state }) => <TabBar navState={state} />}
-    >
-      <Tab.Screen name="WorkoutStack" component={WorkoutStack} />
-      <Tab.Screen name="StatisticsStack" component={StatisticsStack} />
-      <Tab.Screen name="SettingsStack" component={SettingsStack} />
-    </Tab.Navigator>
-  )
-}
-
-const WorkoutStack = () => {
-  return (
-    <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Home" component={Home} />
+    <Stack.Navigator initialRouteName="Tabs" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Tabs" component={TabsNavigation} />
       <Stack.Screen name="Training" component={Training} />
       <Stack.Screen name="TestExercises" component={TestExercises} />
       <Stack.Screen name="TestResult" component={TestResult} />
     </Stack.Navigator>
+  )
+}
+
+const TabsNavigation = () => {
+  return (
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={{ headerShown: false }}
+      tabBar={({ state }) => <TabBar navState={state} />}
+    >
+      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="StatisticsStack" component={StatisticsStack} />
+      <Tab.Screen name="SettingsStack" component={SettingsStack} />
+    </Tab.Navigator>
   )
 }
 

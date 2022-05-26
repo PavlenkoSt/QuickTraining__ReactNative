@@ -68,8 +68,11 @@ const useFlowEx = ({
       } else {
         completeTraining()
         dispatch(
-          StackActions.replace('Home', {
-            results: [...testResult, thisTransaction],
+          StackActions.replace('Tabs', {
+            screen: 'Home',
+            params: {
+              results: [...testResult, thisTransaction],
+            },
           })
         )
       }

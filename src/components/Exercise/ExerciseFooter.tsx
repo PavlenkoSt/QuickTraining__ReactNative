@@ -36,7 +36,9 @@ const ExerciseFooter: FC<ExerciseFooterPropsType> = ({
           testResult?.[i]?.result === 0
             ? 0
             : testResult?.[i]?.result
-            ? testResult?.[i]?.result
+            ? exercise.execution === ExecutionExerciseEnum.HOLD
+              ? time.timeFormat(testResult?.[i]?.result)
+              : testResult?.[i]?.result
             : !!weekPlan
             ? exercise.execution === ExecutionExerciseEnum.HOLD
               ? time.timeFormat(

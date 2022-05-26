@@ -87,7 +87,9 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
     setWeekPlan(plan)
 
     if (!userData) {
-      dispatch(StackActions.replace('Home'))
+      dispatch(StackActions.replace('Tabs'))
+    } else {
+      dispatch(StackActions.replace('About'))
     }
   }, [route.params])
 
