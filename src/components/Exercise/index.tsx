@@ -38,7 +38,6 @@ type ExercisePropsType = {
   }
 
   needCount?: number
-  finishTrainingPress?: () => void
   coefficientProgress?: number
 }
 
@@ -58,7 +57,6 @@ const Exercise: FC<ExercisePropsType> = ({
   userInfo,
 
   needCount,
-  finishTrainingPress,
   coefficientProgress,
 }) => {
   const [count, setCount] = useState(0)
@@ -164,13 +162,6 @@ const Exercise: FC<ExercisePropsType> = ({
           testResult={testResult}
           coefficientProgress={coefficientProgress || 1}
         />
-        {!!finishTrainingPress && (
-          <View style={styles.closeBtnContainer}>
-            <CustomButton onPress={finishTrainingPress} small danger>
-              Finish training
-            </CustomButton>
-          </View>
-        )}
       </View>
     </View>
   )

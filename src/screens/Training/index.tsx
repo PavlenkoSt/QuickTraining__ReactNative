@@ -6,7 +6,6 @@ import Exercise from 'src/components/Exercise'
 import { IResult } from '../TestExercises'
 import ExerciseLayout from 'src/layouts/ExerciseLayout'
 import calculateExerciseReply from 'src/utilts/calculateExerciseReply'
-import EndTrainigModal from './EndTrainigModal'
 import useRealmUser from 'src/hooks/Realm/useRealmUser'
 
 type TrainingPropsType = {
@@ -28,8 +27,6 @@ const Training: FC<TrainingPropsType> = ({ route }) => {
   const { day } = route.params
 
   const { user } = useRealmUser()
-
-  const [endTrainingModalVisible, setEndTrainingModalVisible] = useState(false)
 
   return (
     <ExerciseLayout>
@@ -55,12 +52,10 @@ const Training: FC<TrainingPropsType> = ({ route }) => {
               i,
               user
             )}
-            finishTrainingPress={() => setEndTrainingModalVisible(true)}
             coefficientProgress={route.params.coefficientProgress}
           />
         ))}
       </ScrollView>
-      <EndTrainigModal visible={endTrainingModalVisible} setVisible={setEndTrainingModalVisible} />
     </ExerciseLayout>
   )
 }
