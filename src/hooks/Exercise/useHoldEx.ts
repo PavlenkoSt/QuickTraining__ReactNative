@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import useTimerSong from './useTimerSong'
 
 type useHoldExPropsType = {
   needCount?: number
@@ -10,11 +11,19 @@ const useHoldEx = ({ needCount, isTest }: useHoldExPropsType) => {
 
   const timer = useRef<any>()
 
+  const { playSong, vibrate } = useTimerSong()
+
   useEffect(() => {
-    if (time === 0) {
-      stopTimer()
+    if (!isTest) {
+      if (time === 3) {
+        playSong()
+      }
+      if (time === 0) {
+        vibrate()
+        stopTimer()
+      }
     }
-  }, [time])
+  }, [time, playSong])
 
   const startTimer = () => {
     if (timer.current) {
@@ -31,6 +40,10 @@ const useHoldEx = ({ needCount, isTest }: useHoldExPropsType) => {
     clearInterval(timer.current)
     timer.current = null
   }
+
+  useEffect(() => {
+    return () => stopTimer()
+  }, [])
 
   return { time, timer, startTimer, stopTimer }
 }

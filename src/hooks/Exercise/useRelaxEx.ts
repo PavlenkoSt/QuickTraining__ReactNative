@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import useTimerSong from './useTimerSong'
 
 type useRelaxExPropsType = {
   relaxDelation: number
@@ -10,9 +11,19 @@ const useRelaxEx = ({ relaxDelation, toNextExercise }: useRelaxExPropsType) => {
 
   const relaxTimer = useRef<any>(null)
 
+  const { playSong, vibrate } = useTimerSong()
+
   const startRelaxTimer = () => {
     relaxTimer.current = setInterval(() => {
-      setRelax((prev) => prev - 1)
+      setRelax((prev) => {
+        if (prev === 4) {
+          playSong()
+        }
+        if (prev === 1) {
+          vibrate()
+        }
+        return prev - 1
+      })
     }, 1000)
   }
 
@@ -32,7 +43,7 @@ const useRelaxEx = ({ relaxDelation, toNextExercise }: useRelaxExPropsType) => {
     return () => clearRelaxTimer()
   }, [])
 
-  return { relax, relaxTimer, startRelaxTimer }
+  return { relax, relaxTimer, startRelaxTimer, clearRelaxTimer }
 }
 
 export default useRelaxEx

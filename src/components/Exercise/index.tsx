@@ -61,7 +61,10 @@ const Exercise: FC<ExercisePropsType> = ({
 }) => {
   const [count, setCount] = useState(0)
 
-  const { relax, relaxTimer, startRelaxTimer } = useRelaxEx({ relaxDelation, toNextExercise })
+  const { relax, relaxTimer, startRelaxTimer, clearRelaxTimer } = useRelaxEx({
+    relaxDelation,
+    toNextExercise,
+  })
 
   const { time, timer, startTimer, stopTimer } = useHoldEx({ needCount, isTest })
 
@@ -140,7 +143,10 @@ const Exercise: FC<ExercisePropsType> = ({
         <View style={styles.btnContainer}>
           {!!relaxTimer.current ? (
             <CustomButton
-              onPress={toNextExercise}
+              onPress={() => {
+                toNextExercise()
+                clearRelaxTimer()
+              }}
               styles={[styles.btn, styles.btnWide]}
               textStyles={styles.btnText}
             >
