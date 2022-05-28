@@ -1,6 +1,5 @@
 import { ScrollView } from 'react-native'
-import React, { FC, useEffect, useState } from 'react'
-import { useNavigation } from '@react-navigation/native'
+import React, { FC, useState } from 'react'
 
 import { IExercise } from 'src/types/ExerciseTypes'
 import Exercise from 'src/components/Exercise'
@@ -8,7 +7,7 @@ import { IResult } from '../TestExercises'
 import ExerciseLayout from 'src/layouts/ExerciseLayout'
 import calculateExerciseReply from 'src/utilts/calculateExerciseReply'
 import useRealmUser from 'src/hooks/Realm/useRealmUser'
-import EndTrainingModal from '../../components/EndTrainingModal'
+import EndTrainingModal from 'src/components/EndTrainingModal'
 import useConfirmBackNav from 'src/hooks/useConfirmBackNav'
 
 type TrainingPropsType = {
