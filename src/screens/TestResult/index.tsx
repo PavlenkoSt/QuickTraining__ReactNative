@@ -14,6 +14,8 @@ import CustomButton from 'src/components/CustomButton'
 import useRealmUser from 'src/hooks/Realm/useRealmUser'
 import useRealmWeekPlan from 'src/hooks/Realm/useRealmWeekPlan'
 import ExerciseService, { WeekPlanType } from 'src/services/ExerciseService'
+import EndTrainingModal from 'src/components/EndTrainingModal'
+import useConfirmBackNav from 'src/hooks/useConfirmBackNav'
 
 type TestResultPropsType = {
   route: {
@@ -39,6 +41,8 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
   const { weekPlan, setWeekPlan, clearWeekPlan } = useRealmWeekPlan()
 
   const { dispatch } = useNavigation()
+
+  const { visibleModal, setVisibleModal, navigateAction } = useConfirmBackNav()
 
   const registerAndBuildProgram = useCallback(() => {
     const { userData } = route.params
@@ -119,6 +123,12 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
           {!!weekPlan ? 'Accept' : 'Accept and build the training program'}
         </CustomButton>
       )}
+      <EndTrainingModal
+        visible={visibleModal}
+        setVisible={setVisibleModal}
+        navigateAction={navigateAction}
+        confirmMessage="Are you sure you want to cancel training test? Progress will be lost!"
+      />
     </MainLayout>
   )
 }

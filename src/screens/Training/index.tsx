@@ -8,8 +8,8 @@ import { IResult } from '../TestExercises'
 import ExerciseLayout from 'src/layouts/ExerciseLayout'
 import calculateExerciseReply from 'src/utilts/calculateExerciseReply'
 import useRealmUser from 'src/hooks/Realm/useRealmUser'
-import EndTrainingModal from './EndTrainingModal'
-import { NavigationActionType } from 'src/types/NavigationActionType'
+import EndTrainingModal from '../../components/EndTrainingModal'
+import useConfirmBackNav from 'src/hooks/useConfirmBackNav'
 
 type TrainingPropsType = {
   route: {
@@ -27,25 +27,11 @@ const Training: FC<TrainingPropsType> = ({ route }) => {
   const [testResult, setTestResult] = useState<IResult[]>([])
   const [activeIndex, setActiveIndex] = useState(0)
 
-  const [leaveTrainingModal, setLeaveTrainingModal] = useState(false)
-  const [navigateAction, setNavigateAction] = useState<NavigationActionType | null>(null)
-
-  const { addListener } = useNavigation()
+  const { visibleModal, setVisibleModal, navigateAction } = useConfirmBackNav()
 
   const { day } = route.params
 
   const { user } = useRealmUser()
-
-  useEffect(() => {
-    addListener('beforeRemove', (e) => {
-      if (e.data.action.type !== 'GO_BACK') return
-
-      e.preventDefault()
-
-      setNavigateAction(e.data.action)
-      setLeaveTrainingModal(true)
-    })
-  }, [])
 
   return (
     <ExerciseLayout>
@@ -76,9 +62,10 @@ const Training: FC<TrainingPropsType> = ({ route }) => {
         ))}
       </ScrollView>
       <EndTrainingModal
-        visible={leaveTrainingModal}
-        setVisible={setLeaveTrainingModal}
+        visible={visibleModal}
+        setVisible={setVisibleModal}
         navigateAction={navigateAction}
+        confirmMessage="Are you sure you want to leave training? Progress will be lost!"
       />
     </ExerciseLayout>
   )

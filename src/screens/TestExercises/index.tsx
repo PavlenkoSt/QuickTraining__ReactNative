@@ -7,6 +7,8 @@ import ExerciseLayout from 'src/layouts/ExerciseLayout'
 import ExerciseService from 'src/services/ExerciseService'
 import { ExecutionExerciseEnum, ExerciseType, IExercise } from 'src/types/ExerciseTypes'
 import useRealmUser from 'src/hooks/Realm/useRealmUser'
+import EndTrainingModal from 'src/components/EndTrainingModal'
+import useConfirmBackNav from 'src/hooks/useConfirmBackNav'
 
 export interface IResult {
   name: string
@@ -51,6 +53,8 @@ const TestExercises: FC<TestExercisesPropsType> = ({ route }) => {
   const [activeIndex, setActiveIndex] = useState(0)
   const [testResult, setTestResult] = useState<IResult[]>([])
 
+  const { visibleModal, setVisibleModal, navigateAction } = useConfirmBackNav()
+
   return (
     <ExerciseLayout>
       <ScrollView>
@@ -74,6 +78,12 @@ const TestExercises: FC<TestExercisesPropsType> = ({ route }) => {
           />
         ))}
       </ScrollView>
+      <EndTrainingModal
+        visible={visibleModal}
+        setVisible={setVisibleModal}
+        navigateAction={navigateAction}
+        confirmMessage="Are you sure you want to leave training test? Progress will be lost!"
+      />
     </ExerciseLayout>
   )
 }

@@ -12,21 +12,21 @@ type EndTrainingModalPropsType = {
   visible: boolean
   setVisible: Dispatch<SetStateAction<boolean>>
   navigateAction: NavigationActionType | null
+  confirmMessage: string
 }
 
 const EndTrainingModal: FC<EndTrainingModalPropsType> = ({
   visible,
   setVisible,
   navigateAction,
+  confirmMessage,
 }) => {
   const { dispatch } = useNavigation()
 
   return (
     <ModalWrapper visible={visible} setVisible={setVisible}>
       <View>
-        <CustomText style={styles.title}>
-          Are you sure you want to leave training? Progress will be lost!
-        </CustomText>
+        <CustomText style={styles.title}>{confirmMessage}</CustomText>
         <View style={styles.btns}>
           <CustomButton
             onPress={() => {
