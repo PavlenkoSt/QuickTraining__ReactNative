@@ -16,6 +16,7 @@ import useRealmWeekPlan from 'src/hooks/Realm/useRealmWeekPlan'
 import ExerciseService, { WeekPlanType } from 'src/services/ExerciseService'
 import EndTrainingModal from 'src/components/EndTrainingModal'
 import useConfirmBackNav from 'src/hooks/useConfirmBackNav'
+import useInventory from 'src/hooks/Realm/useRealmInventory'
 
 type TestResultPropsType = {
   route: {
@@ -39,6 +40,7 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
 
   const { user, setUser, updateRecords, updatePercent } = useRealmUser()
   const { weekPlan, setWeekPlan, clearWeekPlan } = useRealmWeekPlan()
+  const { inventory } = useInventory()
 
   const { dispatch } = useNavigation()
 
@@ -50,7 +52,8 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
     const percent = LevelService.calculatePercent(
       route.params.testResult[0].result,
       route.params.testResult[1].result,
-      route.params.testResult[2].result
+      route.params.testResult[2].result,
+      route.params.testResult?.[3] ? route.params.testResult[3].result : undefined
     )
 
     if (!userData) {
@@ -58,6 +61,9 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
         pushUpMax: route.params.testResult[0].result,
         sitUpMax: route.params.testResult[1].result,
         plankMax: route.params.testResult[2].result,
+        pullUpMax: route.params.testResult?.[3]
+          ? route.params.testResult?.[3].result
+          : user?.pullUpMax || 0,
       })
     } else {
       setUser({
@@ -69,6 +75,7 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
         pushUpMax: route.params.testResult[0].result,
         sitUpMax: route.params.testResult[1].result,
         plankMax: route.params.testResult[2].result,
+        pullUpMax: route.params.testResult?.[3] ? route.params.testResult[3].result : 0,
         levelLabel: LevelService.getLabelByPercent(percent),
         levelPercent: percent,
       })
@@ -85,7 +92,7 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
     const plan = ExerciseService.autogeneratePlan(
       percent,
       !!userData ? userData.userInfo.gender : !!user ? user.gender : GenderEnum.Male,
-      false
+      Boolean(inventory?.haveBar)
     ) as WeekPlanType
 
     setWeekPlan(plan)

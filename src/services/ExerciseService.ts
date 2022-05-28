@@ -45,7 +45,7 @@ class ExerciseService {
         (exercise) => percent >= exercise.awailableForPercent
       ),
       [ExerciseType.PULL]: withBar
-        ? this.exercisesTree[key][ExerciseType.PUSH].filter(
+        ? this.exercisesTree[key][ExerciseType.PULL].filter(
             (exercise) => percent >= exercise.awailableForPercent
           )
         : null,

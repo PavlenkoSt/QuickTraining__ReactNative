@@ -24,7 +24,7 @@ const generateExerciseTree = (): IExercisesTree => {
           type: ExerciseType.PUSH,
           coefficientDifficult: 1,
           awailableForPercent: 0,
-          max: 200,
+          max: 100,
         },
         {
           id: 1,
@@ -124,7 +124,7 @@ const generateExerciseTree = (): IExercisesTree => {
       [ExerciseType.PULL]: [
         {
           id: 0,
-          name: 'Pull up',
+          name: 'Pull ups',
           video: pushUpVid,
           execution: ExecutionExerciseEnum.REPEAT,
           targetMuscles: [ExerciseTargetMuscle.BICEPS, ExerciseTargetMuscle.BACK],
@@ -132,7 +132,7 @@ const generateExerciseTree = (): IExercisesTree => {
           type: ExerciseType.PULL,
           coefficientDifficult: 1,
           awailableForPercent: 0,
-          max: 100,
+          max: 50,
         },
       ],
     },
@@ -162,7 +162,7 @@ const generateExerciseTree = (): IExercisesTree => {
           type: ExerciseType.LEGS,
           coefficientDifficult: 1,
           awailableForPercent: 0,
-          max: 300,
+          max: 500,
         },
       ],
       [ExerciseType.CORE]: [
@@ -182,7 +182,7 @@ const generateExerciseTree = (): IExercisesTree => {
       [ExerciseType.PULL]: [
         {
           id: 0,
-          name: 'Pull up',
+          name: 'Pull ups',
           video: pushUpVid,
           execution: ExecutionExerciseEnum.REPEAT,
           targetMuscles: [ExerciseTargetMuscle.BICEPS, ExerciseTargetMuscle.BACK],

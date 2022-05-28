@@ -15,6 +15,7 @@ export type RecordsType = {
   pushUpMax: number
   sitUpMax: number
   plankMax: number
+  pullUpMax: number
 }
 
 export type PercentType = {
@@ -75,6 +76,8 @@ const useRealmUser = () => {
           userRealm[0].sitUpMax = records.sitUpMax
           //@ts-ignore
           userRealm[0].plankMax = records.plankMax
+          //@ts-ignore
+          userRealm[0].pullUpMax = records.pullUpMax
         })
       }
     },

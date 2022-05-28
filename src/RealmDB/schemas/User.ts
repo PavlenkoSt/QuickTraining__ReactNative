@@ -22,6 +22,7 @@ export default class UserSchema extends Realm.Object {
   pushUpMax!: number
   sitUpMax!: number
   plankMax!: number
+  pullUpMax!: number
   levelLabel!: string
   levelPercent!: number
 
@@ -42,6 +43,7 @@ export default class UserSchema extends Realm.Object {
       pushUpMax: 'int',
       sitUpMax: 'int',
       plankMax: 'int',
+      pullUpMax: 'int',
       levelLabel: 'string',
       levelPercent: 'int',
     },
@@ -58,6 +60,7 @@ export interface IUser {
   pushUpMax: number
   sitUpMax: number
   plankMax: number
+  pullUpMax: number
   levelLabel: string
   levelPercent: number
 }

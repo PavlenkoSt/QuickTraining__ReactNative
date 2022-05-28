@@ -2,6 +2,7 @@ enum TestExercisesEnum {
   pushUps,
   sitUps,
   plank,
+  pullUps,
 }
 
 class LevelService {
@@ -49,23 +50,28 @@ class LevelService {
   ]
 
   maxTargetValues = [
-    { ex: TestExercisesEnum.pushUps, max: 200 },
+    { ex: TestExercisesEnum.pushUps, max: 100 },
     { ex: TestExercisesEnum.sitUps, max: 500 },
     { ex: TestExercisesEnum.plank, max: 1800 },
+    { ex: TestExercisesEnum.pullUps, max: 50 },
   ]
 
   constructor() {}
 
-  calculatePercent(pushUps: number, sitUps: number, plank: number) {
+  calculatePercent(pushUps: number, sitUps: number, plank: number, pullUps?: number) {
     const pushUpsMax = this.maxTargetValues[0].max
     const sitUpsMax = this.maxTargetValues[1].max
     const plankMax = this.maxTargetValues[2].max
+    const pullUpsMax = this.maxTargetValues[3].max
 
     const pushUpsPercent = (pushUps * 100) / pushUpsMax
     const sitUpsPercent = (sitUps * 100) / sitUpsMax
     const plankPercent = (plank * 100) / plankMax
+    const pullUpsPercent = pullUps !== undefined ? (pullUps * 100) / pullUpsMax : null
 
-    const calcCommonPercent = (pushUpsPercent + sitUpsPercent + plankPercent) / 3
+    const calcCommonPercent = pullUpsPercent
+      ? (pushUpsPercent + sitUpsPercent + plankPercent + pullUpsPercent) / 4
+      : (pushUpsPercent + sitUpsPercent + plankPercent) / 3
 
     return calcCommonPercent > 100 ? 100 : calcCommonPercent
   }
