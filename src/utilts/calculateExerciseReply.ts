@@ -17,6 +17,8 @@ const calculateExerciseReply = (
       ? user.sitUpMax
       : typeExercise === ExerciseType.CORE
       ? user.plankMax
+      : typeExercise === ExerciseType.PULL
+      ? user.pullUpMax
       : 0
 
   const clearReplies = exCoefficient * maxReplyExType
