@@ -33,6 +33,14 @@ const PersonalRecords = () => {
         </View>
         <View style={styles.tableRow}>
           <View style={styles.tableCell}>
+            <CustomText>Pull ups</CustomText>
+          </View>
+          <View style={[styles.tableCell, styles.smallCell]}>
+            <CustomText>{user.pullUpMax}</CustomText>
+          </View>
+        </View>
+        <View style={styles.tableRow}>
+          <View style={styles.tableCell}>
             <CustomText>Plank hold</CustomText>
           </View>
           <View style={[styles.tableCell, styles.smallCell]}>
