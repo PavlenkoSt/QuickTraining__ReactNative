@@ -1,5 +1,5 @@
 import { Dimensions, Image, ImageSourcePropType, TouchableOpacity, View } from 'react-native'
-import React, { Dispatch, FC, SetStateAction } from 'react'
+import React, { Dispatch, FC, memo, SetStateAction } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import CustomText from 'src/components/CustomText'
@@ -9,15 +9,27 @@ import Check from 'src/assets/imgs/check.svg'
 type InventoryItemPropsType = {
   haveItem: boolean
   setHaveItem: Dispatch<SetStateAction<boolean>>
+  setIsEdited: Dispatch<SetStateAction<boolean>>
   label: string
   source: ImageSourcePropType
 }
 
-const InventoryItem: FC<InventoryItemPropsType> = ({ haveItem, setHaveItem, label, source }) => {
+const InventoryItem: FC<InventoryItemPropsType> = ({
+  haveItem,
+  setHaveItem,
+  setIsEdited,
+  label,
+  source,
+}) => {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      onPress={() => setHaveItem((prev) => !prev)}
+      onPress={() =>
+        setHaveItem((prev) => {
+          setIsEdited(true)
+          return !prev
+        })
+      }
       style={styles.container}
     >
       <Image style={styles.image} source={source} />
@@ -31,7 +43,7 @@ const InventoryItem: FC<InventoryItemPropsType> = ({ haveItem, setHaveItem, labe
   )
 }
 
-export default InventoryItem
+export default memo(InventoryItem)
 
 const { width } = Dimensions.get('window')
 
