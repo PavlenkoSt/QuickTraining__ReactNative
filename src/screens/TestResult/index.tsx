@@ -92,7 +92,7 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
     const plan = ExerciseService.autogeneratePlan(
       percent,
       !!userData ? userData.userInfo.gender : !!user ? user.gender : GenderEnum.Male,
-      Boolean(inventory?.haveBar)
+      Boolean(inventory?.haveBar) || Boolean(inventory?.haveWallBar)
     ) as WeekPlanType
 
     setWeekPlan(plan)

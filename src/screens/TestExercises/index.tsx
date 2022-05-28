@@ -50,7 +50,10 @@ const TestExercises: FC<TestExercisesPropsType> = ({ route }) => {
     [user]
   )
 
-  const testPlan = ExerciseService.getTestExercises(gender, Boolean(inventory?.haveBar))
+  const testPlan = ExerciseService.getTestExercises(
+    gender,
+    Boolean(inventory?.haveBar) || Boolean(inventory?.haveWallBar)
+  )
 
   const [activeIndex, setActiveIndex] = useState(0)
   const [testResult, setTestResult] = useState<IResult[]>([])
