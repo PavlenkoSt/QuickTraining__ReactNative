@@ -29,7 +29,18 @@ const calculateExerciseReply = (
 
   const result = (clearReplies - difference) * coefficientProgress
 
-  return result < 10 ? 10 : Math.ceil(result)
+  const fixedResultByType =
+    typeExercise === ExerciseType.PUSH && result < 5
+      ? 5
+      : typeExercise === ExerciseType.LEGS && result < 10
+      ? 10
+      : typeExercise === ExerciseType.CORE && result < 10
+      ? 10
+      : typeExercise === ExerciseType.PULL && result < 3
+      ? 3
+      : 0
+
+  return Math.ceil(fixedResultByType)
 }
 
 export default calculateExerciseReply
