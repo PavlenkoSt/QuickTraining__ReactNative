@@ -25,7 +25,6 @@ const ClearUserModal: FC<ClearUserModalPropsType> = ({ visible, setVisible }) =>
           Are you really want to clear your profile? You will lose all your progress!
         </CustomText>
         <View style={styles.btns}>
-          <CustomButton onPress={() => setVisible(false)}>No</CustomButton>
           <CustomButton
             danger
             onPress={() => {
@@ -37,6 +36,7 @@ const ClearUserModal: FC<ClearUserModalPropsType> = ({ visible, setVisible }) =>
           >
             Yes
           </CustomButton>
+          <CustomButton onPress={() => setVisible(false)}>No</CustomButton>
         </View>
       </View>
     </ModalWrapper>
