@@ -1,12 +1,14 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { View } from 'react-native'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import useInventoryList from 'src/hooks/useInventoryList'
+import { IInventoryDB } from 'src/RealmDB/schemas/Inventory'
 import { DurationEnum, GenderEnum } from 'src/RealmDB/schemas/User'
 import CustomButton from '../CustomButton'
 import CustomText from '../CustomText'
 import InventoryItem from './InventoryItem'
+import RebuildTrainingPlanModal from './RebuildTrainingPlanModal'
 
 type InventarFormPropsType = {
   mode: 'set' | 'edit'
@@ -19,7 +21,15 @@ type InventarFormPropsType = {
 }
 
 const InventarForm: FC<InventarFormPropsType> = ({ mode, userInfo }) => {
-  const { itemsList, setIsEdited, onPress } = useInventoryList({ mode, userInfo })
+  const [rebuildPlanModal, setRebuildPlanModal] = useState(false)
+  const [localInventoryEdited, setLocalInventoryEdited] = useState<IInventoryDB | null>(null)
+
+  const { itemsList, setIsEdited, onPress } = useInventoryList({
+    mode,
+    userInfo,
+    setRebuildPlanModal,
+    setLocalInventoryEdited,
+  })
 
   return (
     <>
@@ -41,6 +51,11 @@ const InventarForm: FC<InventarFormPropsType> = ({ mode, userInfo }) => {
       </CustomText>
       <CustomText style={styles.mess}>You can change inventory at any time</CustomText>
       <CustomButton onPress={onPress}>Save</CustomButton>
+      <RebuildTrainingPlanModal
+        visible={rebuildPlanModal}
+        setVisible={setRebuildPlanModal}
+        localInventoryEdited={localInventoryEdited}
+      />
     </>
   )
 }

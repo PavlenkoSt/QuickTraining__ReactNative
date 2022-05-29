@@ -22,9 +22,16 @@ type useInventoryListPropsType = {
     duration: DurationEnum
     gender: GenderEnum
   }
+  setRebuildPlanModal: Dispatch<SetStateAction<boolean>>
+  setLocalInventoryEdited: Dispatch<SetStateAction<IInventoryDB | null>>
 }
 
-const useInventoryList = ({ mode, userInfo }: useInventoryListPropsType) => {
+const useInventoryList = ({
+  mode,
+  userInfo,
+  setRebuildPlanModal,
+  setLocalInventoryEdited,
+}: useInventoryListPropsType) => {
   const { setInventory, updateInventory, inventory } = useInventory()
 
   const [haveBar, setHaveBar] = useState(inventory ? Boolean(inventory.haveBar) : false)
@@ -106,17 +113,19 @@ const useInventoryList = ({ mode, userInfo }: useInventoryListPropsType) => {
       setInventory(localInventary)
     } else {
       if (isEdited) {
-        // open change plan offer modal
+        setRebuildPlanModal(true)
+        setLocalInventoryEdited(localInventary)
         return
       }
 
+      setLocalInventoryEdited(null)
       updateInventory(localInventary)
     }
 
     if (mode === 'set') {
       navigate('FirtsTestInfo' as never, { userInfo } as never)
     } else {
-      ToastService.success('Inventory have been changed success')
+      ToastService.success('Inventory have been changed successfully')
       goBack()
     }
   }
