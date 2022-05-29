@@ -2,8 +2,10 @@ import { View } from 'react-native'
 import React from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
+import MainLayout from 'src/layouts/MainLayout'
 import CustomText from 'src/components/CustomText'
 import useRealmUser from 'src/hooks/Realm/useRealmUser'
+import EmptyHeader from 'src/components/Headers/EmptyHeader'
 import time from 'src/utilts/time'
 
 const PersonalRecords = () => {
@@ -12,8 +14,7 @@ const PersonalRecords = () => {
   if (!user) return <></>
 
   return (
-    <>
-      <CustomText style={styles.title}>Your personal records</CustomText>
+    <MainLayout Header={() => <EmptyHeader title="Personal records" />}>
       <View style={styles.table}>
         <View style={styles.tableRow}>
           <View style={styles.tableCell}>
@@ -48,17 +49,13 @@ const PersonalRecords = () => {
           </View>
         </View>
       </View>
-    </>
+    </MainLayout>
   )
 }
 
 export default PersonalRecords
 
 const styles = EStyleSheet.create({
-  title: {
-    fontStyle: 'italic',
-    marginBottom: 10,
-  },
   table: {
     borderWidth: 1,
     borderColor: '$blue',
