@@ -25,6 +25,7 @@ export const toastConfig = {
         fontSize: 16,
         color: '#fff',
       }}
+      text1NumberOfLines={5}
       text2Style={{
         fontSize: 14,
         color: '#ccc',
@@ -39,6 +40,7 @@ export const toastConfig = {
         fontSize: 16,
         color: '#fff',
       }}
+      text1NumberOfLines={5}
       text2Style={{
         fontSize: 14,
         color: '#ccc',
