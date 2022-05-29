@@ -3,13 +3,18 @@ import React, { FC, useMemo } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import { useNavigation } from '@react-navigation/native'
 
+import {
+  ExecutionExerciseEnum,
+  IExercise,
+  InventarNeedForExerciseEnum,
+} from 'src/types/ExerciseTypes'
 import time from 'src/utilts/time'
-import { ExecutionExerciseEnum, IExercise } from 'src/types/ExerciseTypes'
 import { IStatus } from 'src/services/ExerciseService'
 import useRealmUser from 'src/hooks/Realm/useRealmUser'
 import calculateExerciseReply from 'src/utilts/calculateExerciseReply'
 import CustomText from '../CustomText'
 import CustomButton from '../CustomButton'
+import InventarBlock from './InventarBlock'
 
 import Check from 'src/assets/imgs/check.svg'
 
@@ -17,6 +22,7 @@ type WorkDayPropsType = {
   exercises: IExercise[]
   restTime: number
   status: IStatus
+  inventar: InventarNeedForExerciseEnum[]
   activeDay: boolean
   withPullUps: boolean
   index: number
@@ -26,6 +32,7 @@ const WorkDay: FC<WorkDayPropsType> = ({
   exercises,
   restTime,
   status,
+  inventar,
   activeDay,
   withPullUps,
   index,
@@ -120,6 +127,7 @@ const WorkDay: FC<WorkDayPropsType> = ({
           </CustomButton>
         )}
       </View>
+      <InventarBlock inventar={inventar} />
     </>
   )
 }

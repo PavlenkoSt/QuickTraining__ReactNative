@@ -3,6 +3,7 @@ import {
   ExerciseTargetMuscle,
   ExerciseType,
   IExercisesTree,
+  InventarNeedForExerciseEnum,
 } from 'src/types/ExerciseTypes'
 
 // man video
@@ -128,7 +129,7 @@ const generateExerciseTree = (): IExercisesTree => {
           video: pushUpVid,
           execution: ExecutionExerciseEnum.REPEAT,
           targetMuscles: [ExerciseTargetMuscle.BICEPS, ExerciseTargetMuscle.BACK],
-          needInventar: null,
+          needInventar: InventarNeedForExerciseEnum.WALL_BAR,
           type: ExerciseType.PULL,
           coefficientDifficult: 1,
           awailableForPercent: 0,
@@ -186,7 +187,7 @@ const generateExerciseTree = (): IExercisesTree => {
           video: pushUpVid,
           execution: ExecutionExerciseEnum.REPEAT,
           targetMuscles: [ExerciseTargetMuscle.BICEPS, ExerciseTargetMuscle.BACK],
-          needInventar: null,
+          needInventar: InventarNeedForExerciseEnum.WALL_BAR,
           type: ExerciseType.PULL,
           coefficientDifficult: 1,
           awailableForPercent: 0,

@@ -5,6 +5,7 @@ import { ImageSourcePropType } from 'react-native'
 import { IInventoryDB } from 'src/RealmDB/schemas/Inventory'
 import { DurationEnum, GenderEnum } from 'src/RealmDB/schemas/User'
 import ToastService from 'src/services/ToastService'
+import inventorySources from 'src/utilts/inventorySources'
 import useInventory from './Realm/useRealmInventory'
 
 type InventoryListItem = {
@@ -53,43 +54,43 @@ const useInventoryList = ({
       haveItem: haveBar,
       setHaveItem: setHaveBar,
       label: 'Horizontal bar',
-      source: require('src/assets/imgs/inventary/bar.jpg'),
+      source: inventorySources.haveBar,
     },
     {
       haveItem: haveWallBar,
       setHaveItem: setHaveWallBar,
       label: 'Wall horizontal bar',
-      source: require('src/assets/imgs/inventary/wallbar.jpg'),
+      source: inventorySources.haveWallBar,
     },
     {
       haveItem: haveBars,
       setHaveItem: setHaveBars,
       label: 'Parallel bars',
-      source: require('src/assets/imgs/inventary/bars.jpg'),
+      source: inventorySources.haveBars,
     },
     {
       haveItem: haveStands,
       setHaveItem: setHaveStands,
       label: 'Push-up stands',
-      source: require('src/assets/imgs/inventary/stands.jpg'),
+      source: inventorySources.haveStands,
     },
     {
       haveItem: havePowerTape,
       setHaveItem: setHavePowerTape,
       label: 'Power tape',
-      source: require('src/assets/imgs/inventary/power-tape.jpg'),
+      source: inventorySources.havePowerTape,
     },
     {
       haveItem: haveWideTape,
       setHaveItem: setHaveWideTape,
       label: 'Wide tape',
-      source: require('src/assets/imgs/inventary/wide-tape.jpg'),
+      source: inventorySources.haveWideTape,
     },
     {
       haveItem: haveSkippingRope,
       setHaveItem: setHaveSkippingRope,
       label: 'Skipping rope',
-      source: require('src/assets/imgs/inventary/skipping-rope.jpg'),
+      source: inventorySources.haveSkippingRope,
     },
   ]
 

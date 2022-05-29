@@ -48,6 +48,7 @@ const WeekPlan = () => {
                 exercises={day.exercises}
                 restTime={day.restTime}
                 status={day.status}
+                inventar={day.inventar}
                 activeDay={activeDay === index}
                 withPullUps={false}
                 index={index}

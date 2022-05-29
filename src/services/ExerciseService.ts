@@ -1,4 +1,4 @@
-import { ExerciseType } from 'src/types/ExerciseTypes'
+import { ExerciseType, InventarNeedForExerciseEnum } from 'src/types/ExerciseTypes'
 import { GenderEnum } from 'src/RealmDB/schemas/User'
 import { IExercise, IExercisesTree } from 'src/types/ExerciseTypes'
 import generateExerciseTree from 'src/utilts/generateExerciseTree'
@@ -9,6 +9,7 @@ export interface IDay {
   status: IStatus
   exercises: IExercise[]
   restTime: number
+  inventar: InventarNeedForExerciseEnum[]
 }
 
 export type WeekPlanType = IDay[] | 'test'[] | 'rest'[]
@@ -111,35 +112,47 @@ class ExerciseService {
           if (i === 6) return 'test'
 
           if (i === 0) {
+            const exercises = shuffle([...pushElems[0], ...legsElems[0]])
+
             return {
-              exercises: shuffle([...pushElems[0], ...legsElems[0]]),
+              exercises,
               restTime: 90,
               status: IStatus.INCOMPLETE,
-            } as IDay
+              inventar: this.getInventarFromExercises(exercises),
+            }
           }
 
           if (i === 1) {
+            const exercises = shuffle([...pullElems[0], ...coreElems[0]])
+
             return {
-              exercises: shuffle([...pullElems[0], ...coreElems[0]]),
+              exercises,
               restTime: 120,
               status: IStatus.INCOMPLETE,
-            } as IDay
+              inventar: this.getInventarFromExercises(exercises),
+            }
           }
 
           if (i === 3) {
+            const exercises = shuffle([...pullElems[1], ...coreElems[1]])
+
             return {
-              exercises: shuffle([...pullElems[1], ...coreElems[1]]),
+              exercises,
               restTime: 150,
               status: IStatus.INCOMPLETE,
-            } as IDay
+              inventar: this.getInventarFromExercises(exercises),
+            }
           }
 
           if (i === 4) {
+            const exercises = shuffle([...pushElems[1], ...legsElems[1]])
+
             return {
-              exercises: shuffle([...pushElems[1], ...legsElems[1]]),
+              exercises,
               restTime: 180,
               status: IStatus.INCOMPLETE,
-            } as IDay
+              inventar: this.getInventarFromExercises(exercises),
+            }
           }
         })
 
@@ -153,27 +166,33 @@ class ExerciseService {
           if (i === 6) return 'test'
 
           if (i === 0) {
+            const exercises = shuffle([...pushElems[0], ...legsElems[0]])
             return {
-              exercises: shuffle([...pushElems[0], ...legsElems[0]]),
+              exercises,
               restTime: 90,
               status: IStatus.INCOMPLETE,
-            } as IDay
+              inventar: this.getInventarFromExercises(exercises),
+            }
           }
 
           if (i === 2) {
+            const exercises = shuffle([...pushElems[1], ...coreElems[0]])
             return {
-              exercises: shuffle([...pushElems[1], ...coreElems[0]]),
+              exercises,
               restTime: 120,
               status: IStatus.INCOMPLETE,
-            } as IDay
+              inventar: this.getInventarFromExercises(exercises),
+            }
           }
 
           if (i === 4) {
+            const exercises = shuffle([...legsElems[1], ...coreElems[1]])
             return {
-              exercises: shuffle([...legsElems[1], ...coreElems[1]]),
+              exercises,
               restTime: 150,
               status: IStatus.INCOMPLETE,
-            } as IDay
+              inventar: this.getInventarFromExercises(exercises),
+            }
           }
         })
 
@@ -189,6 +208,22 @@ class ExerciseService {
     } else {
       return awailableExercises
     }
+  }
+
+  private getInventarFromExercises(exercises: IExercise[]) {
+    const inventars: InventarNeedForExerciseEnum[] = []
+
+    exercises.forEach((ex) => {
+      if (ex.needInventar) {
+        const exist = inventars.find((inventar) => ex.needInventar)
+
+        if (!exist) {
+          inventars.push(ex.needInventar)
+        }
+      }
+    })
+
+    return inventars
   }
 
   private getRandomExercises(awailableExercises: IExercise[], count: number) {
