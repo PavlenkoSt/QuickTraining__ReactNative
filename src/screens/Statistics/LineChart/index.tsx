@@ -1,9 +1,9 @@
 import React, { FC, useMemo, useState } from 'react'
 import { ScrollView, TouchableOpacity, useWindowDimensions, View } from 'react-native'
-import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import { AbstractChartConfig } from 'react-native-chart-kit/dist/AbstractChart'
 import Svg, { Rect, Text as TextSVG } from 'react-native-svg'
 import { LineChart } from 'react-native-chart-kit'
+
 import ChartHeader from './ChartHeader'
 import checkArrayValuesDifferenceMoreThan from 'src/utilts/checkArrayValuesDifferenceMoreThan'
 
@@ -105,5 +105,3 @@ const LineChartComponent: FC<LineChartPropsType> = ({ data, title }) => {
 }
 
 export default LineChartComponent
-
-const styles = EStyleSheet.create({})
