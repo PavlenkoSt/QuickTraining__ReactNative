@@ -16,7 +16,7 @@ import useRealmWeekPlan from 'src/hooks/Realm/useRealmWeekPlan'
 import ExerciseService, { WeekPlanType } from 'src/services/ExerciseService'
 import EndTrainingModal from 'src/components/EndTrainingModal'
 import useConfirmBackNav from 'src/hooks/useConfirmBackNav'
-import useInventory from 'src/hooks/Realm/useRealmInventory'
+import useRealmInventory from 'src/hooks/Realm/useRealmInventory'
 
 type TestResultPropsType = {
   route: {
@@ -40,7 +40,7 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
 
   const { user, setUser, updateRecords, updatePercent } = useRealmUser()
   const { weekPlan, setWeekPlan, clearWeekPlan } = useRealmWeekPlan()
-  const { inventory } = useInventory()
+  const { inventory } = useRealmInventory()
 
   const { dispatch } = useNavigation()
 

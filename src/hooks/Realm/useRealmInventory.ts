@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react'
 import RealmDB from 'src/RealmDB'
 import InventorySchema, { IInventoryDB } from 'src/RealmDB/schemas/Inventory'
 
-const useInventory = () => {
+const useRealmInventory = () => {
   const { useRealm, useQuery } = RealmDB
 
   const realm = useRealm()
@@ -61,4 +61,4 @@ const useInventory = () => {
   return { inventory, setInventory, updateInventory, clearInventory }
 }
 
-export default useInventory
+export default useRealmInventory

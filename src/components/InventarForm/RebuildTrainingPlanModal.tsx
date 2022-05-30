@@ -7,7 +7,7 @@ import ModalWrapper from 'src/components/ModalWrapper'
 import CustomText from 'src/components/CustomText'
 import CustomButton from 'src/components/CustomButton'
 import { IInventoryDB } from 'src/RealmDB/schemas/Inventory'
-import useInventory from 'src/hooks/Realm/useRealmInventory'
+import useRealmInventory from 'src/hooks/Realm/useRealmInventory'
 import useRealmWeekPlan from 'src/hooks/Realm/useRealmWeekPlan'
 import ExerciseService, { WeekPlanType } from 'src/services/ExerciseService'
 import useRealmUser from 'src/hooks/Realm/useRealmUser'
@@ -25,7 +25,7 @@ const RebuildTrainingPlanModal: FC<RebuildTrainingPlanModalPropsType> = ({
   localInventoryEdited,
 }) => {
   const { user } = useRealmUser()
-  const { updateInventory } = useInventory()
+  const { updateInventory } = useRealmInventory()
   const { setWeekPlan, clearWeekPlan } = useRealmWeekPlan()
 
   const { goBack } = useNavigation()

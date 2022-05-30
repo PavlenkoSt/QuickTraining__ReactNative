@@ -6,7 +6,7 @@ import { IInventoryDB } from 'src/RealmDB/schemas/Inventory'
 import { DurationEnum, GenderEnum } from 'src/RealmDB/schemas/User'
 import ToastService from 'src/services/ToastService'
 import inventorySources from 'src/utilts/inventorySources'
-import useInventory from './Realm/useRealmInventory'
+import useRealmInventory from './Realm/useRealmInventory'
 
 type InventoryListItem = {
   haveItem: boolean
@@ -33,7 +33,7 @@ const useInventoryList = ({
   setRebuildPlanModal,
   setLocalInventoryEdited,
 }: useInventoryListPropsType) => {
-  const { setInventory, updateInventory, inventory } = useInventory()
+  const { setInventory, updateInventory, inventory } = useRealmInventory()
 
   const [haveBar, setHaveBar] = useState(inventory ? Boolean(inventory.haveBar) : false)
   const [haveBars, setHaveBars] = useState(inventory ? Boolean(inventory.haveBars) : false)
