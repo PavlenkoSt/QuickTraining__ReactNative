@@ -7,6 +7,7 @@ type MainLayoutPropsType = {
   withoutScroll?: boolean
   Header?: FC
   keyboardShouldPersistTaps?: 'always' | 'never' | 'handled'
+  witthoutContainer?: boolean
 }
 
 const MainLayout: FC<MainLayoutPropsType> = ({
@@ -14,16 +15,17 @@ const MainLayout: FC<MainLayoutPropsType> = ({
   withoutScroll,
   Header,
   keyboardShouldPersistTaps,
+  witthoutContainer,
 }) => {
   return (
     <View style={styles.mainContainer}>
       <StatusBar backgroundColor="transparent" translucent barStyle="light-content" />
       {!!Header && <Header />}
       {withoutScroll ? (
-        <View style={styles.noScrollInnerContainer}>{children}</View>
+        <View style={!witthoutContainer && styles.noScrollInnerContainer}>{children}</View>
       ) : (
         <ScrollView keyboardShouldPersistTaps={keyboardShouldPersistTaps}>
-          <View style={styles.scrollInnerContainer}>{children}</View>
+          <View style={!witthoutContainer && styles.scrollInnerContainer}>{children}</View>
         </ScrollView>
       )}
     </View>
