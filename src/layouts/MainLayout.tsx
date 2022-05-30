@@ -21,11 +21,13 @@ const MainLayout: FC<MainLayoutPropsType> = ({
     <View style={styles.mainContainer}>
       <StatusBar backgroundColor="transparent" translucent barStyle="light-content" />
       {!!Header && <Header />}
-      {withoutScroll ? (
-        <View style={!withoutContainer && styles.noScrollInnerContainer}>{children}</View>
+      {withoutContainer ? (
+        <>{children}</>
+      ) : withoutScroll ? (
+        <View style={styles.noScrollInnerContainer}>{children}</View>
       ) : (
         <ScrollView keyboardShouldPersistTaps={keyboardShouldPersistTaps}>
-          <View style={!withoutContainer && styles.scrollInnerContainer}>{children}</View>
+          <View style={styles.scrollInnerContainer}>{children}</View>
         </ScrollView>
       )}
     </View>

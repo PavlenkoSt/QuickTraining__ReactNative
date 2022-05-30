@@ -11,10 +11,10 @@ type SortedTrainingResultsType = {
   pullUps: number[]
   plank: number[]
   weeks: {
-    pushUps: number[]
-    sitUps: number[]
-    pullUps: number[]
-    plank: number[]
+    pushUps: string[]
+    sitUps: string[]
+    pullUps: string[]
+    plank: string[]
   }
 }
 
@@ -52,8 +52,13 @@ const useRealmTrainingResultsHistory = () => {
         result.sitUps.push(historyItem.sitUps)
         result.plank.push(historyItem.plank)
 
+        result.weeks.pushUps.push(historyItem.week.toString())
+        result.weeks.sitUps.push(historyItem.week.toString())
+        result.weeks.plank.push(historyItem.week.toString())
+
         if (historyItem.pullUps !== -1) {
           result.pullUps.push(historyItem.pullUps)
+          result.weeks.pullUps.push(historyItem.week.toString())
         }
       })
 

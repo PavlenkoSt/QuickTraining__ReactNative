@@ -16,7 +16,7 @@ const useStatisticsGraphs = () => {
         },
       ],
       legend: [],
-      labels: [],
+      labels: sortedTrainingResults.weeks.pushUps,
     }
   }, [sortedTrainingResults])
 
@@ -31,7 +31,7 @@ const useStatisticsGraphs = () => {
         },
       ],
       legend: [],
-      labels: [],
+      labels: sortedTrainingResults.weeks.sitUps,
     }
   }, [sortedTrainingResults])
 
@@ -46,7 +46,7 @@ const useStatisticsGraphs = () => {
         },
       ],
       legend: [],
-      labels: [],
+      labels: sortedTrainingResults.weeks.plank,
     }
   }, [sortedTrainingResults])
 
@@ -61,7 +61,7 @@ const useStatisticsGraphs = () => {
         },
       ],
       legend: [],
-      labels: [],
+      labels: sortedTrainingResults.weeks.pullUps,
     }
   }, [sortedTrainingResults])
 

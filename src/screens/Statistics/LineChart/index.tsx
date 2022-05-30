@@ -44,7 +44,7 @@ const LineChartComponent: FC<LineChartPropsType> = ({ data, title }) => {
 
   const { width } = useWindowDimensions()
 
-  const calcWidth = data.datasets[0].data.length * 60
+  const calcWidth = data.datasets[0].data.length * 70
   const graphWidth = calcWidth < width ? width : calcWidth
 
   return (

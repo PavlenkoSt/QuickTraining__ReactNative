@@ -17,11 +17,7 @@ const Statistics = () => {
   const { pushUps, pullUps, sitUps, plank } = useStatisticsGraphs()
 
   return (
-    <MainLayout
-      withoutScroll
-      withoutContainer
-      Header={() => <EmptyHeader withoutBackArr title="Statistics" />}
-    >
+    <MainLayout withoutContainer Header={() => <EmptyHeader withoutBackArr title="Statistics" />}>
       <ScrollView>
         {!!pushUps && <LineChartComponent data={pushUps} title="Push ups" />}
         {!!sitUps && <LineChartComponent data={sitUps} title="Sit ups" />}
