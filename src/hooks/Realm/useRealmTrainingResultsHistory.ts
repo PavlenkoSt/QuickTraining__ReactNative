@@ -5,6 +5,19 @@ import TrainingResultsHistorySchema, {
   ITrainingResultsHistoryDB,
 } from 'src/RealmDB/schemas/TrainingResultsHistory'
 
+type SortedTrainingResultsType = {
+  pushUps: number[]
+  sitUps: number[]
+  pullUps: number[]
+  plank: number[]
+  weeks: {
+    pushUps: number[]
+    sitUps: number[]
+    pullUps: number[]
+    plank: number[]
+  }
+}
+
 const useRealmTrainingResultsHistory = () => {
   const { useRealm, useQuery } = RealmDB
 
@@ -21,16 +34,17 @@ const useRealmTrainingResultsHistory = () => {
 
   const sortedTrainingResults = useMemo(() => {
     if (trainingResultsHistory && trainingResultsHistory.length) {
-      const result: {
-        pushUps: number[]
-        sitUps: number[]
-        pullUps: number[]
-        plank: number[]
-      } = {
+      const result: SortedTrainingResultsType = {
         pushUps: [],
         sitUps: [],
         pullUps: [],
         plank: [],
+        weeks: {
+          pushUps: [],
+          sitUps: [],
+          pullUps: [],
+          plank: [],
+        },
       }
 
       trainingResultsHistory.forEach((historyItem) => {

@@ -59,6 +59,8 @@ const useRealmUser = () => {
             userRealm[0].gender = userInfo.gender
             //@ts-ignore
             userRealm[0].duration = userInfo.duration
+            //@ts-ignore
+            userRealm[0].currentWeek = userRealm[0].currentWeek + 1
           }
         })
       }

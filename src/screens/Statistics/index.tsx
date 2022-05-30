@@ -7,9 +7,9 @@ import MainLayout from 'src/layouts/MainLayout'
 import EmptyHeader from 'src/components/Headers/EmptyHeader'
 import CustomText from 'src/components/CustomText'
 import LineChartComponent from './LineChart'
+import useStatisticsGraphs from 'src/hooks/useStatisticsGraphs'
 
 import CupPic from 'src/assets/imgs/statistics/cup.svg'
-import useStatisticsGraphs from 'src/hooks/useStatisticsGraphs'
 
 const Statistics = () => {
   const { navigate } = useNavigation()

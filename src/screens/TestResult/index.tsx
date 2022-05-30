@@ -85,6 +85,7 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
         pullUpMax,
         levelLabel: LevelService.getLabelByPercent(percent),
         levelPercent: percent,
+        currentWeek: 1,
       })
     }
 
@@ -109,6 +110,7 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
       pullUps: pullUpMax === 0 ? -1 : pullUpMax,
       sitUps: sitUpMax,
       plank: plankMax,
+      week: !!userData || !user?.currentWeek ? 0 : user.currentWeek,
     })
 
     if (!userData) {

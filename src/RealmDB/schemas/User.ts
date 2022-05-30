@@ -25,6 +25,7 @@ export default class UserSchema extends Realm.Object {
   pullUpMax!: number
   levelLabel!: string
   levelPercent!: number
+  currentWeek!: number
 
   // the Task.generate() method creates Task objects with fields with default values
   static generate(user: IUser) {
@@ -46,6 +47,7 @@ export default class UserSchema extends Realm.Object {
       pullUpMax: 'int',
       levelLabel: 'string',
       levelPercent: 'int',
+      currentWeek: 'int',
     },
     primaryKey: '_id',
   }
@@ -63,4 +65,5 @@ export interface IUser {
   pullUpMax: number
   levelLabel: string
   levelPercent: number
+  currentWeek: number
 }

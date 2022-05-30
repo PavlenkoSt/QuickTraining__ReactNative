@@ -6,6 +6,7 @@ export default class TrainingResultsHistorySchema extends Realm.Object {
   pullUps!: number
   sitUps!: number
   plank!: number
+  week!: number
 
   static generate(trainingResultsHistorySchema: ITrainingResultsHistoryDB) {
     return trainingResultsHistorySchema
@@ -19,6 +20,7 @@ export default class TrainingResultsHistorySchema extends Realm.Object {
       pullUps: 'int',
       sitUps: 'int',
       plank: 'int',
+      week: 'int',
     },
     primaryKey: '_id',
   }
@@ -30,4 +32,5 @@ export interface ITrainingResultsHistoryDB {
   pullUps: number
   sitUps: number
   plank: number
+  week: number
 }
