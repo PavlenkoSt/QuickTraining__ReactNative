@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { ScrollView, TouchableOpacity, View } from 'react-native'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import { useNavigation } from '@react-navigation/native'
 
@@ -17,19 +17,28 @@ const Statistics = () => {
   const { pushUps, pullUps, sitUps, plank } = useStatisticsGraphs()
 
   return (
-    <MainLayout witthoutContainer Header={() => <EmptyHeader withoutBackArr title="Statistics" />}>
-      {!!pushUps && <LineChartComponent data={pushUps} title="Push ups" />}
-      {!!sitUps && <LineChartComponent data={sitUps} title="Sit ups" />}
-      {!!plank && <LineChartComponent data={plank} title="Plank (seconds)" />}
-      {!!pullUps && <LineChartComponent data={pullUps} title="Pull ups" />}
-      <View style={styles.container}>
-        <TouchableOpacity style={styles.item} onPress={() => navigate('PersonalRecords' as never)}>
-          <View style={styles.imagePic}>
-            <CupPic width={25} height={25} />
-          </View>
-          <CustomText style={styles.text}>Personal records</CustomText>
-        </TouchableOpacity>
-      </View>
+    <MainLayout
+      withoutScroll
+      withoutContainer
+      Header={() => <EmptyHeader withoutBackArr title="Statistics" />}
+    >
+      <ScrollView>
+        {!!pushUps && <LineChartComponent data={pushUps} title="Push ups" />}
+        {!!sitUps && <LineChartComponent data={sitUps} title="Sit ups" />}
+        {!!plank && <LineChartComponent data={plank} title="Plank (seconds)" />}
+        {!!pullUps && <LineChartComponent data={pullUps} title="Pull ups" />}
+        <View style={styles.container}>
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => navigate('PersonalRecords' as never)}
+          >
+            <View style={styles.imagePic}>
+              <CupPic width={25} height={25} />
+            </View>
+            <CustomText style={styles.text}>Personal records</CustomText>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </MainLayout>
   )
 }
