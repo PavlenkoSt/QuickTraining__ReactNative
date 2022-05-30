@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import { useNavigation } from '@react-navigation/native'
@@ -6,75 +6,15 @@ import { useNavigation } from '@react-navigation/native'
 import MainLayout from 'src/layouts/MainLayout'
 import EmptyHeader from 'src/components/Headers/EmptyHeader'
 import CustomText from 'src/components/CustomText'
-import useRealmTrainingResultsHistory from 'src/hooks/Realm/useRealmTrainingResultsHistory'
 import LineChartComponent from './LineChart'
 
 import CupPic from 'src/assets/imgs/statistics/cup.svg'
+import useStatisticsGraphs from 'src/hooks/useStatisticsGraphs'
 
 const Statistics = () => {
   const { navigate } = useNavigation()
 
-  const { sortedTrainingResults } = useRealmTrainingResultsHistory()
-
-  const pushUps = useMemo(() => {
-    if (!sortedTrainingResults?.pushUps || !sortedTrainingResults.pushUps.length) return null
-
-    return {
-      datasets: [
-        {
-          data: sortedTrainingResults.pushUps,
-          color: (opacity = 1) => `rgba(17, 173, 56, ${opacity})`,
-        },
-      ],
-      legend: [],
-      labels: [],
-    }
-  }, [sortedTrainingResults])
-
-  const sitUps = useMemo(() => {
-    if (!sortedTrainingResults?.sitUps || !sortedTrainingResults.sitUps.length) return null
-
-    return {
-      datasets: [
-        {
-          data: sortedTrainingResults.sitUps,
-          color: (opacity = 1) => `rgba(17, 126, 173, ${opacity})`,
-        },
-      ],
-      legend: [],
-      labels: [],
-    }
-  }, [sortedTrainingResults])
-
-  const plank = useMemo(() => {
-    if (!sortedTrainingResults?.plank || !sortedTrainingResults.plank.length) return null
-
-    return {
-      datasets: [
-        {
-          data: sortedTrainingResults.plank,
-          color: (opacity = 1) => `rgba(173, 111, 17, ${opacity})`,
-        },
-      ],
-      legend: [],
-      labels: [],
-    }
-  }, [sortedTrainingResults])
-
-  const pullUps = useMemo(() => {
-    if (!sortedTrainingResults?.pullUps || !sortedTrainingResults.pullUps.length) return null
-
-    return {
-      datasets: [
-        {
-          data: sortedTrainingResults.pullUps,
-          color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`,
-        },
-      ],
-      legend: [],
-      labels: [],
-    }
-  }, [sortedTrainingResults])
+  const { pushUps, pullUps, sitUps, plank } = useStatisticsGraphs()
 
   return (
     <MainLayout witthoutContainer Header={() => <EmptyHeader withoutBackArr title="Statistics" />}>
@@ -100,6 +40,8 @@ const styles = EStyleSheet.create({
   item: {
     paddingVertical: 10,
     flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   text: {
     color: '#a8abb3',
