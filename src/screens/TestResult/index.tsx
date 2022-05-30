@@ -106,7 +106,7 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
 
     addTrainingResultsHistory({
       pushUps: pushUpMax,
-      pullUps: pullUpMax,
+      pullUps: pullUpMax === 0 ? -1 : pullUpMax,
       sitUps: sitUpMax,
       plank: plankMax,
     })

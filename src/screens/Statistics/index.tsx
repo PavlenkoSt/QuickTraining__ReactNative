@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 import { useNavigation } from '@react-navigation/native'
@@ -14,60 +14,74 @@ import CupPic from 'src/assets/imgs/statistics/cup.svg'
 const Statistics = () => {
   const { navigate } = useNavigation()
 
-  const { trainingResultsHistory } = useRealmTrainingResultsHistory()
+  const { sortedTrainingResults } = useRealmTrainingResultsHistory()
 
-  console.log('trainingResultsHistory', trainingResultsHistory)
+  const pushUps = useMemo(() => {
+    if (!sortedTrainingResults?.pushUps || !sortedTrainingResults.pushUps.length) return null
 
-  const pushUps = {
-    datasets: [
-      {
-        data: [20, 45, 28, 80, 99, 43, 21, 24, 45, 53],
-        color: (opacity = 1) => `rgba(17, 173, 56, ${opacity})`,
-      },
-    ],
-    legend: [],
-    labels: [],
-  }
+    return {
+      datasets: [
+        {
+          data: sortedTrainingResults.pushUps,
+          color: (opacity = 1) => `rgba(17, 173, 56, ${opacity})`,
+        },
+      ],
+      legend: [],
+      labels: [],
+    }
+  }, [sortedTrainingResults])
 
-  const sitUps = {
-    datasets: [
-      {
-        data: [43, 21, 24, 45, 53, 20, 45, 28, 80, 99],
-        color: (opacity = 1) => `rgba(17, 126, 173, ${opacity})`,
-      },
-    ],
-    legend: [],
-    labels: [],
-  }
+  const sitUps = useMemo(() => {
+    if (!sortedTrainingResults?.sitUps || !sortedTrainingResults.sitUps.length) return null
 
-  const plan = {
-    datasets: [
-      {
-        data: [45, 53, 20, 45, 43, 21, 24, 28, 80, 99],
-        color: (opacity = 1) => `rgba(173, 111, 17, ${opacity})`,
-      },
-    ],
-    legend: [],
-    labels: [],
-  }
+    return {
+      datasets: [
+        {
+          data: sortedTrainingResults.sitUps,
+          color: (opacity = 1) => `rgba(17, 126, 173, ${opacity})`,
+        },
+      ],
+      legend: [],
+      labels: [],
+    }
+  }, [sortedTrainingResults])
 
-  const pullUps = {
-    datasets: [
-      {
-        data: [45, 53, 20, 45, 43, 21, 24, 28, 80, 99],
-        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`,
-      },
-    ],
-    legend: [],
-    labels: [],
-  }
+  const plank = useMemo(() => {
+    if (!sortedTrainingResults?.plank || !sortedTrainingResults.plank.length) return null
+
+    return {
+      datasets: [
+        {
+          data: sortedTrainingResults.plank,
+          color: (opacity = 1) => `rgba(173, 111, 17, ${opacity})`,
+        },
+      ],
+      legend: [],
+      labels: [],
+    }
+  }, [sortedTrainingResults])
+
+  const pullUps = useMemo(() => {
+    if (!sortedTrainingResults?.pullUps || !sortedTrainingResults.pullUps.length) return null
+
+    return {
+      datasets: [
+        {
+          data: sortedTrainingResults.pullUps,
+          color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`,
+        },
+      ],
+      legend: [],
+      labels: [],
+    }
+  }, [sortedTrainingResults])
 
   return (
     <MainLayout witthoutContainer Header={() => <EmptyHeader withoutBackArr title="Statistics" />}>
-      <LineChartComponent data={pushUps} title="Push ups" />
-      <LineChartComponent data={sitUps} title="Sit ups" />
-      <LineChartComponent data={plan} title="Plank (seconds)" />
-      <LineChartComponent data={pullUps} title="Pull ups" />
+      {!!pushUps && <LineChartComponent data={pushUps} title="Push ups" />}
+      {!!sitUps && <LineChartComponent data={sitUps} title="Sit ups" />}
+      {!!plank && <LineChartComponent data={plank} title="Plank (seconds)" />}
+      {!!pullUps && <LineChartComponent data={pullUps} title="Pull ups" />}
       <View style={styles.container}>
         <TouchableOpacity style={styles.item} onPress={() => navigate('PersonalRecords' as never)}>
           <View style={styles.imagePic}>

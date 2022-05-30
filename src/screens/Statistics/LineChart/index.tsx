@@ -5,6 +5,7 @@ import { AbstractChartConfig } from 'react-native-chart-kit/dist/AbstractChart'
 import Svg, { Rect, Text as TextSVG } from 'react-native-svg'
 import { LineChart } from 'react-native-chart-kit'
 import ChartHeader from './ChartHeader'
+import checkArrayValuesDifferenceMoreThan from 'src/utilts/checkArrayValuesDifferenceMoreThan'
 
 type TooltipData = {
   x: number
@@ -34,9 +35,9 @@ const LineChartComponent: FC<LineChartPropsType> = ({ data, title }) => {
       color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
       barPercentage: 0.5,
       useShadowColorFromDataset: true,
-      decimalPlaces: 0,
+      decimalPlaces: checkArrayValuesDifferenceMoreThan(data.datasets[0].data) ? 0 : 1,
     }),
-    []
+    [data]
   )
 
   const [activeDataForTooltip, setActiveDataForTooltip] = useState<TooltipData | null>(null)
@@ -52,6 +53,8 @@ const LineChartComponent: FC<LineChartPropsType> = ({ data, title }) => {
       <ScrollView horizontal>
         <TouchableOpacity activeOpacity={1} onPress={() => setActiveDataForTooltip(null)}>
           <LineChart
+            withInnerLines={false}
+            formatXLabel={(label) => `Week ${label}`}
             onDataPointClick={(data) =>
               setActiveDataForTooltip({
                 x: data.x,
@@ -92,7 +95,7 @@ const LineChartComponent: FC<LineChartPropsType> = ({ data, title }) => {
             width={graphWidth}
             height={300}
             chartConfig={chartConfig}
-            segments={5}
+            segments={3}
             yLabelsOffset={25}
           />
         </TouchableOpacity>

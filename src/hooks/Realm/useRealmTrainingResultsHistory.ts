@@ -19,6 +19,36 @@ const useRealmTrainingResultsHistory = () => {
     return null
   }, [TrainingResultsHistoryRealm])
 
+  const sortedTrainingResults = useMemo(() => {
+    if (trainingResultsHistory && trainingResultsHistory.length) {
+      const result: {
+        pushUps: number[]
+        sitUps: number[]
+        pullUps: number[]
+        plank: number[]
+      } = {
+        pushUps: [],
+        sitUps: [],
+        pullUps: [],
+        plank: [],
+      }
+
+      trainingResultsHistory.forEach((historyItem) => {
+        result.pushUps.push(historyItem.pushUps)
+        result.sitUps.push(historyItem.sitUps)
+        result.plank.push(historyItem.plank)
+
+        if (historyItem.pullUps !== -1) {
+          result.pullUps.push(historyItem.pullUps)
+        }
+      })
+
+      return result
+    }
+
+    return null
+  }, [trainingResultsHistory])
+
   const addTrainingResultsHistory = useCallback((history: ITrainingResultsHistoryDB) => {
     if (!history) {
       return
@@ -37,7 +67,7 @@ const useRealmTrainingResultsHistory = () => {
     })
   }, [])
 
-  return { trainingResultsHistory, addTrainingResultsHistory, clearTrainingResultsHistory }
+  return { sortedTrainingResults, addTrainingResultsHistory, clearTrainingResultsHistory }
 }
 
 export default useRealmTrainingResultsHistory
