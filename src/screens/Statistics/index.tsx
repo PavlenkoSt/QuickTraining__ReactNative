@@ -6,11 +6,16 @@ import { useNavigation } from '@react-navigation/native'
 import MainLayout from 'src/layouts/MainLayout'
 import EmptyHeader from 'src/components/Headers/EmptyHeader'
 import CustomText from 'src/components/CustomText'
+import useRealmTrainingResultsHistory from 'src/hooks/Realm/useRealmTrainingResultsHistory'
 
 import CupPic from 'src/assets/imgs/statistics/cup.svg'
 
 const Statistics = () => {
   const { navigate } = useNavigation()
+
+  const { trainingResultsHistory } = useRealmTrainingResultsHistory()
+
+  console.log('trainingResultsHistory', trainingResultsHistory)
 
   return (
     <MainLayout Header={() => <EmptyHeader withoutBackArr title="Statistics" />}>
