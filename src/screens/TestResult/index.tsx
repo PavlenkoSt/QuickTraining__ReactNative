@@ -17,6 +17,7 @@ import ExerciseService, { WeekPlanType } from 'src/services/ExerciseService'
 import EndTrainingModal from 'src/components/EndTrainingModal'
 import useConfirmBackNav from 'src/hooks/useConfirmBackNav'
 import useRealmInventory from 'src/hooks/Realm/useRealmInventory'
+import useRealmTrainingResultsHistory from 'src/hooks/Realm/useRealmTrainingResultsHistory'
 
 type TestResultPropsType = {
   route: {
@@ -41,6 +42,7 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
   const { user, setUser, updateRecords, updatePercent } = useRealmUser()
   const { weekPlan, setWeekPlan, clearWeekPlan } = useRealmWeekPlan()
   const { inventory } = useRealmInventory()
+  const { addTrainingResultsHistory } = useRealmTrainingResultsHistory()
 
   const { dispatch } = useNavigation()
 
@@ -49,21 +51,26 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
   const registerAndBuildProgram = useCallback(() => {
     const { userData } = route.params
 
+    const pushUpMax = route.params.testResult[0].result || 0
+    const sitUpMax = route.params.testResult[1].result || 0
+    const plankMax = route.params.testResult[2].result || 0
+    const pullUpMax = route.params.testResult?.[3]
+      ? route.params.testResult?.[3].result
+      : user?.pullUpMax || 0
+
     const percent = LevelService.calculatePercent(
-      route.params.testResult[0].result,
-      route.params.testResult[1].result,
-      route.params.testResult[2].result,
-      route.params.testResult?.[3] ? route.params.testResult[3].result : undefined
+      pushUpMax,
+      sitUpMax,
+      plankMax,
+      !!pullUpMax ? pullUpMax : undefined
     )
 
     if (!userData) {
       updateRecords({
-        pushUpMax: route.params.testResult[0].result,
-        sitUpMax: route.params.testResult[1].result,
-        plankMax: route.params.testResult[2].result,
-        pullUpMax: route.params.testResult?.[3]
-          ? route.params.testResult?.[3].result
-          : user?.pullUpMax || 0,
+        pushUpMax,
+        sitUpMax,
+        plankMax,
+        pullUpMax,
       })
     } else {
       setUser({
@@ -72,10 +79,10 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
         age: userData.userInfo.age,
         gender: userData.userInfo.gender,
         duration: userData.userInfo.duration,
-        pushUpMax: route.params.testResult[0].result,
-        sitUpMax: route.params.testResult[1].result,
-        plankMax: route.params.testResult[2].result,
-        pullUpMax: route.params.testResult?.[3] ? route.params.testResult[3].result : 0,
+        pushUpMax,
+        sitUpMax,
+        plankMax,
+        pullUpMax,
         levelLabel: LevelService.getLabelByPercent(percent),
         levelPercent: percent,
       })
@@ -96,6 +103,13 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
     ) as WeekPlanType
 
     setWeekPlan(plan)
+
+    addTrainingResultsHistory({
+      pushUps: pushUpMax,
+      pullUps: pullUpMax,
+      sitUps: sitUpMax,
+      plank: plankMax,
+    })
 
     if (!userData) {
       dispatch(StackActions.replace('Tabs'))

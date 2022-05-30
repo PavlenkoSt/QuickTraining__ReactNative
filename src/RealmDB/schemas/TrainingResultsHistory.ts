@@ -25,6 +25,7 @@ export default class TrainingResultsHistorySchema extends Realm.Object {
 }
 
 export interface ITrainingResultsHistoryDB {
+  _id?: number
   pushUps: number
   pullUps: number
   sitUps: number

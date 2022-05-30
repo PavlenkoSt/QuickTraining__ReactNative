@@ -19,12 +19,15 @@ const useRealmTrainingResultsHistory = () => {
     return null
   }, [TrainingResultsHistoryRealm])
 
-  const setTrainingResultsHistory = useCallback((history: ITrainingResultsHistoryDB) => {
+  const addTrainingResultsHistory = useCallback((history: ITrainingResultsHistoryDB) => {
     if (!history) {
       return
     }
     realm.write(() => {
-      realm.create('TrainingResultsHistory', TrainingResultsHistorySchema.generate(history))
+      realm.create(
+        'TrainingResultsHistory',
+        TrainingResultsHistorySchema.generate({ _id: Date.now(), ...history })
+      )
     })
   }, [])
 
@@ -34,7 +37,7 @@ const useRealmTrainingResultsHistory = () => {
     })
   }, [])
 
-  return { trainingResultsHistory, setTrainingResultsHistory, clearTrainingResultsHistory }
+  return { trainingResultsHistory, addTrainingResultsHistory, clearTrainingResultsHistory }
 }
 
 export default useRealmTrainingResultsHistory
