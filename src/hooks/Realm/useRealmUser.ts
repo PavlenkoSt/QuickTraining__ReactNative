@@ -59,8 +59,6 @@ const useRealmUser = () => {
             userRealm[0].gender = userInfo.gender
             //@ts-ignore
             userRealm[0].duration = userInfo.duration
-            //@ts-ignore
-            userRealm[0].currentWeek = userRealm[0].currentWeek + 1
           }
         })
       }
@@ -80,6 +78,8 @@ const useRealmUser = () => {
           userRealm[0].plankMax = records.plankMax
           //@ts-ignore
           userRealm[0].pullUpMax = records.pullUpMax
+          //@ts-ignore
+          userRealm[0].currentWeek = userRealm[0].currentWeek + 1
         })
       }
     },

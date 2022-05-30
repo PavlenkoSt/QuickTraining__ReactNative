@@ -8,9 +8,11 @@ import { IDay } from 'src/services/ExerciseService'
 import WorkDay from './WorkDay'
 import CustomText from '../CustomText'
 import CustomButton from '../CustomButton'
+import useRealmUser from 'src/hooks/Realm/useRealmUser'
 
 const WeekPlan = () => {
   const { weekPlan, activeDay } = useRealmWeekPlan()
+  const { user } = useRealmUser()
 
   const { navigate } = useNavigation()
 
@@ -18,6 +20,7 @@ const WeekPlan = () => {
 
   return (
     <View>
+      <CustomText style={styles.week}>Current week: {user?.currentWeek}</CustomText>
       <CustomText style={styles.mainTitle}>Training plan</CustomText>
       {weekPlan.map((day: IDay | 'rest' | 'test', index) => {
         return (
@@ -96,5 +99,11 @@ const styles = EStyleSheet.create({
   },
   btn: {
     marginTop: 10,
+  },
+  week: {
+    fontSize: 15,
+    color: '#706f6f',
+    textAlign: 'center',
+    marginBottom: 15,
   },
 })
