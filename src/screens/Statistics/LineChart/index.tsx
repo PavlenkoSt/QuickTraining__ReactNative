@@ -4,7 +4,7 @@ import { AbstractChartConfig } from 'react-native-chart-kit/dist/AbstractChart'
 import Svg, { Rect, Text as TextSVG } from 'react-native-svg'
 import { LineChart } from 'react-native-chart-kit'
 
-import ChartHeader from './ChartHeader'
+import ChartHeader from '../BlockHeader'
 import checkArrayValuesDifferenceMoreThan from 'src/utilts/checkArrayValuesDifferenceMoreThan'
 
 type TooltipData = {

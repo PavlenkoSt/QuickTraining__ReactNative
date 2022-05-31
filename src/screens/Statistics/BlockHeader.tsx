@@ -4,11 +4,11 @@ import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import CustomText from 'src/components/CustomText'
 
-type ChartHeaderPropsType = {
+type BlockHeaderPropsType = {
   title: string
 }
 
-const ChartHeader: FC<ChartHeaderPropsType> = ({ title }) => {
+const BlockHeader: FC<BlockHeaderPropsType> = ({ title }) => {
   return (
     <View style={styles.container}>
       <CustomText style={styles.title}>{title}</CustomText>
@@ -16,7 +16,7 @@ const ChartHeader: FC<ChartHeaderPropsType> = ({ title }) => {
   )
 }
 
-export default ChartHeader
+export default BlockHeader
 
 const styles = EStyleSheet.create({
   container: {

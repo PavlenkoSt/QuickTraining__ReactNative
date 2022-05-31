@@ -10,6 +10,7 @@ import LineChartComponent from './LineChart'
 import useStatisticsGraphs from 'src/hooks/useStatisticsGraphs'
 
 import CupPic from 'src/assets/imgs/statistics/cup.svg'
+import ChartHeader from './BlockHeader'
 
 export type BlockPositionType = {
   y: number
@@ -29,6 +30,7 @@ const Statistics = () => {
         {!!sitUps && <LineChartComponent data={sitUps} title="Sit ups" />}
         {!!plank && <LineChartComponent data={plank} title="Plank (seconds)" />}
         {!!pullUps && <LineChartComponent data={pullUps} title="Pull ups" />}
+        <ChartHeader title="Other" />
         <View style={styles.container}>
           <TouchableOpacity
             style={styles.item}
