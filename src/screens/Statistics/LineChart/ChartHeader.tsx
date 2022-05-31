@@ -27,6 +27,6 @@ const styles = EStyleSheet.create({
   title: {
     fontSize: 18,
     textAlign: 'center',
-    color: '#dbdbdb'
+    color: '#dbdbdb',
   },
 })

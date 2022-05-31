@@ -38,7 +38,7 @@ const calculateExerciseReply = (
       ? 10
       : typeExercise === ExerciseType.PULL && result < 3
       ? 3
-      : 0
+      : result
 
   return Math.ceil(fixedResultByType)
 }

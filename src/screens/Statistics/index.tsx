@@ -11,6 +11,12 @@ import useStatisticsGraphs from 'src/hooks/useStatisticsGraphs'
 
 import CupPic from 'src/assets/imgs/statistics/cup.svg'
 
+export type BlockPositionType = {
+  y: number
+  height: number
+  title: string
+}
+
 const Statistics = () => {
   const { navigate } = useNavigation()
 
