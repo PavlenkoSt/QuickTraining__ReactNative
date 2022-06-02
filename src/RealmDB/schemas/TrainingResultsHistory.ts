@@ -1,7 +1,5 @@
 import { Realm } from '@realm/react'
 
-import { RealmDBKeys } from '../index'
-
 export default class TrainingResultsHistorySchema extends Realm.Object {
   _id!: Realm.BSON.ObjectId
   pushUps!: number
@@ -15,7 +13,7 @@ export default class TrainingResultsHistorySchema extends Realm.Object {
   }
 
   static schema = {
-    name: RealmDBKeys.TrainingResultsHistory,
+    name: 'TrainingResultsHistory',
     properties: {
       _id: 'int',
       pushUps: 'int',

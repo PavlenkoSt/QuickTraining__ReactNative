@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
 
-import RealmDB, { RealmDBKeys } from 'src/RealmDB'
+import RealmDB from 'src/RealmDB'
 import UserSchema, { DurationEnum, IUser } from 'src/RealmDB/schemas/User'
 import { GenderEnum } from 'src/RealmDB/schemas/User'
 
@@ -27,7 +27,7 @@ const useRealmUser = () => {
   const { useRealm, useQuery } = RealmDB
 
   const realm = useRealm()
-  const userRealm = useQuery(RealmDBKeys.User)
+  const userRealm = useQuery(UserSchema.schema.name)
 
   const user: IUser | null = useMemo(() => {
     if (userRealm.length) {
@@ -42,7 +42,7 @@ const useRealmUser = () => {
       return
     }
     realm.write(() => {
-      realm.create(RealmDBKeys.User, UserSchema.generate(user))
+      realm.create(UserSchema.schema.name, UserSchema.generate(user))
     })
   }, [])
 
@@ -102,7 +102,7 @@ const useRealmUser = () => {
 
   const clearUser = useCallback(() => {
     realm.write(() => {
-      realm.delete(realm.objects(RealmDBKeys.User))
+      realm.delete(realm.objects(UserSchema.schema.name))
     })
   }, [])
 

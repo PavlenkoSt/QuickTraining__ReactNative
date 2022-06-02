@@ -1,5 +1,4 @@
 import { Realm } from '@realm/react'
-import { RealmDBKeys } from '..'
 
 export enum GenderEnum {
   Male = 'Male',
@@ -35,7 +34,7 @@ export default class UserSchema extends Realm.Object {
 
   // To use a class as a Realm object type, define the object schema on the static property "schema".
   static schema = {
-    name: RealmDBKeys.User,
+    name: 'User',
     properties: {
       _id: 'int',
       name: 'string',

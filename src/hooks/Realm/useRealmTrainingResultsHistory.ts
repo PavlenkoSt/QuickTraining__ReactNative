@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
 
-import RealmDB, { RealmDBKeys } from 'src/RealmDB'
+import RealmDB from 'src/RealmDB'
 import TrainingResultsHistorySchema, {
   ITrainingResultsHistoryDB,
 } from 'src/RealmDB/schemas/TrainingResultsHistory'
@@ -22,7 +22,7 @@ const useRealmTrainingResultsHistory = () => {
   const { useRealm, useQuery } = RealmDB
 
   const realm = useRealm()
-  const TrainingResultsHistoryRealm = useQuery(RealmDBKeys.TrainingResultsHistory)
+  const TrainingResultsHistoryRealm = useQuery(TrainingResultsHistorySchema.schema.name)
 
   const trainingResultsHistory: ITrainingResultsHistoryDB[] | null = useMemo(() => {
     if (TrainingResultsHistoryRealm.length) {
@@ -74,7 +74,7 @@ const useRealmTrainingResultsHistory = () => {
     }
     realm.write(() => {
       realm.create(
-        RealmDBKeys.TrainingResultsHistory,
+        TrainingResultsHistorySchema.schema.name,
         TrainingResultsHistorySchema.generate({ _id: Date.now(), ...history })
       )
     })
@@ -82,7 +82,7 @@ const useRealmTrainingResultsHistory = () => {
 
   const clearTrainingResultsHistory = useCallback(() => {
     realm.write(() => {
-      realm.delete(realm.objects(RealmDBKeys.TrainingResultsHistory))
+      realm.delete(realm.objects(TrainingResultsHistorySchema.schema.name))
     })
   }, [])
 

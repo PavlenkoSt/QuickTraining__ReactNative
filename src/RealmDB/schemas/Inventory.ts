@@ -1,7 +1,5 @@
 import { Realm } from '@realm/react'
 
-import { RealmDBKeys } from '../index'
-
 export default class InventorySchema extends Realm.Object {
   _id!: Realm.BSON.ObjectId
   haveBar!: number
@@ -17,7 +15,7 @@ export default class InventorySchema extends Realm.Object {
   }
 
   static schema = {
-    name: RealmDBKeys.Inventory,
+    name: 'Inventory',
     properties: {
       _id: 'int',
       haveBar: 'int',

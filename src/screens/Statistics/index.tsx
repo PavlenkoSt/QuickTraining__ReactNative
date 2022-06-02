@@ -8,9 +8,10 @@ import EmptyHeader from 'src/components/Headers/EmptyHeader'
 import CustomText from 'src/components/CustomText'
 import LineChartComponent from './LineChart'
 import useStatisticsGraphs from 'src/hooks/useStatisticsGraphs'
+import ChartHeader from './BlockHeader'
 
 import CupPic from 'src/assets/imgs/statistics/cup.svg'
-import ChartHeader from './BlockHeader'
+import GrowthPic from 'src/assets/imgs/statistics/growth.svg'
 
 export type BlockPositionType = {
   y: number
@@ -41,6 +42,15 @@ const Statistics = () => {
             </View>
             <CustomText style={styles.text}>Personal records</CustomText>
           </TouchableOpacity>
+          {/* <TouchableOpacity
+            style={styles.item}
+            onPress={() => navigate('PersonalRecords' as never)}
+          >
+            <View style={styles.imagePic}>
+              <GrowthPic width={25} height={25} />
+            </View>
+            <CustomText style={styles.text}>Training history</CustomText>
+          </TouchableOpacity> */}
         </View>
       </ScrollView>
     </MainLayout>
