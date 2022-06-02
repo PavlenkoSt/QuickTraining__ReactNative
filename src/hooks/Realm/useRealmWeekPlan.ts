@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
 
-import RealmDB from 'src/RealmDB'
+import RealmDB, { RealmDBKeys } from 'src/RealmDB'
 import WeekPlanSchema from 'src/RealmDB/schemas/WeekPlan'
 import { IStatus, WeekPlanType } from 'src/services/ExerciseService'
 import { IDay } from 'src/services/ExerciseService'
@@ -9,7 +9,7 @@ const useRealmWeekPlan = () => {
   const { useRealm, useQuery } = RealmDB
 
   const realm = useRealm()
-  const weekPlanRealm = useQuery('WeekPlan')
+  const weekPlanRealm = useQuery(RealmDBKeys.WeekPlan)
 
   const weekPlan: WeekPlanType | null = useMemo(() => {
     if (weekPlanRealm.length) {
@@ -37,7 +37,7 @@ const useRealmWeekPlan = () => {
 
   const setWeekPlan = useCallback((weekPlan: WeekPlanType) => {
     realm.write(() => {
-      realm.create('WeekPlan', WeekPlanSchema.generate(weekPlan))
+      realm.create(RealmDBKeys.WeekPlan, WeekPlanSchema.generate(weekPlan))
     })
   }, [])
 
@@ -66,7 +66,7 @@ const useRealmWeekPlan = () => {
 
   const clearWeekPlan = useCallback(() => {
     realm.write(() => {
-      realm.delete(realm.objects('WeekPlan'))
+      realm.delete(realm.objects(RealmDBKeys.WeekPlan))
     })
   }, [])
 

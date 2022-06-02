@@ -1,6 +1,7 @@
 import { Realm } from '@realm/react'
 
 import { WeekPlanType } from 'src/services/ExerciseService'
+import { RealmDBKeys } from '../index'
 
 export default class WeekPlanSchema extends Realm.Object {
   _id!: Realm.BSON.ObjectId
@@ -11,7 +12,7 @@ export default class WeekPlanSchema extends Realm.Object {
   }
 
   static schema = {
-    name: 'WeekPlan',
+    name: RealmDBKeys.WeekPlan,
     properties: {
       _id: 'int',
       stringifyPlan: 'string',

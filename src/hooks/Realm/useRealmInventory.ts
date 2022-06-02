@@ -1,13 +1,13 @@
 import { useCallback, useMemo } from 'react'
 
-import RealmDB from 'src/RealmDB'
+import RealmDB, { RealmDBKeys } from 'src/RealmDB'
 import InventorySchema, { IInventoryDB } from 'src/RealmDB/schemas/Inventory'
 
 const useRealmInventory = () => {
   const { useRealm, useQuery } = RealmDB
 
   const realm = useRealm()
-  const inventoryRealm = useQuery('Inventory')
+  const inventoryRealm = useQuery(RealmDBKeys.Inventory)
 
   const inventory: IInventoryDB | null = useMemo(() => {
     if (inventoryRealm.length) {
@@ -22,7 +22,7 @@ const useRealmInventory = () => {
       return
     }
     realm.write(() => {
-      realm.create('Inventory', InventorySchema.generate(inventory))
+      realm.create(RealmDBKeys.Inventory, InventorySchema.generate(inventory))
     })
   }, [])
 
@@ -54,7 +54,7 @@ const useRealmInventory = () => {
 
   const clearInventory = useCallback(() => {
     realm.write(() => {
-      realm.delete(realm.objects('Inventory'))
+      realm.delete(realm.objects(RealmDBKeys.Inventory))
     })
   }, [])
 
