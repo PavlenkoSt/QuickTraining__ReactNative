@@ -43,14 +43,17 @@ const RebuildTrainingPlanModal: FC<RebuildTrainingPlanModalPropsType> = ({
             onPress={() => {
               updateInventory(localInventoryEdited)
 
+              const withPullUps =
+                Boolean(localInventoryEdited?.haveBar) || Boolean(localInventoryEdited?.haveWallBar)
+
               const newPlan = ExerciseService.autogeneratePlan(
                 user.levelPercent,
                 user.gender,
-                Boolean(localInventoryEdited?.haveBar) || Boolean(localInventoryEdited?.haveWallBar)
+                withPullUps
               ) as WeekPlanType
 
               clearWeekPlan()
-              setWeekPlan(newPlan)
+              setWeekPlan(newPlan, withPullUps)
               setVisible(false)
 
               ToastService.success(

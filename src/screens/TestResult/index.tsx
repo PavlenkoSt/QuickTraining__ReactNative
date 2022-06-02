@@ -97,13 +97,15 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
       })
     }
 
+    const withPullUps = Boolean(inventory?.haveBar) || Boolean(inventory?.haveWallBar)
+
     const plan = ExerciseService.autogeneratePlan(
       percent,
       !!userData ? userData.userInfo.gender : !!user ? user.gender : GenderEnum.Male,
-      Boolean(inventory?.haveBar) || Boolean(inventory?.haveWallBar)
+      withPullUps
     ) as WeekPlanType
 
-    setWeekPlan(plan)
+    setWeekPlan(plan, withPullUps)
 
     addTrainingResultsHistory({
       pushUps: pushUpMax,

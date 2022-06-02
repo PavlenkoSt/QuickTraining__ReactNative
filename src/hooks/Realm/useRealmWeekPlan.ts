@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
 
-import RealmDB  from 'src/RealmDB'
+import RealmDB from 'src/RealmDB'
 import WeekPlanSchema from 'src/RealmDB/schemas/WeekPlan'
 import { IStatus, WeekPlanType } from 'src/services/ExerciseService'
 import { IDay } from 'src/services/ExerciseService'
@@ -19,6 +19,14 @@ const useRealmWeekPlan = () => {
     return null
   }, [weekPlanRealm])
 
+  const thisProgramWithPullUps = useMemo(() => {
+    if (weekPlanRealm.length) {
+      return Boolean(JSON.parse(weekPlanRealm[0].toJSON().withPullUps))
+    }
+
+    return false
+  }, [weekPlanRealm])
+
   const activeDay: number | null = useMemo(() => {
     if (weekPlan) {
       const findFirsIncompleteDayIndex = weekPlan.findIndex(
@@ -35,9 +43,9 @@ const useRealmWeekPlan = () => {
     return null
   }, [weekPlan])
 
-  const setWeekPlan = useCallback((weekPlan: WeekPlanType) => {
+  const setWeekPlan = useCallback((weekPlan: WeekPlanType, withPullUps: boolean) => {
     realm.write(() => {
-      realm.create(WeekPlanSchema.schema.name, WeekPlanSchema.generate(weekPlan))
+      realm.create(WeekPlanSchema.schema.name, WeekPlanSchema.generate(weekPlan, withPullUps))
     })
   }, [])
 
@@ -70,7 +78,14 @@ const useRealmWeekPlan = () => {
     })
   }, [])
 
-  return { weekPlan, setWeekPlan, clearWeekPlan, activeDay, completeTraining }
+  return {
+    weekPlan,
+    setWeekPlan,
+    clearWeekPlan,
+    activeDay,
+    completeTraining,
+    thisProgramWithPullUps,
+  }
 }
 
 export default useRealmWeekPlan

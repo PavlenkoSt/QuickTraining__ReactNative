@@ -9,7 +9,7 @@ import { ExecutionExerciseEnum, ExerciseType, IExercise } from 'src/types/Exerci
 import useRealmUser from 'src/hooks/Realm/useRealmUser'
 import EndTrainingModal from 'src/components/EndTrainingModal'
 import useConfirmBackNav from 'src/hooks/useConfirmBackNav'
-import useRealmInventory from 'src/hooks/Realm/useRealmInventory'
+import useRealmWeekPlan from 'src/hooks/Realm/useRealmWeekPlan'
 
 export interface IResult {
   name: string
@@ -32,7 +32,7 @@ type TestExercisesPropsType = {
 
 const TestExercises: FC<TestExercisesPropsType> = ({ route }) => {
   const { user } = useRealmUser()
-  const { inventory } = useRealmInventory()
+  const { thisProgramWithPullUps } = useRealmWeekPlan()
 
   const gender = !!user
     ? user.gender
@@ -50,10 +50,7 @@ const TestExercises: FC<TestExercisesPropsType> = ({ route }) => {
     [user]
   )
 
-  const testPlan = ExerciseService.getTestExercises(
-    gender,
-    Boolean(inventory?.haveBar) || Boolean(inventory?.haveWallBar)
-  )
+  const testPlan = ExerciseService.getTestExercises(gender, thisProgramWithPullUps)
 
   const [activeIndex, setActiveIndex] = useState(0)
   const [testResult, setTestResult] = useState<IResult[]>([])

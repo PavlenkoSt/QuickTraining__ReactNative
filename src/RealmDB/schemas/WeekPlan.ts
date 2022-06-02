@@ -6,8 +6,8 @@ export default class WeekPlanSchema extends Realm.Object {
   _id!: Realm.BSON.ObjectId
   stringifyPlan!: string
 
-  static generate(weekPlan: WeekPlanType) {
-    return { stringifyPlan: JSON.stringify(weekPlan), _id: 0 }
+  static generate(weekPlan: WeekPlanType, withPullUps: boolean) {
+    return { stringifyPlan: JSON.stringify(weekPlan), _id: 0, withPullUps: Number(withPullUps) }
   }
 
   static schema = {
@@ -15,6 +15,7 @@ export default class WeekPlanSchema extends Realm.Object {
     properties: {
       _id: 'int',
       stringifyPlan: 'string',
+      withPullUps: 'int',
     },
     primaryKey: '_id',
   }
