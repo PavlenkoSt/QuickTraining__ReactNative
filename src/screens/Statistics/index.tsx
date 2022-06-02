@@ -42,15 +42,15 @@ const Statistics = () => {
             </View>
             <CustomText style={styles.text}>Personal records</CustomText>
           </TouchableOpacity>
-          {/* <TouchableOpacity
+          <TouchableOpacity
             style={styles.item}
-            onPress={() => navigate('PersonalRecords' as never)}
+            onPress={() => navigate('TrainingHistory' as never)}
           >
             <View style={styles.imagePic}>
               <GrowthPic width={25} height={25} />
             </View>
             <CustomText style={styles.text}>Training history</CustomText>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </MainLayout>

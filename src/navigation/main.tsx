@@ -19,6 +19,7 @@ import Inventar from 'src/screens/Inventar'
 import Training from 'src/screens/Training'
 import TestResult from 'src/screens/TestResult'
 import PersonalRecords from 'src/screens/PersonalRecords'
+import TrainingHistory from 'src/screens/TrainingHistory'
 
 import useRealmUser from 'src/hooks/Realm/useRealmUser'
 
@@ -75,6 +76,7 @@ const StatisticsStack = () => {
     <Stack.Navigator initialRouteName="Statistics" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Statistics" component={Statistics} />
       <Stack.Screen name="PersonalRecords" component={PersonalRecords} />
+      <Stack.Screen name="TrainingHistory" component={TrainingHistory} />
     </Stack.Navigator>
   )
 }
