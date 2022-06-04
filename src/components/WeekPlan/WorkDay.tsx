@@ -116,6 +116,7 @@ const WorkDay: FC<WorkDayPropsType> = ({
                   day: {
                     exercises,
                     restTime,
+                    index,
                   },
                   coefficientProgress,
                 } as never

@@ -29,6 +29,7 @@ type ExercisePropsType = {
   testResult: IResult[]
   setTestResult: Dispatch<SetStateAction<IResult[]>>
   testPlan: IExercise[]
+  dayNumber: number | null
   isTest?: boolean
   userInfo?: {
     name: string
@@ -55,6 +56,7 @@ const Exercise: FC<ExercisePropsType> = ({
   setTestResult,
   toNextExercise,
   userInfo,
+  dayNumber,
 
   needCount,
   coefficientProgress,
@@ -81,6 +83,7 @@ const Exercise: FC<ExercisePropsType> = ({
     isTest,
     userInfo,
     needCount,
+    dayNumber: dayNumber !== null ? dayNumber + 1 : null,
   })
 
   const { width } = useWindowDimensions()

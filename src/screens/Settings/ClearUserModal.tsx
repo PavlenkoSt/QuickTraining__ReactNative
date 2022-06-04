@@ -8,6 +8,7 @@ import CustomButton from 'src/components/CustomButton'
 import useRealmInventory from 'src/hooks/Realm/useRealmInventory'
 import useRealmWeekPlan from 'src/hooks/Realm/useRealmWeekPlan'
 import useRealmTrainingResultsHistory from 'src/hooks/Realm/useRealmTrainingResultsHistory'
+import useRealmTrainingHistory from 'src/hooks/Realm/useRealmTrainingHistory'
 
 type ClearUserModalPropsType = {
   visible: boolean
@@ -19,6 +20,7 @@ const ClearUserModal: FC<ClearUserModalPropsType> = ({ visible, setVisible }) =>
   const { clearInventory } = useRealmInventory()
   const { clearWeekPlan } = useRealmWeekPlan()
   const { clearTrainingResultsHistory } = useRealmTrainingResultsHistory()
+  const { clearTrainingHistory } = useRealmTrainingHistory()
 
   return (
     <ModalWrapper visible={visible} setVisible={setVisible}>
@@ -34,6 +36,7 @@ const ClearUserModal: FC<ClearUserModalPropsType> = ({ visible, setVisible }) =>
               clearInventory()
               clearWeekPlan()
               clearTrainingResultsHistory()
+              clearTrainingHistory()
               setVisible(false)
             }}
           >

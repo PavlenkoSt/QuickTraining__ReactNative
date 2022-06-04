@@ -10,6 +10,7 @@ import useRealmUser from 'src/hooks/Realm/useRealmUser'
 import EndTrainingModal from 'src/components/EndTrainingModal'
 import useConfirmBackNav from 'src/hooks/useConfirmBackNav'
 import useRealmWeekPlan from 'src/hooks/Realm/useRealmWeekPlan'
+import useRealmInventory from 'src/hooks/Realm/useRealmInventory'
 
 export interface IResult {
   name: string
@@ -32,6 +33,7 @@ type TestExercisesPropsType = {
 
 const TestExercises: FC<TestExercisesPropsType> = ({ route }) => {
   const { user } = useRealmUser()
+  const { inventory } = useRealmInventory()
   const { thisProgramWithPullUps } = useRealmWeekPlan()
 
   const gender = !!user
@@ -45,12 +47,17 @@ const TestExercises: FC<TestExercisesPropsType> = ({ route }) => {
       [ExerciseType.PUSH]: !!user ? user.pushUpMax : 0,
       [ExerciseType.LEGS]: !!user ? user.sitUpMax : 0,
       [ExerciseType.CORE]: !!user ? user.plankMax : 0,
-      [ExerciseType.PULL]: !!user ? 0 : 0,
+      [ExerciseType.PULL]: !!user ? user.pullUpMax : 0,
     }),
     [user]
   )
 
-  const testPlan = ExerciseService.getTestExercises(gender, thisProgramWithPullUps)
+  const testPlan = ExerciseService.getTestExercises(
+    gender,
+    route.params?.userInfo
+      ? !!inventory?.haveBar || !!inventory?.haveWallBar
+      : thisProgramWithPullUps
+  )
 
   const [activeIndex, setActiveIndex] = useState(0)
   const [testResult, setTestResult] = useState<IResult[]>([])
@@ -74,6 +81,7 @@ const TestExercises: FC<TestExercisesPropsType> = ({ route }) => {
             testResult={testResult}
             setTestResult={setTestResult}
             testPlan={testPlan}
+            dayNumber={!route.params?.userInfo ? null : 7}
             userInfo={route.params.userInfo}
             needCount={records[exercise.type]}
             isTest

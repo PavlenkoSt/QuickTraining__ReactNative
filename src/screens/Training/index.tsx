@@ -16,6 +16,7 @@ type TrainingPropsType = {
       day: {
         exercises: IExercise[]
         restTime: number
+        index: number
       }
       coefficientProgress: number
     }
@@ -49,6 +50,7 @@ const Training: FC<TrainingPropsType> = ({ route }) => {
             testResult={testResult}
             setTestResult={setTestResult}
             testPlan={day.exercises}
+            dayNumber={day.index }
             needCount={calculateExerciseReply(
               exercise.coefficientDifficult,
               route.params.coefficientProgress,

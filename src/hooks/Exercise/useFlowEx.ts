@@ -5,6 +5,8 @@ import { IResult } from 'src/screens/TestExercises'
 import { DurationEnum, GenderEnum } from 'src/RealmDB/schemas/User'
 import useRealmWeekPlan from '../Realm/useRealmWeekPlan'
 import { ExecutionExerciseEnum } from 'src/types/ExerciseTypes'
+import useRealmTrainingHistory from '../Realm/useRealmTrainingHistory'
+import useRealmUser from '../Realm/useRealmUser'
 
 type useFlowExPropsType = {
   counterType: ExecutionExerciseEnum
@@ -16,6 +18,7 @@ type useFlowExPropsType = {
   setTestResult: Dispatch<SetStateAction<IResult[]>>
   startRelaxTimer: () => void
   stopTimer: () => void
+  dayNumber: number | null
   isTest?: boolean
   userInfo?: {
     name: string
@@ -24,6 +27,12 @@ type useFlowExPropsType = {
     gender: GenderEnum
   }
   needCount?: number
+}
+
+interface ITransaction {
+  name: string
+  result: number
+  type: ExecutionExerciseEnum
 }
 
 const useFlowEx = ({
@@ -36,16 +45,19 @@ const useFlowEx = ({
   setTestResult,
   startRelaxTimer,
   stopTimer,
+  dayNumber,
   isTest,
   userInfo,
   needCount,
 }: useFlowExPropsType) => {
   const { dispatch } = useNavigation()
 
+  const { user } = useRealmUser()
   const { completeTraining } = useRealmWeekPlan()
+  const { addTrainingHistoryDay, createTrainingHistoryWeek } = useRealmTrainingHistory()
 
-  const done = useCallback(() => {
-    let thisTransaction: any
+  const packTestResults = useCallback(() => {
+    let thisTransaction: ITransaction
 
     if (counterType === ExecutionExerciseEnum.HOLD) {
       thisTransaction = {
@@ -62,11 +74,32 @@ const useFlowEx = ({
       setTestResult((prev) => [...prev, thisTransaction])
     }
 
-    if (isLast) {
+    return [...testResult, thisTransaction]
+  }, [name, count, isTest, time, testResult])
+
+  const packTrainingHistoryWeek = useCallback(
+    (results: ITransaction[]) => {
+      if (!!dayNumber && user) {
+        if (dayNumber === 1) {
+          createTrainingHistoryWeek(user.currentWeek, {
+            dayNumber,
+            isTest: !!isTest,
+            exercises: results,
+          })
+        } else {
+          // addTrainingHistoryDay
+        }
+      }
+    },
+    [dayNumber, user, isTest]
+  )
+
+  const navigateAfterDone = useCallback(
+    (results: ITransaction[]) => {
       if (isTest) {
         dispatch(
           StackActions.replace('TestResult', {
-            testResult: [...testResult, thisTransaction],
+            testResult: results,
             isTest,
             userData: !!userInfo ? { userInfo } : undefined,
           })
@@ -77,15 +110,25 @@ const useFlowEx = ({
           StackActions.replace('Tabs', {
             screen: 'Home',
             params: {
-              results: [...testResult, thisTransaction],
+              results,
             },
           })
         )
       }
+    },
+    [isTest, userInfo]
+  )
+
+  const done = useCallback(() => {
+    const results = packTestResults()
+
+    if (isLast) {
+      packTrainingHistoryWeek(results)
+      navigateAfterDone(results)
     } else {
       startRelaxTimer()
     }
-  }, [name, count, isLast, time, testResult, userInfo])
+  }, [packTestResults, packTrainingHistoryWeek, navigateAfterDone])
 
   return { done }
 }
