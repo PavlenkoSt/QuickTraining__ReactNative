@@ -56,7 +56,7 @@ const useFlowEx = ({
   const { completeTraining } = useRealmWeekPlan()
   const { addTrainingHistoryDay, createTrainingHistoryWeek } = useRealmTrainingHistory()
 
-  const packTestResults = useCallback(() => {
+  const packTrainingResults = useCallback(() => {
     let thisTransaction: ITransaction
 
     if (counterType === ExecutionExerciseEnum.HOLD) {
@@ -79,15 +79,30 @@ const useFlowEx = ({
 
   const packTrainingHistoryWeek = useCallback(
     (results: ITransaction[]) => {
+      console.log('in pack history')
+      console.log('dayNumber', dayNumber)
+      console.log('user', user)
+
       if (!!dayNumber && user) {
+        console.log('in pack history 1 if - day number and user')
         if (dayNumber === 1) {
+          console.log('in pack history subif')
           createTrainingHistoryWeek(user.currentWeek, {
             dayNumber,
-            isTest: !!isTest,
+            isTest: false,
             exercises: results,
           })
         } else {
-          // addTrainingHistoryDay
+          console.log('in pack history subelse')
+
+          addTrainingHistoryDay(
+            {
+              dayNumber,
+              exercises: results,
+              isTest: false,
+            },
+            user.currentWeek
+          )
         }
       }
     },
@@ -120,7 +135,7 @@ const useFlowEx = ({
   )
 
   const done = useCallback(() => {
-    const results = packTestResults()
+    const results = packTrainingResults()
 
     if (isLast) {
       packTrainingHistoryWeek(results)
@@ -128,7 +143,7 @@ const useFlowEx = ({
     } else {
       startRelaxTimer()
     }
-  }, [packTestResults, packTrainingHistoryWeek, navigateAfterDone])
+  }, [packTrainingResults, packTrainingHistoryWeek, navigateAfterDone])
 
   return { done }
 }

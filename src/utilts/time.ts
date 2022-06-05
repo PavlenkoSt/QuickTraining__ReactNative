@@ -5,11 +5,7 @@ const time = {
     }
     return `${num}`
   },
-  fromSecondsToMinutesAndSeconds: (value: number | string) => {
-    if (typeof value === 'string') {
-      return value
-    }
-
+  fromSecondsToMinutesAndSeconds: (value: number) => {
     const minutes = Math.floor(value / 60)
     const seconds = value - minutes * 60
 

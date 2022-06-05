@@ -20,9 +20,7 @@ const ResultList: FC<ResultListPropsType> = ({ results }) => {
           <CustomText>
             {result.type === ExecutionExerciseEnum.REPEAT
               ? result.result
-              : //@ts-ignore
-                `${time.fromSecondsToMinutesAndSeconds(result.result).minutes}:${
-                  //@ts-ignore
+              : `${time.fromSecondsToMinutesAndSeconds(result.result).minutes}:${
                   time.fromSecondsToMinutesAndSeconds(result.result).seconds
                 }`}
           </CustomText>

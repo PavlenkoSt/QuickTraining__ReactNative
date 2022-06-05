@@ -11,13 +11,16 @@ import TitleHeader from 'src/components/Headers/TitleHeader'
 import CustomText from 'src/components/CustomText'
 import LevelService from 'src/services/LevelService'
 import CustomButton from 'src/components/CustomButton'
-import useRealmUser from 'src/hooks/Realm/useRealmUser'
-import useRealmWeekPlan from 'src/hooks/Realm/useRealmWeekPlan'
 import ExerciseService, { WeekPlanType } from 'src/services/ExerciseService'
 import EndTrainingModal from 'src/components/EndTrainingModal'
+
+import useRealmUser from 'src/hooks/Realm/useRealmUser'
+import useRealmWeekPlan from 'src/hooks/Realm/useRealmWeekPlan'
 import useConfirmBackNav from 'src/hooks/useConfirmBackNav'
 import useRealmInventory from 'src/hooks/Realm/useRealmInventory'
 import useRealmTrainingResultsHistory from 'src/hooks/Realm/useRealmTrainingResultsHistory'
+import useRealmTrainingHistory from 'src/hooks/Realm/useRealmTrainingHistory'
+import generateTestResultsForDailyHistory from 'src/utilts/generateTestResultsForDailyHistory'
 
 type TestResultPropsType = {
   route: {
@@ -43,6 +46,7 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
   const { weekPlan, setWeekPlan, clearWeekPlan } = useRealmWeekPlan()
   const { inventory } = useRealmInventory()
   const { addTrainingResultsHistory } = useRealmTrainingResultsHistory()
+  const { addTrainingHistoryDay, createTrainingHistoryWeek } = useRealmTrainingHistory()
 
   const { dispatch } = useNavigation()
 
@@ -65,6 +69,13 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
       !!pullUpMax ? pullUpMax : undefined
     )
 
+    const testResultsForDailyHistory = generateTestResultsForDailyHistory({
+      pushUpMax,
+      sitUpMax,
+      plankMax,
+      pullUpMax: !!pullUpMax ? pullUpMax : null,
+    })
+
     if (!userData) {
       updateRecords({
         pushUpMax,
@@ -72,6 +83,15 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
         plankMax,
         pullUpMax,
       })
+
+      addTrainingHistoryDay(
+        {
+          dayNumber: 7,
+          exercises: testResultsForDailyHistory,
+          isTest: true,
+        },
+        user?.currentWeek || 0
+      )
     } else {
       setUser({
         _id: 0,
@@ -86,6 +106,12 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
         levelLabel: LevelService.getLabelByPercent(percent),
         levelPercent: percent,
         currentWeek: 1,
+      })
+
+      createTrainingHistoryWeek(0, {
+        dayNumber: 0,
+        exercises: testResultsForDailyHistory,
+        isTest: true,
       })
     }
 
@@ -120,7 +146,7 @@ const TestResult: FC<TestResultPropsType> = ({ route }) => {
     } else {
       dispatch(StackActions.replace('About'))
     }
-  }, [route.params])
+  }, [route.params, user])
 
   return (
     <MainLayout

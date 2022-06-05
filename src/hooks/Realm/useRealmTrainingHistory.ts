@@ -34,14 +34,19 @@ const useRealmTrainingHistory = () => {
 
   const addTrainingHistoryDay = useCallback((day: ITrainingHistoryDayDB, currentWeek: number) => {
     const list = realm.objects(TrainingHistorySchema.schema.name)
-    const targetInList = list.filtered(`weekNumber = '${currentWeek}'`).toJSON()
 
-    if (!targetInList || !targetInList.length) return
+    if (!list || !list.length) return
 
-    const currentExercises = targetInList[0].daysString
+    const findIndexThisWeek = list.findIndex((item) => item.toJSON().weekNumber === currentWeek)
+
+    if (findIndexThisWeek === -1) return
+
+    //@ts-ignore
+    const currentExercises = JSON.parse(list[findIndexThisWeek].daysString)
 
     realm.write(() => {
-      targetInList[0].daysString = JSON.stringify([...currentExercises, day])
+      //@ts-ignore
+      list[findIndexThisWeek].daysString = JSON.stringify([...currentExercises, day])
     })
   }, [])
 
