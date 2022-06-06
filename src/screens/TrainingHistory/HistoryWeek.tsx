@@ -9,15 +9,16 @@ import HistoryDay from './HistoryDay'
 type HistoryWeekPropsType = {
   days: ITrainingHistoryDayDB[]
   weekNumber: number
+  isLast: boolean
 }
 
-const HistoryWeek: FC<HistoryWeekPropsType> = ({ days, weekNumber }) => {
+const HistoryWeek: FC<HistoryWeekPropsType> = ({ days, weekNumber, isLast }) => {
   return (
     <View>
-      <View>
-        <CustomText>Week {weekNumber}</CustomText>
+      <View style={styles.header}>
+        <CustomText style={styles.title}>Week {weekNumber}</CustomText>
       </View>
-      <View>
+      <View style={[styles.body, isLast && styles.bodyLast]}>
         {days.map((day, i) => {
           return (
             <HistoryDay
@@ -35,4 +36,19 @@ const HistoryWeek: FC<HistoryWeekPropsType> = ({ days, weekNumber }) => {
 
 export default HistoryWeek
 
-const styles = EStyleSheet.create({})
+const styles = EStyleSheet.create({
+  header: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    color: '#ccc',
+    fontSize: 20,
+  },
+  body: {
+    marginBottom: 30,
+  },
+  bodyLast: {
+    marginBottom: 0,
+  },
+})
