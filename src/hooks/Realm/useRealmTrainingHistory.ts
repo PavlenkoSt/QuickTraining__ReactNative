@@ -1,7 +1,10 @@
 import { useCallback, useMemo } from 'react'
 
 import RealmDB from 'src/RealmDB'
-import TrainingHistorySchema, { ITrainingHistoryDayDB } from 'src/RealmDB/schemas/TrainingHistory'
+import TrainingHistorySchema, {
+  ITrainingHistoryDayDB,
+  ITrainingHistoryWeekDB,
+} from 'src/RealmDB/schemas/TrainingHistory'
 
 const useRealmTrainingHistory = () => {
   const { useRealm, useQuery } = RealmDB
@@ -9,9 +12,9 @@ const useRealmTrainingHistory = () => {
   const realm = useRealm()
   const trainingHistoryRealm = useQuery(TrainingHistorySchema.schema.name)
 
-  const trainingHistory = useMemo(() => {
+  const trainingHistory: ITrainingHistoryWeekDB[] | null = useMemo(() => {
     if (trainingHistoryRealm) {
-      return trainingHistoryRealm.toJSON()
+      return trainingHistoryRealm.toJSON().reverse()
     }
     return null
   }, [trainingHistoryRealm])
@@ -56,7 +59,12 @@ const useRealmTrainingHistory = () => {
     })
   }, [])
 
-  return { trainingHistory, createTrainingHistoryWeek, addTrainingHistoryDay, clearTrainingHistory }
+  return {
+    trainingHistory,
+    createTrainingHistoryWeek,
+    addTrainingHistoryDay,
+    clearTrainingHistory,
+  }
 }
 
 export default useRealmTrainingHistory
