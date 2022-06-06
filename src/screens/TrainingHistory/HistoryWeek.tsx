@@ -16,7 +16,9 @@ const HistoryWeek: FC<HistoryWeekPropsType> = ({ days, weekNumber, isLast }) => 
   return (
     <View>
       <View style={styles.header}>
-        <CustomText style={styles.title}>Week {weekNumber}</CustomText>
+        <CustomText style={styles.title}>
+          {weekNumber === 0 ? 'First test' : `Week ${weekNumber}`}
+        </CustomText>
       </View>
       <View style={[styles.body, isLast && styles.bodyLast]}>
         {days.map((day, i) => {

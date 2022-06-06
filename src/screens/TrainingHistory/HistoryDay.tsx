@@ -16,9 +16,11 @@ const HistoryDay: FC<HistoryDayPropsType> = ({ dayNumber, isTest, exercieses }) 
   return (
     <View>
       <View style={styles.day}>
-        <CustomText style={styles.dayText}>
-          Day {dayNumber} <CustomText style={styles.testLabel}>{!!isTest && '(test)'}</CustomText>
-        </CustomText>
+        {dayNumber !== 0 && (
+          <CustomText style={styles.dayText}>
+            Day {dayNumber} <CustomText style={styles.testLabel}>{!!isTest && '(test)'}</CustomText>
+          </CustomText>
+        )}
       </View>
       <View style={styles.exerciesesContainer}>
         {exercieses.map((ex, i) => (
