@@ -1,10 +1,11 @@
 import { View } from 'react-native'
-import React, { FC } from 'react'
+import React, { FC, useMemo } from 'react'
 import { EStyleSheet } from 'react-native-extended-stylesheet-typescript'
 
 import { ITrainingHistoryDayDB } from 'src/RealmDB/schemas/TrainingHistory'
 import CustomText from 'src/components/CustomText'
 import HistoryDay from './HistoryDay'
+import fillTrainingHistoryRestingDays from 'src/utilts/fillTrainingHistoryRestingDays'
 
 type HistoryWeekPropsType = {
   days: ITrainingHistoryDayDB[]
@@ -13,6 +14,8 @@ type HistoryWeekPropsType = {
 }
 
 const HistoryWeek: FC<HistoryWeekPropsType> = ({ days, weekNumber, isLast }) => {
+  const filledDays = useMemo(() => fillTrainingHistoryRestingDays(days), [days])
+
   return (
     <View>
       <View style={styles.header}>
@@ -21,13 +24,14 @@ const HistoryWeek: FC<HistoryWeekPropsType> = ({ days, weekNumber, isLast }) => 
         </CustomText>
       </View>
       <View style={[styles.body, isLast && styles.bodyLast]}>
-        {days.map((day, i) => {
+        {filledDays.map((day, i) => {
           return (
             <HistoryDay
               key={`${day.dayNumber}-${i}`}
               dayNumber={day.dayNumber}
               isTest={day.isTest}
               exercieses={day.exercises}
+              isRest={day.isRest}
             />
           )
         })}

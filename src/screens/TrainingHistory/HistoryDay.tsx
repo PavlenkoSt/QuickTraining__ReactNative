@@ -10,9 +10,10 @@ type HistoryDayPropsType = {
   dayNumber: number
   isTest: boolean
   exercieses: ITrainingHistoryDayExercisesDB[]
+  isRest: boolean
 }
 
-const HistoryDay: FC<HistoryDayPropsType> = ({ dayNumber, isTest, exercieses }) => {
+const HistoryDay: FC<HistoryDayPropsType> = ({ dayNumber, isTest, exercieses, isRest }) => {
   return (
     <View>
       <View style={styles.day}>
@@ -22,11 +23,17 @@ const HistoryDay: FC<HistoryDayPropsType> = ({ dayNumber, isTest, exercieses }) 
           </CustomText>
         )}
       </View>
-      <View style={styles.exerciesesContainer}>
-        {exercieses.map((ex, i) => (
-          <HistoryEx key={i} name={ex.name} result={ex.result} type={ex.type} />
-        ))}
-      </View>
+      {isRest ? (
+        <View style={styles.restContainer}>
+          <CustomText style={styles.restText}>Rest</CustomText>
+        </View>
+      ) : (
+        <View style={styles.exerciesesContainer}>
+          {exercieses.map((ex, i) => (
+            <HistoryEx key={i} name={ex.name} result={ex.result} type={ex.type} />
+          ))}
+        </View>
+      )}
     </View>
   )
 }
@@ -46,5 +53,17 @@ const styles = EStyleSheet.create({
   },
   testLabel: {
     color: '#ccc',
+  },
+  restContainer: {
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
+  restText: {
+    fontSize: 16,
+    color: '#ccc',
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
   },
 })
