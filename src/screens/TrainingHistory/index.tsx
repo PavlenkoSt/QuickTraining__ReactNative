@@ -2,26 +2,30 @@ import React from 'react'
 
 import MainLayout from 'src/layouts/MainLayout'
 import EmptyHeader from 'src/components/Headers/EmptyHeader'
-import useRealmTrainingHistory from 'src/hooks/Realm/useRealmTrainingHistory'
+import useTrainingHistoryPagination from 'src/hooks/useTrainingHistoryPagination'
+import LoadMoreHistory from './LoadMoreHistory'
 import HistoryWeek from './HistoryWeek'
 
 const TrainingHistory = () => {
-  const { trainingHistory } = useRealmTrainingHistory()
+  const { trainingHistoryWithPagination, haveMorePortion, incrementCurrentPage } =
+    useTrainingHistoryPagination()
 
   return (
     <MainLayout Header={() => <EmptyHeader title="Training history" />}>
-      {!!trainingHistory &&
-        trainingHistory.map((week, i) => (
-          <HistoryWeek
-            key={week._id}
-            days={JSON.parse(week.daysString).reverse()}
-            weekNumber={week.weekNumber}
-            isLast={trainingHistory.length === i + 1}
-            isRebuilded={
-              trainingHistory[i + 1] ? trainingHistory[i + 1].weekNumber === week.weekNumber : false
-            }
-          />
-        ))}
+      {trainingHistoryWithPagination.map((week, i) => (
+        <HistoryWeek
+          key={week._id}
+          days={JSON.parse(week.daysString).reverse()}
+          weekNumber={week.weekNumber}
+          isLast={trainingHistoryWithPagination.length === i + 1}
+          isRebuilded={
+            trainingHistoryWithPagination[i + 1]
+              ? trainingHistoryWithPagination[i + 1].weekNumber === week.weekNumber
+              : false
+          }
+        />
+      ))}
+      {haveMorePortion && <LoadMoreHistory incrementCurrentPage={incrementCurrentPage} />}
     </MainLayout>
   )
 }
