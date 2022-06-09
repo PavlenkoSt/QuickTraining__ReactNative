@@ -17,6 +17,9 @@ const TrainingHistory = () => {
             days={JSON.parse(week.daysString).reverse()}
             weekNumber={week.weekNumber}
             isLast={trainingHistory.length === i + 1}
+            isRebuilded={
+              trainingHistory[i + 1] ? trainingHistory[i + 1].weekNumber === week.weekNumber : false
+            }
           />
         ))}
     </MainLayout>

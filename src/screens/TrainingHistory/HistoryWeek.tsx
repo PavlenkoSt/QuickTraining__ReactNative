@@ -11,9 +11,10 @@ type HistoryWeekPropsType = {
   days: ITrainingHistoryDayDB[]
   weekNumber: number
   isLast: boolean
+  isRebuilded: boolean
 }
 
-const HistoryWeek: FC<HistoryWeekPropsType> = ({ days, weekNumber, isLast }) => {
+const HistoryWeek: FC<HistoryWeekPropsType> = ({ days, weekNumber, isLast, isRebuilded }) => {
   const filledDays = useMemo(() => fillTrainingHistoryRestingDays(days), [days])
 
   return (
@@ -22,6 +23,9 @@ const HistoryWeek: FC<HistoryWeekPropsType> = ({ days, weekNumber, isLast }) => 
         <CustomText style={styles.title}>
           {weekNumber === 0 ? 'First test' : `Week ${weekNumber}`}
         </CustomText>
+        {isRebuilded && (
+          <CustomText style={styles.rebuilded}>(Rebuilded training program)</CustomText>
+        )}
       </View>
       <View style={[styles.body, isLast && styles.bodyLast]}>
         {filledDays.map((day, i) => {
@@ -50,6 +54,11 @@ const styles = EStyleSheet.create({
   title: {
     color: '#ccc',
     fontSize: 20,
+  },
+  rebuilded: {
+    marginTop: 5,
+    color: '#ccc',
+    fontSize: 14,
   },
   body: {
     marginBottom: 30,
